@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך Claude Code | ExplAIn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #050505;
+            --black-light: #0d0d0d;
+            --gold: #D4AF37;
+            --gold-light: #E8C547;
+            --white: #ffffff;
+            --gray: #888888;
+            --gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid var(--gray-dark);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--black-light);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid var(--gray-dark);
+        }
+
+        .toc h2 {
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .toc a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 12px 20px;
+            background: var(--black);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .toc a .icon {
+            font-size: 1.3rem;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 50px;
+        }
+
+        section h2 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        section h3 {
+            color: var(--gold-light);
+            font-size: 1.3rem;
+            margin: 30px 0 15px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--black-light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: right;
+            border-bottom: 1px solid var(--gray-dark);
+        }
+
+        th {
+            background: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        code {
+            background: var(--gray-dark);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: var(--gold-light);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--black-light);
+            border: 1px solid var(--gray-dark);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--white);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--black-light);
+            border: 1px solid var(--gray-dark);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .card.highlight {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, var(--black-light) 100%);
+        }
+
+        /* Tips */
+        .tip {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, var(--black-light) 100%);
+            border-right: 4px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip-title {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Quick Reference */
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .quick-ref-item {
+            background: var(--black-light);
+            border: 1px solid var(--gray-dark);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .quick-ref-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .quick-ref-item code {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .quick-ref-item span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--gray-dark);
+            color: var(--gray);
+        }
+
+        footer .logo {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Scroll Animation */
+        section {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-dark);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ExplAIn</div>
+        <p class="subtitle">לומדים AI יחד</p>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h1>מדריך Claude Code</h1>
+            <p>כל מה שצריך לדעת כדי לעבוד עם Claude Code בטרמינל - פקודות, קיצורים וטיפים</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h2>תוכן עניינים</h2>
+            <div class="toc-grid">
+                <a href="#start"><span class="icon">🚀</span> התחלה מהירה</a>
+                <a href="#commands"><span class="icon">⌨️</span> פקודות חשובות</a>
+                <a href="#shortcuts"><span class="icon">⚡</span> קיצורי מקלדת</a>
+                <a href="#sessions"><span class="icon">💬</span> עבודה עם שיחות</a>
+                <a href="#cli"><span class="icon">🖥️</span> שורת פקודה</a>
+                <a href="#tips"><span class="icon">💡</span> טיפים חשובים</a>
+            </div>
+        </nav>
+
+        <!-- Quick Reference -->
+        <section>
+            <h2>📌 סיכום מהיר</h2>
+            <div class="quick-ref">
+                <div class="quick-ref-item">
+                    <code>claude</code>
+                    <span>שיחה חדשה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>claude -c</code>
+                    <span>המשך שיחה אחרונה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>claude -r</code>
+                    <span>בחר מהיסטוריה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl+U</code>
+                    <span>מחק שורה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>/exit</code>
+                    <span>צא מהשיחה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Shift+Tab</code>
+                    <span>החלף מצב הרשאות</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Start -->
+        <section id="start">
+            <h2>🚀 התחלה מהירה</h2>
+
+            <h3>פתיחת שיחה חדשה</h3>
+            <pre><code>cd /path/to/your/project
+claude</code></pre>
+
+            <h3>התחברות (פעם ראשונה)</h3>
+            <pre><code>claude
+# או בתוך שיחה:
+/login</code></pre>
+
+            <div class="tip">
+                <div class="tip-title">💡 טיפ</div>
+                כדאי תמיד לפתוח את Claude בתיקיית הפרויקט שלך - ככה הוא יכיר את הקבצים
+            </div>
+        </section>
+
+        <!-- Commands -->
+        <section id="commands">
+            <h2>⌨️ פקודות חשובות</h2>
+
+            <h3>פקודות בסיסיות</h3>
+            <table>
+                <tr>
+                    <th>פקודה</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>/help</code></td>
+                    <td>הצג עזרה</td>
+                </tr>
+                <tr>
+                    <td><code>/clear</code></td>
+                    <td>נקה היסטוריית שיחה</td>
+                </tr>
+                <tr>
+                    <td><code>/exit</code></td>
+                    <td>צא מ-Claude Code</td>
+                </tr>
+                <tr>
+                    <td><code>/cost</code></td>
+                    <td>הצג עלות שימוש</td>
+                </tr>
+                <tr>
+                    <td><code>/context</code></td>
+                    <td>ראה כמה זיכרון נשאר</td>
+                </tr>
+            </table>
+
+            <h3>ניהול שיחות</h3>
+            <table>
+                <tr>
+                    <th>פקודה</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>/resume</code></td>
+                    <td>בחר שיחה קודמת מרשימה</td>
+                </tr>
+                <tr>
+                    <td><code>/rename שם-חדש</code></td>
+                    <td>שנה את שם השיחה</td>
+                </tr>
+                <tr>
+                    <td><code>/rewind</code></td>
+                    <td>חזור לנקודה קודמת</td>
+                </tr>
+                <tr>
+                    <td><code>/export</code></td>
+                    <td>ייצא שיחה לקובץ</td>
+                </tr>
+                <tr>
+                    <td><code>/compact</code></td>
+                    <td>דחוס שיחה (פנה מקום)</td>
+                </tr>
+            </table>
+
+            <h3>הגדרות ומודלים</h3>
+            <table>
+                <tr>
+                    <th>פקודה</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>/config</code></td>
+                    <td>פתח הגדרות</td>
+                </tr>
+                <tr>
+                    <td><code>/model</code></td>
+                    <td>בחר מודל (Sonnet/Opus/Haiku)</td>
+                </tr>
+                <tr>
+                    <td><code>/permissions</code></td>
+                    <td>ערוך הרשאות</td>
+                </tr>
+                <tr>
+                    <td><code>/theme</code></td>
+                    <td>בחר ערכת צבעים</td>
+                </tr>
+            </table>
+
+            <h3>כלים מתקדמים</h3>
+            <table>
+                <tr>
+                    <th>פקודה</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>/memory</code></td>
+                    <td>ערוך את קובץ CLAUDE.md</td>
+                </tr>
+                <tr>
+                    <td><code>/init</code></td>
+                    <td>צור CLAUDE.md אוטומטי</td>
+                </tr>
+                <tr>
+                    <td><code>/plan</code></td>
+                    <td>כנס למצב תכנון</td>
+                </tr>
+                <tr>
+                    <td><code>/todos</code></td>
+                    <td>ראה רשימת משימות</td>
+                </tr>
+                <tr>
+                    <td><code>/copy</code></td>
+                    <td>העתק תשובה אחרונה</td>
+                </tr>
+                <tr>
+                    <td><code>/doctor</code></td>
+                    <td>בדוק בריאות התקנה</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Shortcuts -->
+        <section id="shortcuts">
+            <h2>⚡ קיצורי מקלדת</h2>
+
+            <h3>בקרה כללית</h3>
+            <table>
+                <tr>
+                    <th>קיצור</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+C</code></td>
+                    <td>עצור פעולה / בטל</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+D</code></td>
+                    <td>צא מ-Claude Code</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+L</code></td>
+                    <td>נקה מסך</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+R</code></td>
+                    <td>חיפוש בהיסטוריה</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+V</code></td>
+                    <td>הדבק תמונה</td>
+                </tr>
+                <tr>
+                    <td><code>Esc + Esc</code></td>
+                    <td>חזור לנקודה קודמת (Rewind)</td>
+                </tr>
+                <tr>
+                    <td><code>Shift+Tab</code></td>
+                    <td>החלף מצב הרשאות</td>
+                </tr>
+            </table>
+
+            <h3>עריכת טקסט</h3>
+            <table>
+                <tr>
+                    <th>קיצור</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+U</code></td>
+                    <td>מחק שורה שלמה</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+K</code></td>
+                    <td>מחק עד סוף שורה</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+W</code></td>
+                    <td>מחק מילה אחורה</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+Y</code></td>
+                    <td>הדבק טקסט שנמחק</td>
+                </tr>
+            </table>
+
+            <h3>שורה חדשה (בלי לשלוח)</h3>
+            <table>
+                <tr>
+                    <th>קיצור</th>
+                    <th>איפה עובד</th>
+                </tr>
+                <tr>
+                    <td><code>Option+Enter</code></td>
+                    <td>macOS (ברירת מחדל)</td>
+                </tr>
+                <tr>
+                    <td><code>Shift+Enter</code></td>
+                    <td>iTerm2, WezTerm, Ghostty</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl+J</code></td>
+                    <td>כל המערכות</td>
+                </tr>
+                <tr>
+                    <td><code>\</code> + <code>Enter</code></td>
+                    <td>כל הטרמינלים</td>
+                </tr>
+            </table>
+
+            <div class="card highlight">
+                <h3>🎯 מודלים ו-Thinking</h3>
+                <table>
+                    <tr>
+                        <td><code>Option+P</code> (Mac) / <code>Alt+P</code></td>
+                        <td>החלף מודל</td>
+                    </tr>
+                    <tr>
+                        <td><code>Option+T</code> (Mac) / <code>Alt+T</code></td>
+                        <td>הפעל/כבה Extended Thinking</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sessions -->
+        <section id="sessions">
+            <h2>💬 עבודה עם שיחות</h2>
+
+            <h3>פתיחת שיחה חדשה</h3>
+            <pre><code># בתיקייה שלך
+claude
+
+# עם שאלה ראשונית
+claude "הסבר לי את הקוד הזה"</code></pre>
+
+            <h3>המשך שיחה אחרונה</h3>
+            <pre><code>claude --continue
+# או בקיצור:
+claude -c</code></pre>
+
+            <h3>בחירת שיחה מהיסטוריה</h3>
+            <pre><code>claude --resume
+# או בקיצור:
+claude -r
+
+# לשיחה ספציפית
+claude -r "שם-השיחה"</code></pre>
+
+            <div class="tip">
+                <div class="tip-title">💡 עבודה עם כמה שיחות במקביל</div>
+                <ol>
+                    <li><strong>פתח טאב חדש:</strong> <code>Cmd+T</code> (Mac)</li>
+                    <li><strong>עבור לתיקייה אחרת:</strong> <code>cd /other/project</code></li>
+                    <li><strong>פתח Claude:</strong> <code>claude</code></li>
+                </ol>
+                עכשיו יש לך שתי שיחות נפרדות!
+            </div>
+
+            <h3>ניווט ב-Session Picker (תוך /resume)</h3>
+            <table>
+                <tr>
+                    <th>מקש</th>
+                    <th>פעולה</th>
+                </tr>
+                <tr>
+                    <td><code>↑</code> / <code>↓</code></td>
+                    <td>עבור בין שיחות</td>
+                </tr>
+                <tr>
+                    <td><code>→</code> / <code>←</code></td>
+                    <td>פתח/סגור קבוצות</td>
+                </tr>
+                <tr>
+                    <td><code>Enter</code></td>
+                    <td>בחר שיחה</td>
+                </tr>
+                <tr>
+                    <td><code>P</code></td>
+                    <td>תצוגה מקדימה</td>
+                </tr>
+                <tr>
+                    <td><code>R</code></td>
+                    <td>שנה שם</td>
+                </tr>
+                <tr>
+                    <td><code>/</code></td>
+                    <td>חפש</td>
+                </tr>
+                <tr>
+                    <td><code>Esc</code></td>
+                    <td>יציאה</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- CLI -->
+        <section id="cli">
+            <h2>🖥️ אפשרויות שורת פקודה</h2>
+
+            <h3>הכי חשובות</h3>
+            <table>
+                <tr>
+                    <th>פקודה</th>
+                    <th>מה עושה</th>
+                </tr>
+                <tr>
+                    <td><code>claude</code></td>
+                    <td>שיחה חדשה</td>
+                </tr>
+                <tr>
+                    <td><code>claude -c</code></td>
+                    <td>המשך שיחה אחרונה</td>
+                </tr>
+                <tr>
+                    <td><code>claude -r</code></td>
+                    <td>בחר מהיסטוריה</td>
+                </tr>
+                <tr>
+                    <td><code>claude -p "שאלה"</code></td>
+                    <td>שאל בלי אינטראקציה</td>
+                </tr>
+                <tr>
+                    <td><code>claude --model opus</code></td>
+                    <td>השתמש במודל Opus</td>
+                </tr>
+                <tr>
+                    <td><code>claude --model haiku</code></td>
+                    <td>השתמש במודל Haiku</td>
+                </tr>
+            </table>
+
+            <h3>דוגמאות שימוש</h3>
+            <pre><code># שאל שאלה מהירה
+claude -p "מה הגרסה של Node.js?"
+
+# המשך עם מודל חזק יותר
+claude --continue --model opus
+
+# עבוד במצב תכנון
+claude --permission-mode plan</code></pre>
+        </section>
+
+        <!-- Tips -->
+        <section id="tips">
+            <h2>💡 טיפים חשובים</h2>
+
+            <div class="card">
+                <h3>1. היה ספציפי</h3>
+                <p>❌ "תקן את הבאג"</p>
+                <p>✅ "תקן את הבאג בהתחברות - המשתמש רואה מסך ריק אחרי סיסמה שגויה"</p>
+            </div>
+
+            <div class="card">
+                <h3>2. השתמש ב-@ להפניות לקבצים</h3>
+                <pre><code>הסבר את @src/auth.js</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>3. נהל את הזיכרון</h3>
+                <pre><code>/context    # ראה כמה זיכרון נשאר
+/clear      # נקה בין משימות
+/compact    # דחוס אוטומטית</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>4. מצבי הרשאות</h3>
+                <table>
+                    <tr>
+                        <th>מצב</th>
+                        <th>תיאור</th>
+                        <th>מתי להשתמש</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Normal</strong></td>
+                        <td>מבקש הרשאה לכל פעולה</td>
+                        <td>עבודה רגילה</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plan</strong></td>
+                        <td>רק קריאה, בלי כתיבה</td>
+                        <td>תכנון בטוח</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Auto-Accept</strong></td>
+                        <td>מקבל הכל</td>
+                        <td>משימות מהירות</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 15px;">להחליף: <code>Shift+Tab</code></p>
+            </div>
+
+            <div class="card">
+                <h3>5. חזור בזמן אם טעית</h3>
+                <pre><code>Esc + Esc    # או
+/rewind</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>6. הדבק תמונות</h3>
+                <pre><code>Ctrl+V      # הדבק תמונה מהקליפבורד</code></pre>
+            </div>
+        </section>
+
+        <!-- Final Summary -->
+        <section>
+            <h2>📋 סיכום - מה לזכור</h2>
+            <div class="quick-ref">
+                <div class="quick-ref-item">
+                    <code>claude</code>
+                    <span>שיחה חדשה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>claude -c</code>
+                    <span>המשך אחרונה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>claude -r</code>
+                    <span>בחר מהיסטוריה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl+C</code>
+                    <span>עצור פעולה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl+U</code>
+                    <span>מחק שורה</span>
+                </div>
+                <div class="quick-ref-item">
+                    <code>/exit</code>
+                    <span>צא</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="logo">ExplAIn</div>
+        <p>לומדים AI יחד</p>
+        <p style="margin-top: 15px; font-size: 0.9rem;">נוצר ב-2026 | קהילת ExplAIn</p>
+    </footer>
+</body>
+</html>
