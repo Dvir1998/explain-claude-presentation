@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדריך הגמרא לבינה המלאכותית | ExplAIn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+:root {
+  --bg:#050505; --bg2:#0d0d0d; --bg3:#141414; --bg4:#1a1a1a;
+  --gold:#D4AF37; --gold-l:#E8C547; --gold-d:rgba(212,175,55,0.15);
+  --white:#fff; --gray:#888; --gray-d:#2a2a2a;
+  --blue:#4A9EFF; --orange:#FF7A3D; --green:#52c41a;
+  --purple:#9C6FE4; --red:#ff4d4f;
+}
+</style>
+
+.reveal { font-family:'Heebo',sans-serif !important; direction:rtl; text-align:right; }
+.reveal .slides { text-align:right; }
+.reveal h1,.reveal h2,.reveal h3 { font-family:'Heebo',sans-serif !important; }
+.reveal .slides section { background:var(--bg); color:var(--white); }
+/* Typography */
+.reveal h1 { font-size:2.4em; font-weight:900; color:var(--gold); line-height:1.1; }
+.reveal h2 { font-size:1.7em; font-weight:800; color:var(--gold); margin-bottom:.5em; }
+.reveal h3 { font-size:1.2em; font-weight:700; color:var(--gold-l); }
+.reveal p,.reveal li { font-size:0.85em; line-height:1.7; color:#ddd; }
+.reveal ul,.reveal ol { margin-right:1em; }
+.reveal ul li::marker { color:var(--gold); }
+/* Section Separator Slides */
+.sec-title { display:flex !important; flex-direction:column; align-items:center; justify-content:center; }
+.sec-title h1 { font-size:3em !important; text-shadow:0 0 40px rgba(212,175,55,0.5); }
+.sec-title .sec-num { font-size:0.7em; color:var(--gray); letter-spacing:4px; margin-bottom:.3em; }
+/* Cards */
+.card { background:var(--bg2); border:1px solid var(--gray-d); border-radius:12px; padding:20px 25px; margin:10px 0; }
+.card-gold { background:var(--gold-d); border:1px solid var(--gold); border-radius:12px; padding:18px 22px; margin:8px 0; }
+.card-blue { background:rgba(74,158,255,0.1); border:1px solid var(--blue); border-radius:12px; padding:18px 22px; margin:8px 0; }
+.card-orange { background:rgba(255,122,61,0.12); border:1px solid var(--orange); border-radius:12px; padding:18px 22px; margin:8px 0; }
+.card-green { background:rgba(82,196,26,0.12); border:1px solid var(--green); border-radius:12px; padding:18px 22px; margin:8px 0; }
+.card-red { background:rgba(255,77,79,0.12); border:1px solid var(--red); border-radius:12px; padding:18px 22px; margin:8px 0; }
+/* Two columns */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; text-align:right; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; text-align:right; }
+
+/* Talmud / Chazal styled boxes */
+.talmud-box { background:linear-gradient(135deg,rgba(212,175,55,0.08),transparent); border:2px solid var(--gold); border-radius:10px; padding:18px 22px; font-style:italic; position:relative; margin:12px 0; }
+.talmud-box::before { content:'📜'; position:absolute; top:-12px; right:15px; font-size:1.3em; background:var(--bg); padding:0 6px; }
+.talmud-tag { font-size:0.7em; color:var(--gold); font-weight:700; letter-spacing:1px; font-style:normal; display:block; margin-bottom:6px; }
+.mashal-box { background:rgba(156,111,228,0.12); border:1px solid var(--purple); border-radius:10px; padding:16px 20px; margin:10px 0; border-right:4px solid var(--purple); }
+.nmshal-box { background:rgba(212,175,55,0.08); border:1px solid var(--gold-l); border-radius:10px; padding:16px 20px; margin:10px 0; border-right:4px solid var(--gold-l); }
+/* Tips, Warnings */
+.tip-box { background:rgba(82,196,26,0.1); border-right:4px solid var(--green); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
+.warn-box { background:rgba(255,77,79,0.1); border-right:4px solid var(--red); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
+.info-box { background:rgba(74,158,255,0.1); border-right:4px solid var(--blue); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
+/* Browser Mockup */
+.mock-browser { background:#1e1e1e; border-radius:10px; overflow:hidden; border:1px solid #333; margin:8px 0; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+.mock-titlebar { background:#2a2a2a; padding:8px 14px; display:flex; align-items:center; gap:8px; }
+.dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+.dot-r { background:#ff5f57; }
+.dot-y { background:#ffbd2e; }
+.dot-g { background:#28c840; }
+.mock-url { background:#3a3a3a; color:#888; font-size:0.55em; padding:3px 10px; border-radius:20px; margin-right:10px; flex:1; font-family:monospace; direction:ltr; text-align:center; }
+.mock-body { padding:15px; direction:rtl; text-align:right; }
+
+/* Annotation overlays (for mockups) */
+.annotate { position:relative; }
+.ann-bubble { position:absolute; background:var(--gold); color:#000; font-weight:700; font-size:0.55em; padding:5px 12px; border-radius:20px; white-space:nowrap; z-index:10; }
+.ann-bubble::after { content:''; position:absolute; bottom:-6px; right:12px; border:6px solid transparent; border-top-color:var(--gold); }
+/* Step badges */
+.step-badge { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; font-weight:900; font-size:0.8em; margin-left:8px; flex-shrink:0; }
+.step-row { display:flex; align-items:flex-start; gap:12px; margin:8px 0; }
+/* Commands / Code */
+.cmd { background:#0a0a0a; border:1px solid #333; border-radius:8px; padding:10px 16px; font-family:'Monaco','Consolas',monospace; font-size:0.7em; color:#4EC9B0; direction:ltr; text-align:left; margin:8px 0; }
+.cmd-prefix { color:var(--green); margin-left:6px; }
+.cmd-comment { color:#6a9955; font-family:'Heebo',sans-serif; direction:rtl; }
+/* Platform badges */
+.win-badge { background:var(--blue); color:#fff; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
+.mac-badge { background:var(--gray); color:#fff; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
+/* Emoji headers */
+.emoji-h { font-size:2.5em; display:block; margin-bottom:10px; }
+/* Tables */
+.reveal table { width:100%; border-collapse:collapse; font-size:0.72em; }
+.reveal table th { background:var(--gold); color:#000; padding:8px 12px; text-align:right; }
+.reveal table td { padding:8px 12px; border-bottom:1px solid var(--gray-d); color:#ddd; }
+.reveal table tr:hover td { background:var(--gold-d); }
+/* Label chips */
+.chip { display:inline-block; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
+.chip-gold { background:var(--gold-d); border:1px solid var(--gold); color:var(--gold); }
+.chip-blue { background:rgba(74,158,255,0.15); border:1px solid var(--blue); color:var(--blue); }
+
+/* Gradient backgrounds for sections */
+.bg-gold { background:linear-gradient(135deg,#1a1300 0%,var(--bg) 60%) !important; }
+.bg-blue { background:linear-gradient(135deg,#001a33 0%,var(--bg) 60%) !important; }
+.bg-purple { background:linear-gradient(135deg,#130a1f 0%,var(--bg) 60%) !important; }
+.bg-green { background:linear-gradient(135deg,#001a0a 0%,var(--bg) 60%) !important; }
+.bg-orange { background:linear-gradient(135deg,#1a0800 0%,var(--bg) 60%) !important; }
+/* Giant number display */
+.big-num { font-size:5em; font-weight:900; color:var(--gold); opacity:0.15; position:absolute; top:0; left:10px; line-height:1; }
+/* Highlight text */
+.hl-gold { color:var(--gold); font-weight:700; }
+.hl-blue { color:var(--blue); font-weight:700; }
+.hl-green { color:var(--green); font-weight:700; }
+.hl-orange { color:var(--orange); font-weight:700; }
+.hl-purple { color:var(--purple); font-weight:700; }
+/* Comparison table */
+.vs-table { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:start; }
+.vs-mid { display:flex; align-items:center; justify-content:center; font-size:1.5em; font-weight:900; color:var(--gold); padding-top:20px; }
+/* Quote style */
+.big-quote { font-size:1.1em; color:var(--gold-l); font-style:italic; font-weight:300; line-height:1.5; text-align:center; padding:20px; }
+/* Progress dots for steps */
+.steps-dots { display:flex; gap:8px; margin:15px 0; justify-content:flex-end; }
+.steps-dots .active { background:var(--gold); }
+.steps-dots span { width:10px; height:10px; border-radius:50%; background:var(--gray-d); }
+/* ExplAIn logo styling */
+.explain-logo { font-size:1.2em; font-weight:900; color:var(--gold); letter-spacing:2px; }
+.explain-logo span { color:var(--white); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<!-- SLIDES PART 1 -->
+
+<!-- SLIDE 1 - Cover -->
+<section class="sec-title bg-gold" style="text-align:center">
+  <div class="explain-logo" style="font-size:2.5em;margin-bottom:20px">Expl<span>AI</span>n</div>
+  <h1 style="font-size:2.2em">מדריך הגמרא לבינה המלאכותית</h1>
+  <p class="big-quote">מאי AI? | מאי Claude? | מאי Claude Code?</p>
+  <p style="color:#888;font-size:0.7em;margin-top:20px">מוצג על ידי <span class="hl-gold">דביר ביטון</span> | לומדים בינה מלאכותית בגובה האוזניים</p>
+</section>
+
+<!-- SLIDE 2 - About Dvir -->
+<section>
+  <h2>👋 מי אני ולמה אנחנו כאן?</h2>
+  <div class="two-col" style="margin-bottom:18px">
+    <div>
+      <div class="card-gold">
+        <p style="font-size:1em;font-weight:700;color:#D4AF37;margin-bottom:6px">דביר ביטון</p>
+        <p>יזם טכנולוגי, מומחה AI ומייסד ExplAIn</p>
+        <p>משלב עולמות: טכנולוגיה, עסקים ולמידה</p>
+        <p>מאמין שכל אחד יכול ללמוד AI — בגובה האוזניים</p>
+      </div>
+    </div>
+    <div>
+      <div class="explain-logo" style="font-size:1.6em;margin-bottom:10px;text-align:center">Expl<span>AI</span>n</div>
+      <div class="card">
+        <p style="text-align:center;font-size:0.9em">לומדים בינה מלאכותית בגובה האוזניים</p>
+        <p style="text-align:center;color:#888;font-size:0.75em">בלי ז'רגון מיותר. בלי פחד. עם המון חיוך.</p>
+      </div>
+    </div>
+  </div>
+  <div class="three-col">
+    <div class="card-blue">
+      <p style="font-weight:700;color:#4A9EFF;margin-bottom:6px">🎓 מה נלמד היום?</p>
+      <p>מה זה AI, מה זה Claude, ואיך Claude Code הופך אתכם לסופר-מפתחים</p>
+    </div>
+    <div class="card-gold">
+      <p style="font-weight:700;color:#D4AF37;margin-bottom:6px">👥 למי זה מיועד?</p>
+      <p>לכל אחד — מתחיל ועד מנוסה, טכני ועד לא-טכני בכלל</p>
+    </div>
+    <div class="card" style="border-color:#52c41a">
+      <p style="font-weight:700;color:#52c41a;margin-bottom:6px">🏁 מה נדע בסוף?</p>
+      <p>לעבוד עם Claude כמו מקצוענים ולהריץ Claude Code בעצמנו</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3 - Section separator: פרק א -->
+<section class="sec-title bg-blue">
+  <p class="sec-num">פרק א׳</p>
+  <h1>מה זה בינה מלאכותית?</h1>
+  <p style="color:#888;font-size:0.8em;margin-top:10px">מהיסוד — בלי להסתבך</p>
+</section>
+
+<!-- SLIDE 4 - What is AI -->
+<section>
+  <h2>🧠 מה זה AI — בינה מלאכותית?</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    מהי בינה מלאכותית? מחשב שלומד מדוגמאות — לא מתוכנת ידנית, אלא רואה אלפי דוגמאות ומגלה בעצמו את הדפוסים.
+  </div>
+  <div class="mashal-box">
+    <span class="talmud-tag">משל</span>
+    כמו ילד שלמד לזהות כלב — לא קרא מילון, לא קיבל הגדרה. הוא ראה אלף כלבים, ובסוף הוא מזהה כלב חדש שמעולם לא ראה.
+  </div>
+  <div class="nmshal-box">
+    <span class="talmud-tag">ונמשל</span>
+    AI רואה מיליוני דוגמאות — תמונות, טקסטים, קוד, שיחות — ולומד דפוסים. כך הוא יכול לנבא, לזהות ולהבין דברים חדשים.
+  </div>
+</section>
+
+<!-- SLIDE 5 - What is LLM -->
+<section>
+  <h2>📚 מאי LLM? — מודל שפה גדול</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תלמוד בבלי, מסכת AI, דף א׳</span>
+    תלמיד שקרא כל ספר שנכתב אי פעם — לא זוכר מילים כמילון, אלא זוכר <em>דפוסים</em>. איך מילים מתחברות, איך רעיונות זורמים.
+  </div>
+  <div class="two-col">
+    <div class="mashal-box">
+      <span class="talmud-tag">משל</span>
+      כמו בוגר ישיבה שלמד כל הש"ס — הוא לא מצטט בע"פ, אבל שאל אותו שאלה ותקבל תשובה מעמיקה עם הקשרים.
+    </div>
+    <div class="nmshal-box">
+      <span class="talmud-tag">ונמשל</span>
+      LLM למד מטריליוני מילים מהאינטרנט, ספרים, קוד — ועכשיו הוא יכול לכתוב, לנתח ולהסביר כמו מומחה.
+    </div>
+  </div>
+  <div class="three-col" style="margin-top:14px">
+    <div class="card-blue" style="text-align:center">
+      <p style="font-weight:700;color:#4A9EFF">GPT-4</p>
+      <p style="font-size:0.75em;color:#888">OpenAI</p>
+    </div>
+    <div class="card-gold" style="text-align:center">
+      <p style="font-weight:700;color:#D4AF37">Claude</p>
+      <p style="font-size:0.75em;color:#888">Anthropic</p>
+    </div>
+    <div class="card" style="border-color:#4A9EFF;text-align:center">
+      <p style="font-weight:700;color:#4A9EFF">Gemini</p>
+      <p style="font-size:0.75em;color:#888">Google</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6 - Tokens -->
+<section>
+  <h2>🔤 טוקנים — אבני הבניין</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    כמו אותיות התורה, שכל אחת מהן עולם בפני עצמה — כך הטוקן: יחידת המידע הקטנה ביותר שממנה בנוי כל משפט.
+  </div>
+  <div class="card" style="margin:10px 0">
+    <p>טוקן = חתיכת מילה או מילה שלמה. <span class="hl-gold">"שלום"</span> = טוקן אחד. <span class="hl-blue">"Artificial"</span> = טוקן אחד. <span class="hl-orange">"Intelligence"</span> = טוקן אחד.</p>
+  </div>
+  <div class="cmd">
+"Hello World"          → 2 tokens<br>
+"I love AI"            → 4 tokens<br>
+"שלום עולם"            → 3 tokens<br>
+"Artificial Intelligence" → 2 tokens
+  </div>
+  <div class="info-box">
+    <strong>💡 חלון ההקשר (Context Window):</strong> כמה טוקנים Claude יכול "לזכור" בתוך שיחה אחת. Claude 3.7 — עד <span class="hl-gold">~200,000 טוקנים</span> — כ-150,000 מילים, כמו ספר שלם!
+  </div>
+</section>
+
+<!-- SLIDE 7 - Training vs Using -->
+<section>
+  <h2>🏋️ אימון מול שימוש — הבדל עצום</h2>
+  <div class="two-col">
+    <div class="card-blue">
+      <p style="font-weight:700;color:#4A9EFF;font-size:1em;margin-bottom:10px">🏗️ אימון המודל</p>
+      <ul>
+        <li>מיליארדי טקסטים מהאינטרנט</li>
+        <li>חודשים של חישוב ברציפות</li>
+        <li>אלפי GPU ענקיות</li>
+        <li>מיליוני דולרים של עלויות</li>
+        <li>נעשה פעם אחת (ואז מעדכנים)</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <p style="font-weight:700;color:#D4AF37;font-size:1em;margin-bottom:10px">💬 שימוש במודל</p>
+      <ul>
+        <li>אתה שולח הודעה</li>
+        <li>Claude מנבא מילה אחר מילה</li>
+        <li>שניות ספורות לתשובה</li>
+        <li>עלות: כמה סנטים לשאלה</li>
+        <li>זמין לכולם מכל מקום</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tip-box">
+    <strong>✨ הנקודה המדהימה:</strong> Anthropic עשו את האימון הכבד פעם אחת — ואתה נהנה מהתוצאה מיידית, בכל שאלה, בכל שפה!
+  </div>
+</section>
+
+<!-- SLIDE 8 - Section separator: פרק ב -->
+<section class="sec-title bg-purple">
+  <p class="sec-num">פרק ב׳</p>
+  <h1>צ'אטבוטים</h1>
+  <p style="color:#888;font-size:0.8em;margin-top:10px">ואיך עובדים איתם נכון</p>
+</section>
+
+<!-- SLIDE 9 - What is a chatbot -->
+<section>
+  <h2>🤖 מאי צ'אטבוט?</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">פלוגתא דרב ושמואל</span>
+    אמר רב: צ'אטבוט הוא כמו <em>מזכיר שקרא כל ספר</em> — מכיר הכל, אבל לא יודע על החיים שלך.<br>
+    אמר שמואל: כמו <em>מנוע חיפוש שלמד לדבר</em> — לא מחזיר קישורים, מחזיר תשובות.
+  </div>
+  <div class="mashal-box">
+    <span class="talmud-tag">משל</span>
+    כמו ששאלת שאלה לחבר חכם שקרא הכל — הוא יענה מהר ובעומק, אבל לא יזכור מה סיפרת לו אתמול.
+  </div>
+  <div class="two-col" style="margin-top:14px">
+    <div class="card-green">
+      <p style="font-weight:700;color:#52c41a;margin-bottom:8px">✅ מה הוא יכול?</p>
+      <ul>
+        <li>כתיבה ועריכת טקסטים</li>
+        <li>כתיבת קוד ודיבאג</li>
+        <li>ניתוח מסמכים ונתונים</li>
+        <li>תרגום לעשרות שפות</li>
+        <li>חשיבה לוגית ופתרון בעיות</li>
+      </ul>
+    </div>
+    <div class="card-red">
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">❌ מה הוא לא יכול?</p>
+      <ul>
+        <li>לגלוש לאינטרנט (ללא כלים)</li>
+        <li>לזכור שיחות קודמות (ללא Projects)</li>
+        <li>להיות בטוח 100% לעולם</li>
+        <li>לדעת מה קרה אחרי ה-cutoff</li>
+        <li>לבצע פעולות בעולם הממשי</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10 - Art of Prompting -->
+<section>
+  <h2>🎯 אמנות ה-Prompt</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    "כמדה שאדם מודד — מודדין לו" — כמה שתיתן לClaude הקשר, פרטים ובהירות, כך תקבל חזרה.
+  </div>
+  <div class="two-col" style="margin:14px 0">
+    <div class="card-red">
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">❌ Prompt רע</p>
+      <p style="font-style:italic;color:#ddd">"תעזור לי עם האתר שלי"</p>
+      <p style="font-size:0.75em;color:#888;margin-top:8px">אין הקשר. Claude לא יודע מה, לאיזה אתר, לאיזה מטרה.</p>
+    </div>
+    <div class="card-green">
+      <p style="font-weight:700;color:#52c41a;margin-bottom:8px">✅ Prompt טוב</p>
+      <p style="font-style:italic;color:#ddd;font-size:0.85em">"אני בונה אתר React לחנות מקוונת. הקומפוננטה שלי צריכה עגלת קניות עם הוספה/הסרה פריטים ועדכון סכום בזמן אמת"</p>
+    </div>
+  </div>
+  <div class="three-col">
+    <div class="card">
+      <p style="text-align:center;font-size:1.3em">🎯</p>
+      <p style="text-align:center;font-weight:700;color:#D4AF37">היה ספציפי</p>
+      <p style="font-size:0.75em;text-align:center">מה בדיוק אתה צריך?</p>
+    </div>
+    <div class="card">
+      <p style="text-align:center;font-size:1.3em">📋</p>
+      <p style="text-align:center;font-weight:700;color:#4A9EFF">תן הקשר</p>
+      <p style="font-size:0.75em;text-align:center">מי אתה? מה הפרויקט?</p>
+    </div>
+    <div class="card">
+      <p style="text-align:center;font-size:1.3em">📄</p>
+      <p style="text-align:center;font-weight:700;color:#52c41a">ציין פורמט</p>
+      <p style="font-size:0.75em;text-align:center">רשימה? קוד? טבלה? הסבר?</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11 - Section separator: פרק ג -->
+<section class="sec-title bg-gold">
+  <p class="sec-num">פרק ג׳</p>
+  <h1>מי זה קלוד?</h1>
+  <p style="color:#888;font-size:0.8em;margin-top:10px">הסיפור של הבינה המלאכותית השונה</p>
+</section>
+
+<!-- SLIDE 12 - Meet Claude -->
+<section>
+  <h2>🤖 פגשו את קלוד</h2>
+  <div class="card-gold" style="margin-bottom:14px">
+    <p>Claude הוא מודל שפה גדול שנוצר על ידי <span class="hl-gold">Anthropic</span> — חברה שמאמינה שAI צריך להיות בטוח, ישר ומועיל.</p>
+  </div>
+  <div class="talmud-box" style="margin-bottom:14px">
+    <span class="talmud-tag">אמרי נהרדעי</span>
+    Anthropic הוקמה ב-2021 על ידי לשעבר עובדי OpenAI בכירים — שרצו לבנות AI שהוא לא רק <em>חכם</em>, אלא גם <em>בטוח</em> ו<em>ישר</em>.
+  </div>
+  <div class="three-col" style="margin-bottom:14px">
+    <div class="card" style="text-align:center;border-color:#52c41a">
+      <p style="font-size:1.5em">🛡️</p>
+      <p style="font-weight:700;color:#52c41a">בטוח יותר</p>
+      <p style="font-size:0.75em">Constitutional AI — ערכים מובנים</p>
+    </div>
+    <div class="card-gold" style="text-align:center">
+      <p style="font-size:1.5em">✅</p>
+      <p style="font-weight:700;color:#D4AF37">יותר ישר</p>
+      <p style="font-size:0.75em">אומר "אני לא יודע" כשצריך</p>
+    </div>
+    <div class="card-blue" style="text-align:center">
+      <p style="font-size:1.5em">🧠</p>
+      <p style="font-weight:700;color:#4A9EFF">מעמיק יותר</p>
+      <p style="font-size:0.75em">חשיבה מורכבת ורב-שלבית</p>
+    </div>
+  </div>
+  <div class="info-box">
+    <strong>🔤 למה "קלוד"?</strong> בהשראת <span class="hl-gold">Claude Shannon</span> — המתמטיקאי שהמציא את <em>תורת המידע</em>, הבסיס לכל תקשורת דיגיטלית מודרנית.
+  </div>
+</section>
+
+<!-- SLIDE 13 - Constitutional AI -->
+<section>
+  <h2>⚖️ Constitutional AI — הגיבוי הערכי</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    Constitution = חוקה. Claude לא רק "לומד לענות נכון" — הוא מאומן עם <em>ערכים</em>. כמו תלמיד שקיבל חינוך ולא רק ידע.
+  </div>
+  <div class="two-col" style="margin:16px 0">
+    <div class="card-red">
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">🔴 רוב ה-AI</p>
+      <p>לומד ממה שמשתמשים <em>מאשרים</em></p>
+      <p style="font-size:0.8em;color:#888;margin-top:6px">בעיה: אם משתמשים מאשרים תשובות גרועות — המודל לומד תשובות גרועות.</p>
+    </div>
+    <div class="card-gold">
+      <p style="font-weight:700;color:#D4AF37;margin-bottom:8px">🟡 Claude</p>
+      <p>לומד מ<em>חוקה של ערכים</em> שהוגדרה מראש</p>
+      <p style="font-size:0.8em;color:#888;margin-top:6px">ערכים: כנות, בטיחות, אי-נזק, עזרה אמיתית לאנושות.</p>
+    </div>
+  </div>
+  <div class="warn-box">
+    <strong>⚠️ חשוב לדעת:</strong> Claude יסרב לבקשות מסוכנות, לא אתיות או מזיקות — גם אם תנסחו אותן בחכמה מרובה.
+  </div>
+  <div class="tip-box">
+    <strong>💡 זה טוב!</strong> זה אומר שאתם עובדים עם AI שאתם יכולים לסמוך עליו — לא כזה שיגיד לכם כל מה שתרצו לשמוע.
+  </div>
+</section>
+
+<!-- SLIDE 14 - Claude's family -->
+<section>
+  <h2>👨‍👩‍👧 משפחת Claude — בחרו את הנכון</h2>
+  <div class="three-col" style="margin-bottom:16px">
+    <div class="card-blue">
+      <p style="font-size:1.6em;text-align:center">🐣</p>
+      <p style="font-weight:700;color:#4A9EFF;text-align:center;font-size:1em">Claude Haiku</p>
+      <ul style="margin-top:10px">
+        <li>⚡ הכי מהיר</li>
+        <li>💰 הכי זול</li>
+        <li>📝 למשימות פשוטות</li>
+        <li>סיווג, תרגום קצר, מענה מהיר</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <p style="font-size:1.6em;text-align:center">⚡</p>
+      <p style="font-weight:700;color:#D4AF37;text-align:center;font-size:1em">Claude Sonnet</p>
+      <ul style="margin-top:10px">
+        <li>⚖️ מאוזן לחלוטין</li>
+        <li>🏆 ביצועים מצוינים</li>
+        <li>🌟 הכי שימושי ביומיום</li>
+        <li>Claude Code מריץ אותו</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:#9C6FE4">
+      <p style="font-size:1.6em;text-align:center">🧠</p>
+      <p style="font-weight:700;color:#9C6FE4;text-align:center;font-size:1em">Claude Opus</p>
+      <ul style="margin-top:10px">
+        <li>🥇 הכי חכם</li>
+        <li>🔬 למשימות מורכבות</li>
+        <li>🐢 איטי יותר</li>
+        <li>מחקר עמוק, ניתוח מורכב</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tip-box">
+    <strong>📌 כלל האצבע:</strong> לרוב השימושים — <span class="hl-gold">Sonnet</span>. לניתוח מורכב ומחקר — <span class="hl-purple">Opus</span>. לאוטומציה מהירה וזולה — <span class="hl-blue">Haiku</span>.
+  </div>
+</section>
+
+<!-- SLIDE 15 - Section separator: פרק ד -->
+<section class="sec-title bg-blue">
+  <p class="sec-num">פרק ד׳</p>
+  <h1>Claude.ai</h1>
+  <p style="color:#888;font-size:0.8em;margin-top:10px">הממשק שכולם יכולים להשתמש בו</p>
+</section>
+
+<!-- SLIDE 16 - Claude.ai homepage mockup -->
+<section>
+  <h2>🌐 claude.ai — הכניסה הראשית</h2>
+  <div class="annotate">
+    <div class="mock-browser">
+      <div class="mock-titlebar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="mock-url">claude.ai</span>
+      </div>
+      <div class="mock-body" style="padding:0">
+        <div style="background:#1a1a1a;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333">
+          <div style="display:flex;gap:10px">
+            <span style="background:#D4AF37;color:#000;padding:4px 12px;border-radius:6px;font-size:0.6em;font-weight:700;cursor:pointer">Try Claude</span>
+            <span style="border:1px solid #555;color:#ccc;padding:4px 12px;border-radius:6px;font-size:0.6em;cursor:pointer">Sign In</span>
+          </div>
+          <span style="font-weight:700;color:#D4AF37;font-size:0.9em">Claude</span>
+        </div>
+        <div style="background:#050505;padding:30px 16px;text-align:center">
+          <p style="font-size:1em;font-weight:700;color:#fff;margin-bottom:16px">How can I help you today?</p>
+          <div style="background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:10px 16px;text-align:right;font-size:0.65em;color:#555;max-width:400px;margin:0 auto">
+            שאל אותי כל שאלה...
+          </div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+            <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">📝 כתיבה</span>
+            <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">💻 קוד</span>
+            <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">🔍 ניתוח</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ann-bubble" style="top:34px;left:80px">לחיצה → כניסה לחשבון</div>
+    <div class="ann-bubble" style="top:34px;left:230px">ניסיון חינם → מיד!</div>
+  </div>
+  <div class="info-box" style="margin-top:10px">
+    <strong>🌍 נגיש מכל מקום:</strong> Chrome, Firefox, Safari, Edge — בכל מחשב, טאבלט וטלפון. ללא התקנה.
+  </div>
+</section>
+
+<!-- SLIDE 17 - Creating an account -->
+<section>
+  <h2>📝 יצירת חשבון — שלב אחר שלב</h2>
+  <div class="step-row">
+    <span class="step-badge">1</span>
+    <div class="card" style="flex:1;padding:12px 16px">
+      <p>כנסו לכתובת <span class="hl-blue">claude.ai</span> בכל דפדפן</p>
+    </div>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">2</span>
+    <div class="card" style="flex:1;padding:12px 16px">
+      <p>לחצו על הכפתור <span class="hl-gold">"Sign Up"</span> בפינה הימנית העליונה</p>
+    </div>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">3</span>
+    <div class="card" style="flex:1;padding:12px 16px">
+      <p>הכניסו כתובת אימייל וסיסמה — או בחרו <span class="hl-blue">"Continue with Google"</span> לכניסה מהירה</p>
+    </div>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">4</span>
+    <div class="card" style="flex:1;padding:12px 16px">
+      <p>אמתו את כתובת האימייל שלכם — Claude ישלח אימייל אימות</p>
+    </div>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">5</span>
+    <div class="card" style="flex:1;padding:12px 16px">
+      <p>בחרו תוכנית — <span class="hl-green">Free</span> להתנסות ראשונית, או <span class="hl-gold">Pro</span> לשימוש מלא</p>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:10px">
+    <strong>⚡ הכי מהיר:</strong> Google Sign-In — שלושה קליקים ואתם בפנים!
+  </div>
+</section>
+
+<!-- SLIDE 18 - Claude Pro -->
+<section>
+  <h2>💎 Claude Pro — למה כדאי?</h2>
+  <div class="two-col" style="margin-bottom:14px">
+    <div class="card">
+      <p style="font-weight:700;color:#888;margin-bottom:10px;text-align:center">Free — חינם</p>
+      <ul>
+        <li>שיחות מוגבלות ביום</li>
+        <li>Claude Sonnet בלבד</li>
+        <li>ללא Projects</li>
+        <li>ללא Artifacts מתקדמים</li>
+        <li>איטי בשעות עומס</li>
+      </ul>
+      <p style="text-align:center;font-size:1.1em;font-weight:700;color:#888;margin-top:12px">$0 / חודש</p>
+    </div>
+    <div class="card-gold">
+      <p style="font-weight:700;color:#D4AF37;margin-bottom:10px;text-align:center">Pro — מקצועי 💎</p>
+      <ul>
+        <li>שיחות <span class="hl-gold">ללא הגבלה</span></li>
+        <li>כל המודלים: Haiku, Sonnet, Opus</li>
+        <li>Projects — זיכרון ארוך טווח</li>
+        <li>Artifacts מלאים</li>
+        <li>Priority access — תמיד מהיר</li>
+      </ul>
+      <p style="text-align:center;font-size:1.1em;font-weight:700;color:#D4AF37;margin-top:12px">$20 / חודש</p>
+    </div>
+  </div>
+  <div class="warn-box">
+    <strong>⚠️ חשוב:</strong> לשימוש ב-<span class="hl-gold">Claude Code</span> — חובה להיות Pro! Claude Code דורש גישה מלאה למודלים.
+  </div>
+  <div class="tip-box">
+    <strong>🎓 סטודנטים:</strong> בדקו תוכנית חינוכית — Anthropic מציעה הנחות לסטודנטים ומוסדות אקדמיים!
+  </div>
+</section>
+
+<!-- SLIDE 19 - Chat interface mockup -->
+<section>
+  <h2>💬 ממשק השיחה — מה יש כאן?</h2>
+  <div class="annotate">
+    <div class="mock-browser">
+      <div class="mock-titlebar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="mock-url">claude.ai/new</span>
+      </div>
+      <div class="mock-body" style="padding:0;direction:ltr">
+        <div style="display:flex;height:160px">
+          <div style="width:140px;background:#0d0d0d;border-left:1px solid #222;padding:10px;flex-shrink:0">
+            <div style="background:#D4AF37;color:#000;border-radius:6px;padding:4px 8px;font-size:0.5em;font-weight:700;margin-bottom:8px;text-align:center">+ New Chat</div>
+            <div style="color:#888;font-size:0.45em;margin-bottom:4px;font-weight:700">PROJECTS</div>
+            <div style="color:#aaa;font-size:0.45em;padding:2px 4px;border-radius:4px;background:#1a1a1a;margin-bottom:2px">📁 My Project</div>
+            <div style="color:#555;font-size:0.4em;margin-top:6px;margin-bottom:2px">RECENT</div>
+            <div style="color:#666;font-size:0.4em;padding:2px 4px">React help...</div>
+            <div style="color:#666;font-size:0.4em;padding:2px 4px">SQL query...</div>
+          </div>
+          <div style="flex:1;background:#050505;padding:10px;display:flex;flex-direction:column">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:3px 8px;font-size:0.45em;color:#D4AF37">claude-sonnet-4 ▼</div>
+              <div style="color:#888;font-size:0.45em">Artifacts ▢</div>
+            </div>
+            <div style="flex:1;display:flex;align-items:center;justify-content:center">
+              <p style="color:#555;font-size:0.55em">How can I help you today?</p>
+            </div>
+            <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:6px 10px;font-size:0.45em;color:#555;display:flex;justify-content:space-between">
+              <span>Message Claude...</span>
+              <span style="color:#D4AF37">⬆</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ann-bubble" style="top:50px;right:10px">Projects — זיכרון קבוע</div>
+    <div class="ann-bubble" style="top:80px;left:155px">בחירת מודל</div>
+    <div class="ann-bubble" style="top:80px;left:340px">Artifacts Panel</div>
+  </div>
+  <div class="info-box" style="margin-top:8px">
+    <strong>⌨️ טיפ:</strong> <span class="hl-gold">Shift + Enter</span> = שורה חדשה בלי לשלוח | <span class="hl-blue">Enter</span> = שליחה
+  </div>
+</section>
+
+<!-- SLIDE 20 - Artifacts and Projects -->
+<section>
+  <h2>✨ Artifacts ו-Projects — הכוח האמיתי</h2>
+  <div class="two-col" style="margin-bottom:14px">
+    <div class="card-gold">
+      <p style="font-weight:700;color:#D4AF37;font-size:1em;margin-bottom:10px">🎨 Artifacts</p>
+      <p>Claude יוצר קוד, HTML ואפליקציות שעובדות <span class="hl-gold">בזמן אמת</span> — ממש בתוך הדפדפן!</p>
+      <ul style="margin-top:8px">
+        <li>"צור מחשבון React" → מחשבון אינטראקטיבי</li>
+        <li>"צור גרף נתונים" → גרף מונפש</li>
+        <li>"צור לוח משחק" → משחק שעובד</li>
+      </ul>
+    </div>
+    <div class="card-blue">
+      <p style="font-weight:700;color:#4A9EFF;font-size:1em;margin-bottom:10px">📁 Projects</p>
+      <ul>
+        <li>זיכרון <span class="hl-blue">ארוך טווח</span> בין שיחות</li>
+        <li>שמירת הוראות קבועות (System Prompt)</li>
+        <li>העלאת קבצים לשמירה</li>
+        <li>עבודה צוותית משותפת</li>
+        <li>Claude זוכר את כל ההקשר!</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmd">צור לי אפליקציית React של לוח שנה עם אפשרות להוספת אירועים, צבעים ותזכורות</div>
+  <div class="tip-box">
+    <strong>🚀 Artifacts = הסופרפאוור של Claude.</strong> במקום לקבל טקסט — אתם מקבלים מוצר עובד. נסו עכשיו ב-claude.ai!
+  </div>
+</section>
+
+<!-- END SLIDES PART 1 -->
+<!-- SLIDES PART 2 -->
+
+<!-- SLIDE 21 — Section: פרק ה׳ -->
+<section class="sec-title bg-orange">
+  <div class="sec-num">פרק ה׳</div>
+  <h1>ההתקנה הגדולה</h1>
+  <p style="color:#aaa;font-size:1.1em;margin-top:.5em;">שני שבילים אחד לעיר אחת</p>
+</section>
+
+<!-- SLIDE 22 — Windows vs Mac -->
+<section>
+  <h2>🤔 אמר רב vs אמר שמואל — שתי דרכים</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">גמרא</span>
+    אמר רב: יש לו Windows. אמר שמואל: יש לו Mac. שניהם הולכים לאותו מקום — רק הדרך שונה
+  </div>
+  <div class="two-col" style="margin-top:14px;">
+    <div class="card-blue">
+      <span class="win-badge">🪟 Windows</span>
+      <ul style="margin-top:12px;">
+        <li>✅ הירשם ל-Claude Pro</li>
+        <li>✅ התקן VS Code</li>
+        <li>✅ התקן Git <span class="hl-orange">(חובה!)</span></li>
+        <li>✅ התקן Claude Desktop (optional)</li>
+        <li>✅ התקן Claude Code Extension</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="mac-badge">🍎 Mac</span>
+      <ul style="margin-top:12px;">
+        <li>✅ הירשם ל-Claude Pro</li>
+        <li>✅ התקן Claude Desktop</li>
+        <li>✅ התקן VS Code</li>
+        <li>✅ התקן Claude Code Extension</li>
+      </ul>
+    </div>
+  </div>
+  <div class="info-box" style="margin-top:10px;">💡 Mac פשוט יותר. Windows צריך Git בנפרד.</div>
+</section>
+
+<!-- SLIDE 23 — Subscribe to Claude Pro -->
+<section>
+  <h2>💳 שלב 0 לכולם — מנוי Claude Pro</h2>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">claude.ai/settings/billing</span>
+    </div>
+    <div class="mock-body">
+      <div class="two-col" style="gap:12px;">
+        <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-size:0.75em;color:#888;margin-bottom:4px;">Free</div>
+          <div style="font-size:1.1em;font-weight:700;color:#ddd;">$0 / month</div>
+          <div style="font-size:0.6em;color:#666;margin-top:6px;">מוגבל מאוד</div>
+        </div>
+        <div style="background:rgba(212,175,55,0.12);border:2px solid var(--gold);border-radius:8px;padding:12px;text-align:center;">
+          <div style="font-size:0.75em;color:var(--gold);margin-bottom:4px;">✨ Pro</div>
+          <div style="font-size:1.1em;font-weight:700;color:#fff;">$20 / month</div>
+          <div style="background:var(--gold);color:#000;font-weight:700;font-size:0.6em;padding:4px 10px;border-radius:8px;margin-top:8px;display:inline-block;">Upgrade to Pro ⬆</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:12px;">
+    <div class="step-row"><span class="step-badge">1</span><span>כנסו ל-claude.ai ← Settings ← Billing</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>בחרו Claude Pro ($20/month)</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>הכניסו פרטי תשלום ואשרו</span></div>
+  </div>
+  <div class="warn-box">⚠️ בלי מנוי Pro, Claude Code לא יעבוד כמו שצריך!</div>
+</section>
+
+<!-- SLIDE 24 — Windows: VS Code -->
+<section>
+  <h2>📦 Windows — שלב 1: VS Code</h2>
+  <span class="win-badge" style="margin-bottom:10px;display:inline-block;">🪟 Windows</span>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">code.visualstudio.com</span>
+    </div>
+    <div class="mock-body" style="text-align:center;padding:18px;">
+      <div style="font-size:0.85em;color:#aaa;margin-bottom:8px;">Visual Studio Code — Code Editing. Redefined.</div>
+      <div style="background:#0078d4;color:#fff;font-weight:700;font-size:0.8em;padding:10px 24px;border-radius:6px;display:inline-block;box-shadow:0 4px 15px rgba(0,120,212,0.4);">⬇ Download for Windows</div>
+    </div>
+  </div>
+  <div style="margin-top:10px;">
+    <div class="step-row"><span class="step-badge">1</span><span>כנסו ל-code.visualstudio.com</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>לחצו "Download for Windows" — הכפתור הכחול הגדול</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>הריצו את המתקין שהורד</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>❗ סמנו <span class="hl-gold">"Add to PATH"</span> ו-<span class="hl-gold">"Open with Code"</span></span></div>
+  </div>
+  <div class="cmd">code --version   <span style="color:#6a9955;"># לבדיקה שהותקן</span></div>
+  <div class="tip-box">💡 VS Code = "בית המדרש" שלנו. כל הקוד ייכתב כאן!</div>
+</section>
+
+<!-- SLIDE 25 — Windows: Git -->
+<section>
+  <h2>🔧 Windows — שלב 2: Git</h2>
+  <span class="win-badge" style="margin-bottom:10px;display:inline-block;">🪟 Windows</span>
+  <div class="talmud-box">
+    <span class="talmud-tag">מאי Git?</span>
+    Git הוא מערכת לניהול גרסאות קוד. כמו הגניזה הקהירית — שומר כל גרסה שאי פעם נכתבה, לעולם לא מאבד שורה אחת
+  </div>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">git-scm.com/download/win</span>
+    </div>
+    <div class="mock-body" style="text-align:center;padding:14px;">
+      <div style="font-size:0.75em;color:#aaa;margin-bottom:8px;">Git for Windows</div>
+      <div style="background:#f05033;color:#fff;font-weight:700;font-size:0.75em;padding:8px 20px;border-radius:6px;display:inline-block;">⬇ Download for Windows</div>
+    </div>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="step-row"><span class="step-badge">1</span><span>כנסו ל-git-scm.com/download/win</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>הורידו והריצו את המתקין</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>השאירו את כל ברירות המחדל (Next → Next → Next → Install)</span></div>
+  </div>
+  <div class="cmd">git --version    <span style="color:#6a9955;"># לבדיקה</span></div>
+  <div class="tip-box">💡 Git חובה ל-Windows כי Claude Code משתמש בו לזיכרון ולניהול קבצים!</div>
+</section>
+
+<!-- SLIDE 26 — Windows: Claude Code Extension -->
+<section>
+  <h2>🔌 Windows — שלב 3: Claude Code Extension</h2>
+  <span class="win-badge" style="margin-bottom:10px;display:inline-block;">🪟 Windows</span>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">VS Code — Extensions Panel</span>
+    </div>
+    <div class="mock-body" style="display:flex;gap:12px;padding:10px;">
+      <div style="width:38px;display:flex;flex-direction:column;gap:10px;align-items:center;border-left:1px solid #333;padding-left:8px;">
+        <div style="font-size:1.2em;">📁</div>
+        <div style="font-size:1.2em;color:var(--blue);border:1px solid var(--blue);border-radius:4px;padding:2px;">⊞</div>
+        <div style="font-size:1.2em;">🐛</div>
+      </div>
+      <div style="flex:1;">
+        <div style="background:#3a3a3a;border-radius:4px;padding:5px 8px;font-size:0.6em;color:#aaa;direction:ltr;margin-bottom:8px;">🔍 Claude Code</div>
+        <div style="background:#1e1e1e;border:1px solid var(--blue);border-radius:6px;padding:8px;font-size:0.65em;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="color:#fff;font-weight:700;">Claude Code</div>
+              <div style="color:#888;font-size:0.85em;">Anthropic · ⭐ 4.9</div>
+            </div>
+            <div style="background:var(--blue);color:#fff;padding:3px 10px;border-radius:4px;font-size:0.85em;font-weight:700;">Install</div>
+          </div>
+        </div>
+        <div style="font-size:0.55em;color:var(--gold);margin-top:6px;text-align:right;">👆 לחצו Install על התוסף של Anthropic</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="step-row"><span class="step-badge">1</span><span>פתחו VS Code</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>לחצו על סמל ה-Extensions (4 ריבועים בצד שמאל)</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>חפשו <span class="hl-gold">"Claude Code"</span> בתיבת החיפוש</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>לחצו Install על התוסף של Anthropic</span></div>
+  </div>
+  <div class="info-box">לאחר ההתקנה תראו סמל Claude בסרגל הצד! 🤖</div>
+</section>
+
+<!-- SLIDE 27 — Windows: First Login -->
+<section>
+  <h2>✅ Windows — שלב 4: התחברות ראשונה</h2>
+  <span class="win-badge" style="margin-bottom:12px;display:inline-block;">🪟 Windows</span>
+  <div style="margin-bottom:14px;">
+    <div class="step-row"><span class="step-badge">1</span><span>ב-VS Code לחצו על סמל Claude בסרגל הצד</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>לחצו <span class="hl-gold">"Connect with Claude.ai"</span></span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>תועברו לדפדפן לאשר את ההתחברות (היכנסו לחשבון שלכם)</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>חזרו ל-VS Code — Claude Code מוכן לעבודה!</span></div>
+  </div>
+  <div class="card-green" style="text-align:center;padding:16px;">
+    🎉 מזל טוב! Claude Code מותקן ב-Windows שלכם
+  </div>
+  <div class="cmd">claude --version    <span style="color:#6a9955;"># בטרמינל של VS Code לבדיקה</span></div>
+</section>
+
+<!-- SLIDE 28 — Section: Mac -->
+<section class="sec-title bg-green">
+  <h1>Mac — הדרך הקלה יותר</h1>
+  <p style="color:#aaa;font-size:0.9em;margin-top:.5em;">Apple made it easier 🍎</p>
+</section>
+
+<!-- SLIDE 29 — Mac: Claude Desktop -->
+<section>
+  <h2>🍎 Mac — שלב 1: Claude Desktop</h2>
+  <span class="mac-badge" style="margin-bottom:10px;display:inline-block;">🍎 Mac</span>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">claude.ai/download</span>
+    </div>
+    <div class="mock-body" style="text-align:center;padding:16px;">
+      <div style="font-size:0.7em;color:#888;margin-bottom:6px;">🖥 Mac &nbsp;|&nbsp; 🪟 Windows</div>
+      <div style="font-size:0.75em;color:#aaa;margin-bottom:10px;">Claude Desktop for Mac</div>
+      <div style="background:#555;color:#fff;font-weight:700;font-size:0.75em;padding:8px 20px;border-radius:6px;display:inline-block;">⬇ Download for Mac (.dmg)</div>
+      <div style="font-size:0.55em;color:#666;margin-top:6px;">Claude.dmg — 85 MB</div>
+    </div>
+  </div>
+  <div style="margin-top:8px;">
+    <div class="step-row"><span class="step-badge">1</span><span>כנסו ל-claude.ai/download</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>הורידו את Claude Desktop למק</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>פתחו את ה-.dmg וגררו לתיקיית Applications</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>פתחו Claude Desktop והתחברו עם חשבון Claude</span></div>
+  </div>
+  <div class="tip-box">💡 Claude Desktop ב-Mac = Claude Code + Claude Chat + MCP servers. הכל ביחד!</div>
+  <div class="info-box">ב-Mac האפליקציה כוללת Terminal integration מובנה 🖥</div>
+</section>
+
+<!-- SLIDE 30 — Mac: VS Code + Extension -->
+<section>
+  <h2>💻 Mac — שלב 2: VS Code + Extension</h2>
+  <span class="mac-badge" style="margin-bottom:10px;display:inline-block;">🍎 Mac</span>
+  <div style="margin-bottom:12px;">
+    <div class="step-row"><span class="step-badge">1</span><span>כנסו ל-code.visualstudio.com והורידו למק</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>פתחו את ה-.dmg וגררו לתיקיית Applications</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>פתחו VS Code</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>Extensions panel — חפשו <span class="hl-gold">"Claude Code"</span> — Install</span></div>
+    <div class="step-row"><span class="step-badge">5</span><span>התחברו עם חשבון Claude שלכם</span></div>
+  </div>
+  <div class="card-green" style="text-align:center;margin-bottom:12px;">
+    🎉 מזל טוב! ב-Mac סיימתם!
+  </div>
+  <div class="two-col">
+    <div class="card-blue">
+      <div style="font-weight:700;color:var(--blue);margin-bottom:6px;">💻 VS Code</div>
+      <div style="font-size:0.75em;color:#ddd;">לכתיבת קוד עם Claude Code — עורך מלא עם כל ה-features</div>
+    </div>
+    <div class="card-gold">
+      <div style="font-weight:700;color:var(--gold);margin-bottom:6px;">🤖 Claude Desktop</div>
+      <div style="font-size:0.75em;color:#ddd;">לשיחות, MCP servers, Terminal — הכל ביחד</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 31 — Section: פרק ו׳ Claude Code -->
+<section class="sec-title bg-gold">
+  <div class="sec-num">פרק ו׳</div>
+  <h1>Claude Code — הכלי האולטימטיבי</h1>
+  <p style="color:#aaa;font-size:0.9em;margin-top:.5em;">כשאתה הבוס והוא המפתח</p>
+</section>
+
+<!-- SLIDE 32 — What is Claude Code -->
+<section>
+  <h2>🛠️ מאי Claude Code?</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    Claude Code הוא AI שעובד ישירות בתוך הקוד שלך. הוא לא רק עונה — הוא גם כותב, מתקן, מנהל ומסביר. כולו לבנות — וכולו לשמור
+  </div>
+  <div class="three-col" style="margin-top:16px;">
+    <div class="card-blue">
+      <div style="font-size:1.3em;margin-bottom:8px;">🔌</div>
+      <div style="font-weight:700;color:var(--blue);margin-bottom:6px;">VS Code Extension</div>
+      <div style="font-size:0.72em;color:#ddd;">Claude בתוך עורך הקוד — רואה את הקבצים שלך, עובד בצד</div>
+    </div>
+    <div class="card-gold">
+      <div style="font-size:1.3em;margin-bottom:8px;">⌨️</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:6px;">Terminal / CLI</div>
+      <div class="cmd" style="font-size:0.75em;padding:4px 8px;margin-top:4px;">claude</div>
+      <div style="font-size:0.68em;color:#ddd;margin-top:4px;">בטרמינל, גישה מלאה לפרויקט</div>
+    </div>
+    <div class="card-orange">
+      <div style="font-size:1.3em;margin-bottom:8px;">🤖</div>
+      <div style="font-weight:700;color:var(--orange);margin-bottom:6px;">Agentic Mode</div>
+      <div style="font-size:0.72em;color:#ddd;">Claude עובד לבד — שואל כשצריך, ממשיך בלי עצירות</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 33 — Opening a project -->
+<section>
+  <h2>📁 פתיחת פרויקט — שלב ראשון</h2>
+  <div style="margin-bottom:12px;">
+    <div class="step-row"><span class="step-badge">1</span><span>פתחו VS Code</span></div>
+    <div class="step-row"><span class="step-badge">2</span><span>File → Open Folder → בחרו תיקיית הפרויקט שלכם</span></div>
+    <div class="step-row"><span class="step-badge">3</span><span>לחצו על סמל Claude בסרגל הצד</span></div>
+    <div class="step-row"><span class="step-badge">4</span><span>התחילו לשוחח עם Claude על הפרויקט! 💬</span></div>
+  </div>
+  <div class="cmd"># בטרמינל (CLI):
+cd /path/to/your/project
+claude</div>
+  <div class="tip-box">💡 פתחו <span class="hl-gold">תמיד</span> מתיקיית הפרויקט! Claude יראה את כל הקבצים וההקשר המלא</div>
+</section>
+
+<!-- SLIDE 34 — CLAUDE.md -->
+<section>
+  <h2>📜 CLAUDE.md — ספר הזיכרון</h2>
+  <div class="talmud-box">
+    <span class="talmud-tag">משנה</span>
+    כמו תפילין — שמים כל בוקר. CLAUDE.md נטען בכל שיחה וזה הזיכרון הקבוע של Claude עם הפרויקט שלך
+  </div>
+  <div class="two-col" style="margin-top:12px;">
+    <div class="card">
+      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📋 מה לשים ב-CLAUDE.md</div>
+      <ul style="font-size:0.75em;">
+        <li>פקודות build/test של הפרויקט</li>
+        <li>סגנון קוד (TypeScript? Hooks?)</li>
+        <li>כללים חשובים (קבצים שלא לגעת בהם)</li>
+        <li>הקשר כללי על הפרויקט</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📄 דוגמה:</div>
+      <div class="cmd" style="font-size:0.68em;"># My Project
+## Build
+npm run build
+## Style
+- TypeScript always
+- Hooks over Classes
+## Important
+- Never touch /legacy</div>
+    </div>
+  </div>
+  <div class="tip-box">💡 הקלידו <span class="hl-gold">/init</span> ב-Claude Code — יצור CLAUDE.md אוטומטי!</div>
+</section>
+
+<!-- SLIDE 35 — Permission Modes -->
+<section>
+  <h2>🔐 מצבי הרשאות — כמה כוח לתת לו</h2>
+  <div class="three-col" style="margin-top:14px;">
+    <div class="card">
+      <div style="font-size:1.2em;margin-bottom:6px;">🛡️</div>
+      <div style="font-weight:700;color:var(--white);margin-bottom:4px;">Normal Mode</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">ברירת מחדל</div>
+      <div style="font-size:0.72em;color:#ddd;">Claude שואל לפני <strong>כל</strong> פעולה</div>
+      <div style="font-size:0.65em;color:#aaa;margin-top:6px;font-style:italic;">"האם אני יכול לשנות auth.js?"</div>
+      <div style="margin-top:8px;font-size:0.65em;color:var(--green);">✅ בטוח ביותר</div>
+    </div>
+    <div class="card-orange">
+      <div style="font-size:1.2em;margin-bottom:6px;">⚡</div>
+      <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">Auto-Accept</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">מהיר</div>
+      <div style="font-size:0.72em;color:#ddd;">Claude עושה הכל לבד, לא שואל אישור</div>
+      <div style="margin-top:8px;font-size:0.65em;color:var(--orange);">⚡ מהיר מאוד</div>
+    </div>
+    <div class="card-red">
+      <div style="font-size:1.2em;margin-bottom:6px;">👁️</div>
+      <div style="font-weight:700;color:var(--red);margin-bottom:4px;">Plan Mode</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">קריאה בלבד</div>
+      <div style="font-size:0.72em;color:#ddd;">רק קורא, לא כותב. תכנון בלבד</div>
+      <div style="margin-top:8px;font-size:0.65em;color:var(--blue);">🔵 הכי בטוח</div>
+    </div>
+  </div>
+  <div class="info-box" style="margin-top:12px;">⌨️ להחליף בין מצבים: <span class="hl-gold">Shift + Tab</span></div>
+  <div class="warn-box">⚠️ Auto-Accept: שימוש בזהירות! Claude יכול לשנות קבצים חשובים ללא אישור</div>
+</section>
+
+<!-- SLIDE 36 — Key Claude Code commands -->
+<section>
+  <h2>⌨️ פקודות חשובות ב-Claude Code</h2>
+  <div class="two-col">
+    <div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📋 Slash Commands</div>
+      <table>
+        <thead><tr><th>פקודה</th><th>מה עושה</th></tr></thead>
+        <tbody>
+          <tr><td><span class="hl-gold">/help</span></td><td>עזרה כללית</td></tr>
+          <tr><td><span class="hl-blue">/clear</span></td><td>ניקוי השיחה</td></tr>
+          <tr><td><span class="hl-green">/cost</span></td><td>בדיקת עלות שימוש</td></tr>
+          <tr><td><span class="hl-orange">/init</span></td><td>יצירת CLAUDE.md</td></tr>
+          <tr><td><span class="hl-gold">/plan</span></td><td>מצב תכנון בלבד</td></tr>
+          <tr><td>/memory</td><td>ניהול זיכרון</td></tr>
+          <tr><td>/todos</td><td>רשימת משימות</td></tr>
+          <tr><td>/model</td><td>החלפת מודל</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">💻 CLI — בטרמינל</div>
+      <div class="cmd">claude           <span style="color:#6a9955;"># שיחה חדשה</span>
+claude -c        <span style="color:#6a9955;"># המשך שיחה אחרונה</span>
+claude -r        <span style="color:#6a9955;"># בחר מהיסטוריה</span>
+claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה</span></div>
+      <div class="info-box" style="margin-top:10px;font-size:0.8em;">
+        <span class="hl-gold">-p</span> = non-interactive mode. מעולה לסקריפטים ואוטומציה!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 37 — Tips for effective work -->
+<section>
+  <h2>💡 טיפים לעבודה אפקטיבית</h2>
+  <div class="three-col" style="margin-bottom:14px;">
+    <div class="tip-box">
+      <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🎯 היה ספציפי</div>
+      <div style="font-size:0.7em;color:#ddd;margin-bottom:6px;">
+        ✅ "תקן את הבאג בauth.js שגורם ל-500 error כשסיסמה שגויה"
+      </div>
+      <div style="font-size:0.65em;color:#888;">❌ "תקן בעיה"</div>
+    </div>
+    <div class="info-box">
+      <div style="font-weight:700;color:var(--blue);margin-bottom:6px;">📎 השתמש ב-@</div>
+      <div class="cmd" style="font-size:0.72em;">@src/auth.js</div>
+      <div style="font-size:0.7em;color:#ddd;margin-top:6px;">כדי להפנות לקובץ ספציפי בשיחה</div>
+    </div>
+    <div class="tip-box">
+      <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🧹 נהל הקשר</div>
+      <div style="font-size:0.7em;color:#ddd;"><span class="hl-gold">/context</span> — לראות כמה זיכרון נשאר</div>
+      <div style="font-size:0.7em;color:#ddd;margin-top:4px;"><span class="hl-gold">/clear</span> — בין משימות שונות</div>
+    </div>
+  </div>
+  <div class="card-gold" style="margin-bottom:8px;">
+    <span style="font-size:0.8em;">🖼️ <span class="hl-gold">Ctrl+V</span> בטרמינל — הדבק צילום מסך ישירות לשיחה עם Claude!</span>
+  </div>
+  <div class="card">
+    <span style="font-size:0.8em;">🔄 <span class="hl-gold">Shift+Tab</span> — לשנות מצב הרשאות בזמן שיחה</span>
+  </div>
+</section>
+
+<!-- SLIDE 38 — Practical example -->
+<section>
+  <h2>🎬 Claude Code בפעולה — דוגמה</h2>
+  <div class="talmud-box" style="margin-bottom:10px;">
+    <span class="talmud-tag">כגון</span>
+    נניח שיש לנו אתר ו-button לא עובד. מה עושים? פותחים Claude Code ומדברים אליו!
+  </div>
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">VS Code — Claude Chat</span>
+    </div>
+    <div class="mock-body" style="padding:10px;">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+        <div style="background:rgba(212,175,55,0.15);border:1px solid var(--gold);border-radius:10px 10px 0 10px;padding:8px 12px;max-width:75%;font-size:0.65em;color:#ddd;text-align:right;">
+          הbutton ה-Submit בform לא עובד — לוחצים ולא קורה כלום 🤷
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-start;margin-bottom:8px;">
+        <div style="background:rgba(74,158,255,0.1);border:1px solid var(--blue);border-radius:10px 10px 10px 0;padding:8px 12px;max-width:80%;font-size:0.65em;color:#ddd;text-align:right;">
+          🤖 אני רואה את הבעיה ב-<span class="hl-gold">src/components/Form.jsx</span> שורה 47 — חסר <span class="hl-orange">event.preventDefault()</span>. אני מתקן...
+        </div>
+      </div>
+      <div style="background:#1a1a1a;border:1px solid var(--green);border-radius:6px;padding:6px 10px;font-size:0.6em;color:var(--green);direction:ltr;text-align:left;">
+        ✏️ Modified: src/components/Form.jsx (+1 line, -0 lines)
+      </div>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:8px;">💡 Claude רואה את הקבצים שלך ישירות! לא צריך להדביק קוד — הוא כבר יודע</div>
+</section>
+
+<!-- END SLIDES PART 2 -->
+<!-- SLIDES PART 3 -->
+
+<!-- SLIDE 39 — Section Separator: עולם הסוכנים -->
+<section class="sec-title bg-purple">
+  <div class="sec-num">פרק ז׳</div>
+  <h1>עולם הסוכנים</h1>
+  <p style="color:#b088f0;font-size:1em;margin-top:.5em;">כשה-AI מנהל צוות של AI</p>
+</section>
+
+<!-- SLIDE 40 — What is an Agent -->
+<section>
+  <h2>🤖 מאי Agent? — מה זה סוכן?</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    <strong class="hl-gold">Agent</strong> = AI שיכול לפעול באוטונומיה. הוא לא רק עונה — הוא תוקף, בודק, מתקן ומסכם
+  </div>
+
+  <div class="mashal-box">
+    <strong class="hl-purple">משל:</strong> כמו מנהל פרויקט שנותנים לו משימה — הוא מחלק לסוכנים, עוקב, מאסף תוצאות ומגיש דוח מסכם
+  </div>
+
+  <div class="nmshal-box">
+    <strong class="hl-gold">ונמשל:</strong> Claude Code Agent = אתה נותן לו משימה גדולה. הוא שואל בהתחלה, עובד לבד, מדווח בסוף
+  </div>
+
+  <div class="three-col" style="margin-top:18px;">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:2em;">👤</div>
+      <h3>Human</h3>
+      <p>נותן המשימה</p>
+    </div>
+    <div class="card-gold" style="text-align:center;">
+      <div style="font-size:2em;">🤖</div>
+      <h3>Main Agent</h3>
+      <p>המתכנן</p>
+    </div>
+    <div class="card-blue" style="text-align:center;">
+      <div style="font-size:2em;">🔧🔧🔧</div>
+      <h3>Sub-Agents</h3>
+      <p>העובדים בשטח</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 41 — Sub-Agents -->
+<section>
+  <h2>🔀 Sub-Agents — צוות של סוכנים</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">גמרא</span>
+    כמו ישיבה גדולה — הרב הראשי <span class="hl-gold">(Main Agent)</span> מחלק שאלות לתלמידים <span class="hl-blue">(Sub-Agents)</span>. כל אחד חוקר פרק אחר ומביא תשובה
+  </div>
+
+  <div class="two-col" style="margin:14px 0;">
+    <div class="card">
+      <h3 class="hl-gold">Main Agent</h3>
+      <ul>
+        <li>מקבל המשימה הגדולה</li>
+        <li>מתכנן ומחלק לסוכנים</li>
+        <li>מאסף תוצאות</li>
+        <li>מגיש דוח סופי</li>
+      </ul>
+    </div>
+    <div class="card-blue">
+      <h3 class="hl-blue">Sub-Agents</h3>
+      <ul>
+        <li>כל אחד מתמחה בתחום</li>
+        <li>עובדים במקביל</li>
+        <li>מדווחים ל-Main Agent</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cmd">
+# Main Agent prompt:
+"Build a full e-commerce website with
+ product catalog, cart, and checkout"
+
+# Claude launches sub-agents:
+→ Sub-Agent 1: Build product catalog
+→ Sub-Agent 2: Build shopping cart
+→ Sub-Agent 3: Build checkout flow
+  </div>
+
+  <div class="tip-box">
+    💡 <strong>עבודה מקבילה = מהיר פי כמה!</strong> כל Sub-Agent עובד בו-זמנית על חלק אחר
+  </div>
+</section>
+
+<!-- SLIDE 42 — Skills -->
+<section>
+  <h2>🎯 Skills — מיומנויות מתוכנתות</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">מאי Skill?</span>
+    סקריפטים מיוחדים שמלמדים את Claude לעשות דברים ספציפיים באופן קבוע — כמו מתכון שכתוב מראש
+  </div>
+
+  <div class="two-col" style="margin:14px 0;">
+    <div class="card">
+      <h3 class="hl-gold">מה זה Skill</h3>
+      <ul>
+        <li>קובץ <span class="hl-blue">SKILL.md</span> בתיקייה מיוחדת</li>
+        <li>מגדיר: "כשמשתמש מבקש X, עשה Y"</li>
+        <li>כמו מתכון — Claude ממלא לפי ההוראות</li>
+        <li>ניתן לשתף ולשכפל בין פרויקטים</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">דוגמאות Skills</h3>
+      <ul>
+        <li><span class="hl-blue">/commit</span> — יצירת git commit חכם</li>
+        <li><span class="hl-blue">/review-pr</span> — בדיקת pull request</li>
+        <li><span class="hl-blue">/deploy</span> — פריסה לשרת</li>
+        <li><span class="hl-blue">/test</span> — הרצת בדיקות אוטומטיות</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cmd">
+# בתוך Claude Code:
+/commit    # Claude כותב commit message חכם
+/deploy    # Claude פורס לשרת אוטומטית
+  </div>
+</section>
+
+<!-- SLIDE 43 — MCP Servers -->
+<section>
+  <h2>🔌 MCP — Model Context Protocol</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">מאי MCP?</span>
+    פרוטוקול שמאפשר ל-Claude להתחבר לכלים חיצוניים. כמו <span class="hl-gold">תקע חשמלי סטנדרטי</span> — כל כלי יכול להתחבר
+  </div>
+
+  <div class="three-col" style="margin:14px 0;">
+    <div class="card-blue">
+      <h3 class="hl-blue">מה זה</h3>
+      <p>פרוטוקול פתוח של Anthropic לחיבור AI לכלים חיצוניים</p>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">דוגמאות</h3>
+      <ul style="font-size:0.8em;">
+        <li>GitHub</li>
+        <li>Slack</li>
+        <li>Notion</li>
+        <li>Google Drive</li>
+        <li>Figma</li>
+        <li>Databases</li>
+      </ul>
+    </div>
+    <div class="card-green">
+      <h3 class="hl-green">אפשרויות</h3>
+      <p>Claude יכול לקרוא ולכתוב ישירות לכלים האלה ממשק אחד</p>
+    </div>
+  </div>
+
+  <div class="mock-browser">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url">Claude Desktop — Settings → MCP Servers</span>
+    </div>
+    <div class="mock-body" style="font-size:0.72em;">
+      <p style="color:#888;margin-bottom:8px;">כלים מחוברים:</p>
+      <p>🟢 <span class="hl-green">GitHub</span> — מחובר ✅ &nbsp;&nbsp;
+         🟢 <span class="hl-green">Slack</span> — מחובר ✅ &nbsp;&nbsp;
+         🟢 <span class="hl-green">Notion</span> — מחובר ✅</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    💡 <strong>Claude Desktop</strong> ב-Mac = הדרך הכי קלה לנהל MCP Servers!
+  </div>
+</section>
+
+<!-- SLIDE 44 — GitHub basics -->
+<section>
+  <h2>📦 GitHub — הגניזה הקהירית של הקוד</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">מאי GitHub?</span>
+    כמו <span class="hl-gold">הגניזה הקהירית</span> — שומר כל גרסה שאי פעם כתבת. לא מאבדים כלום לעולם
+  </div>
+
+  <div class="two-col" style="margin:12px 0;">
+    <div class="card">
+      <h3 class="hl-gold">מושגי בסיס</h3>
+      <ul>
+        <li><span class="hl-blue">Repository (Repo)</span> = תיקיית פרויקט</li>
+        <li><span class="hl-blue">Commit</span> = שמירת גרסה</li>
+        <li><span class="hl-blue">Branch</span> = ענף פיתוח נפרד</li>
+        <li><span class="hl-blue">Pull Request</span> = בקשת מיזוג</li>
+        <li><span class="hl-blue">Push / Pull</span> = שליחה / קבלה</li>
+      </ul>
+    </div>
+    <div class="card-blue">
+      <h3 class="hl-blue">Claude Code + GitHub = זוג מנצח</h3>
+      <ul>
+        <li>מנהל commits אוטומטי</li>
+        <li>כותב commit messages חכמים</li>
+        <li>בודק pull requests</li>
+        <li>עוקב אחר שינויים</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cmd">
+git init          # התחל repo חדש
+git add .         # הוסף שינויים לתור
+git commit -m ""  # שמור גרסה
+git push          # שלח ל-GitHub
+  </div>
+</section>
+
+<!-- SLIDE 45 — Security: What to watch out for -->
+<section>
+  <h2>🔒 אבטחה — ממה להיזהר?</h2>
+
+  <div class="warn-box">
+    ⚠️ <strong>CRITICAL:</strong> Claude Code מריץ פקודות על המחשב שלך! יש להבין מה אתה מאשר לפני כל פעולה
+  </div>
+
+  <div class="three-col" style="margin:16px 0;">
+    <div class="card-red">
+      <h3 style="color:#ff4d4f;">⚠️ Auto-Accept Mode</h3>
+      <p>Claude יכול למחוק קבצים, לשנות הגדרות. השתמש בזהירות רבה!</p>
+    </div>
+    <div class="card-orange">
+      <h3 style="color:#FF7A3D;">⚠️ Prompt Injection</h3>
+      <p>קבצים זדוניים יכולים "להכניס הוראות" ל-Claude. בדקו מה Claude עושה לפני אישור</p>
+    </div>
+    <div class="card-red">
+      <h3 style="color:#ff4d4f;">⚠️ API Keys בקוד</h3>
+      <p>NEVER save API keys in code! השתמש תמיד בקבצי <span class="hl-orange">.env</span></p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    🛡️ <strong>הכלל הזהב:</strong> תמיד תקרא מה Claude עומד לעשות לפני שאתה לוחץ <span class="hl-green">Approve</span>
+  </div>
+</section>
+
+<!-- SLIDE 46 — Security best practices -->
+<section>
+  <h2>✅ כללי זהב לאבטחה</h2>
+
+  <div class="step-row">
+    <span class="step-badge">1</span>
+    <p>עבוד ב-<span class="hl-gold">Normal Mode</span> בדרך כלל — Claude שואל לפני כל פעולה</p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">2</span>
+    <p>השתמש ב-<span class="hl-purple">Plan Mode</span> להבנת המהלך לפני ביצוע</p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">3</span>
+    <p>אל תשמור סיסמאות ו-API Keys ישירות בקוד</p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">4</span>
+    <p>הוסף <span class="hl-blue">.env</span> ל-<span class="hl-blue">.gitignore</span> כדי שלא יעלה ל-GitHub</p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">5</span>
+    <p>גיבויים! Git commit לפני כל שינוי גדול</p>
+  </div>
+
+  <div class="cmd">
+# .gitignore — הוסף שורות אלו:
+.env
+.env.local
+*.key
+secrets/
+  </div>
+
+  <div class="info-box">
+    ℹ️ Claude Code לא ישלח את הסיסמאות שלך לשום מקום — אבל זהירות עדיין חשובה ותמיד שווה
+  </div>
+</section>
+
+<!-- SLIDE 47 — Section Separator: Claude Code בטרמינל -->
+<section class="sec-title bg-blue">
+  <div class="sec-num">פרק ח׳</div>
+  <h1>Claude Code בטרמינל</h1>
+  <p style="color:#6ab8ff;font-size:1em;margin-top:.5em;">הכוח המלא בשורת הפקודה</p>
+</section>
+
+<!-- SLIDE 48 — Claude Code CLI Intro -->
+<section>
+  <h2>💻 Claude Code בטרמינל</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">שתי דרכים</span>
+    יש לנו שתי דרכים לדבר עם Claude Code:
+    <strong class="hl-blue">1)</strong> בתוך VS Code — ממשק גרפי
+    &nbsp;&nbsp;
+    <strong class="hl-gold">2)</strong> בטרמינל — שורת הפקודה
+  </div>
+
+  <div class="two-col" style="margin:16px 0;">
+    <div class="card-blue">
+      <h3 class="hl-blue">VS Code Extension</h3>
+      <ul>
+        <li>ממשק גרפי מלא</li>
+        <li>לחצנים ותפריטים</li>
+        <li>פשוט יותר למתחילים</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">Terminal / CLI</h3>
+      <ul>
+        <li>שורת פקודה עוצמתית</li>
+        <li>יותר כוח ושליטה</li>
+        <li>Automation מלא אפשרי</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cmd">
+# פתיחה בסיסית בתיקיית פרויקט:
+cd /my-project
+claude
+
+# עם שאלה ישירה:
+claude "מה עושה הקובץ הזה?"
+
+# המשך שיחה קודמת:
+claude -c
+  </div>
+</section>
+
+<!-- SLIDE 49 — Terminal: Key commands -->
+<section>
+  <h2>⌨️ פקודות CLI החשובות</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>פקודה</th>
+        <th>מה עושה</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>claude</code></td><td>שיחה חדשה</td></tr>
+      <tr><td><code>claude -c</code></td><td>המשך שיחה אחרונה</td></tr>
+      <tr><td><code>claude -r</code></td><td>בחר שיחה מהיסטוריה</td></tr>
+      <tr><td><code>claude -p "שאלה"</code></td><td>שאל בלי מצב אינטראקטיבי</td></tr>
+      <tr><td><code>claude --model opus</code></td><td>שימוש במודל Opus</td></tr>
+      <tr><td><code>claude --version</code></td><td>הצג גרסה</td></tr>
+      <tr><td><code>/help</code></td><td>עזרה בתוך השיחה</td></tr>
+      <tr><td><code>/clear</code></td><td>נקה שיחה</td></tr>
+      <tr><td><code>/context</code></td><td>ראה זיכרון נוכחי</td></tr>
+      <tr><td><code>/cost</code></td><td>עלות שימוש עד עכשיו</td></tr>
+      <tr><td><code>/exit</code></td><td>צא מהשיחה</td></tr>
+      <tr><td><code>Shift+Tab</code></td><td>החלף בין רמות הרשאה</td></tr>
+      <tr><td><code>Ctrl+C</code></td><td>עצור פעולה מיידית</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SLIDE 50 — Terminal: Keyboard shortcuts -->
+<section>
+  <h2>⚡ קיצורי מקלדת — ניהול שיחות</h2>
+
+  <div class="two-col">
+    <div class="card">
+      <h3 class="hl-gold">ניהול כללי</h3>
+      <table>
+        <thead>
+          <tr><th>מקש</th><th>פעולה</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Ctrl+C</code></td><td>עצור פעולה</td></tr>
+          <tr><td><code>Ctrl+D</code></td><td>צא לגמרי</td></tr>
+          <tr><td><code>Ctrl+L</code></td><td>נקה מסך</td></tr>
+          <tr><td><code>Ctrl+U</code></td><td>מחק שורה</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-blue">
+      <h3 class="hl-blue">שורה חדשה בתוך ההודעה</h3>
+      <table>
+        <thead>
+          <tr><th>מקש</th><th>איפה</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Option+Enter</code></td><td>Mac (ברירת מחדל)</td></tr>
+          <tr><td><code>Shift+Enter</code></td><td>iTerm2, Ghostty</td></tr>
+          <tr><td><code>Ctrl+J</code></td><td>כל המערכות</td></tr>
+          <tr><td><code>Esc+Esc</code></td><td>Rewind — חזור אחורה</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:18px;">
+    💡 Claude Code עובד הכי טוב ב-Mac עם <span class="hl-gold">iTerm2</span> או <span class="hl-gold">Ghostty</span>
+  </div>
+</section>
+
+<!-- SLIDE 51 — Multiple sessions and parallel work -->
+<section>
+  <h2>🔀 כמה שיחות במקביל</h2>
+
+  <div class="talmud-box">
+    <span class="talmud-tag">גמרא</span>
+    כמו תלמידי ישיבה — כל אחד לומד ספר אחר, <span class="hl-gold">המחשבות לא מתערבבות</span>. כל שיחה = עולם משלה
+  </div>
+
+  <div class="step-row">
+    <span class="step-badge">1</span>
+    <p>פתחו טאב חדש בטרמינל:
+      <span class="hl-gold">Cmd+T</span> (Mac) /
+      <span class="hl-blue">Ctrl+Shift+T</span> (Windows)
+    </p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">2</span>
+    <p>עברו לתיקיית פרויקט אחרת: <code>cd /other-project</code></p>
+  </div>
+  <div class="step-row">
+    <span class="step-badge">3</span>
+    <p>פתחו Claude: <code>claude</code> — וקיבלתם שיחה עצמאית חדשה!</p>
+  </div>
+
+  <div class="info-box">
+    ℹ️ כל תיקייה = שיחה נפרדת עם הקשר משלה. CLAUDE.md שונה = אישיות שונה
+  </div>
+
+  <div class="cmd">
+# טרמינל 1 — פרויקט Frontend
+cd ~/projects/frontend && claude
+
+# טרמינל 2 — פרויקט Backend
+cd ~/projects/backend && claude
+  </div>
+</section>
+
+<!-- SLIDE 52 — Section Separator: סיכום ולאן ממשיכים -->
+<section class="sec-title bg-gold">
+  <div class="sec-num">פרק ט׳</div>
+  <h1>סיכום ולאן ממשיכים?</h1>
+  <p style="color:#D4AF37;font-size:1em;margin-top:.5em;">תם ולא נשלם — הדרך לפסגה</p>
+</section>
+
+<!-- SLIDE 53 — Summary of everything learned -->
+<section>
+  <h2>📋 מה למדנו היום</h2>
+
+  <div class="three-col" style="margin:18px 0;">
+    <div class="card-blue">
+      <h3 class="hl-blue">🧠 יסודות</h3>
+      <ul>
+        <li>AI = דפוסים ממיליארדי טקסטים</li>
+        <li>LLM = מודל שפה גדול</li>
+        <li>Tokens = יחידות עיבוד</li>
+        <li>Context Window = זיכרון עבודה</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">✨ Claude</h3>
+      <ul>
+        <li>Constitutional AI = ערכים מובנים</li>
+        <li>Claude.ai + Pro = כוח מלא</li>
+        <li>Artifacts = תוצרים חכמים</li>
+        <li>Projects = זיכרון קבוע</li>
+      </ul>
+    </div>
+    <div class="card-green">
+      <h3 class="hl-green">⚡ Claude Code</h3>
+      <ul>
+        <li>VS Code Extension + Terminal</li>
+        <li>CLAUDE.md = אישיות מותאמת</li>
+        <li>Agents + Skills + MCP</li>
+        <li>GitHub = גיבוי וניהול</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="big-quote">
+    "לא כל המחזיק בשם 'מפתח' הוא מפתח — אלא כל המשתמש ב-AI בחוכמה"
+  </div>
+</section>
+
+<!-- SLIDE 54 — Where to go from here -->
+<section>
+  <h2>🚀 לאן ממשיכים?</h2>
+
+  <div class="talmud-box" style="margin-bottom:16px;">
+    <span class="talmud-tag">גמרא תמה</span>
+    למדנו — עכשיו מיישמים! כל מסע של אלף מיל מתחיל בצעד אחד 🚶
+  </div>
+
+  <div class="three-col" style="margin-bottom:16px;">
+    <div class="card-blue">
+      <h3 class="hl-blue">צעד ראשון</h3>
+      <ul>
+        <li>פתחו Claude.ai</li>
+        <li>הצטרפו ל-Pro</li>
+        <li>שחקו עם Artifacts</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">צעד שני</h3>
+      <ul>
+        <li>התקינו Claude Code</li>
+        <li>בנו פרויקט ראשון</li>
+        <li>צרו CLAUDE.md</li>
+      </ul>
+    </div>
+    <div class="card-green">
+      <h3 class="hl-green">צעד שלישי</h3>
+      <ul>
+        <li>למדו Agents</li>
+        <li>בנו Skill ראשון</li>
+        <li>חברו GitHub</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-gold" style="text-align:center;padding:20px;">
+    <div style="font-size:3em;">🌟</div>
+    <h3>קהילת ExplAIn</h3>
+    <p>לומדים ביחד, גדלים ביחד</p>
+    <p class="hl-gold">בינה מלאכותית בגובה האוזניים</p>
+    <p style="color:#888;font-size:0.7em;">דביר ביטון | ExplAIn</p>
+  </div>
+</section>
+
+<!-- END SLIDES PART 3 -->
+</div><!-- /slides -->
+</div><!-- /reveal -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+Reveal.initialize({
+  hash:true, rtl:true, progress:true, controls:true,
+  transition:'fade', backgroundTransition:'fade',
+  slideNumber:'c/t', center:false,
+  plugins:[RevealNotes],
+  keyboard:{
+    39:function(){Reveal.next();},
+    37:function(){Reveal.prev();}
+  }
+});
+</script>
+</body>
+</html>
