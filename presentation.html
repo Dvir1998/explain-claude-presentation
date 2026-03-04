@@ -9,113 +9,744 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
 <style>
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════ */
 :root {
-  --bg:#050505; --bg2:#0d0d0d; --bg3:#141414; --bg4:#1a1a1a;
-  --gold:#D4AF37; --gold-l:#E8C547; --gold-d:rgba(212,175,55,0.15);
-  --white:#fff; --gray:#888; --gray-d:#2a2a2a;
-  --blue:#4A9EFF; --orange:#FF7A3D; --green:#52c41a;
-  --purple:#9C6FE4; --red:#ff4d4f;
+  --bg:#060608; --bg2:#0e0e12; --bg3:#141418; --bg4:#1c1c22;
+  --gold:#D4AF37; --gold-l:#F0C84A; --gold-d:rgba(212,175,55,0.12);
+  --gold-glow:rgba(212,175,55,0.35);
+  --white:#f0f0f0; --gray:#666; --gray-d:#252530;
+  --blue:#4A9EFF; --blue-d:rgba(74,158,255,0.12);
+  --orange:#FF7A3D; --orange-d:rgba(255,122,61,0.12);
+  --green:#4ADE80; --green-d:rgba(74,222,128,0.12);
+  --purple:#A78BFA; --purple-d:rgba(167,139,250,0.12);
+  --red:#F87171; --red-d:rgba(248,113,113,0.12);
+  --glass:rgba(255,255,255,0.03);
+  --glass-border:rgba(255,255,255,0.07);
+  --radius:14px;
 }
-</style>
 
-.reveal { font-family:'Heebo',sans-serif !important; direction:rtl; text-align:right; }
+/* ═══════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+═══════════════════════════════════════════════ */
+@keyframes gold-pulse {
+  0%,100% { box-shadow:0 0 0 0 rgba(212,175,55,0); }
+  50%      { box-shadow:0 0 30px 4px rgba(212,175,55,0.25); }
+}
+@keyframes orb-float {
+  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
+  50%      { transform:translate(-50%,-52%) scale(1.08); opacity:0.8; }
+}
+@keyframes slide-in-right {
+  from { opacity:0; transform:translateX(30px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes spin-slow {
+  from { transform:translate(-50%,-50%) rotate(0deg); }
+  to   { transform:translate(-50%,-50%) rotate(360deg); }
+}
+@keyframes shimmer {
+  0%   { background-position:200% center; }
+  100% { background-position:-200% center; }
+}
+
+/* ═══════════════════════════════════════════════
+   BASE & REVEAL OVERRIDES
+═══════════════════════════════════════════════ */
+html,body { background:var(--bg) !important; }
+
+.reveal {
+  font-family:'Heebo',sans-serif !important;
+  direction:rtl;
+  text-align:right;
+}
 .reveal .slides { text-align:right; }
-.reveal h1,.reveal h2,.reveal h3 { font-family:'Heebo',sans-serif !important; }
-.reveal .slides section { background:var(--bg); color:var(--white); }
-/* Typography */
-.reveal h1 { font-size:2.4em; font-weight:900; color:var(--gold); line-height:1.1; }
-.reveal h2 { font-size:1.7em; font-weight:800; color:var(--gold); margin-bottom:.5em; }
-.reveal h3 { font-size:1.2em; font-weight:700; color:var(--gold-l); }
-.reveal p,.reveal li { font-size:0.85em; line-height:1.7; color:#ddd; }
-.reveal ul,.reveal ol { margin-right:1em; }
+.reveal h1,.reveal h2,.reveal h3 {
+  font-family:'Heebo',sans-serif !important;
+}
+
+/* Dot-grid background on all slides */
+.reveal .slides section {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0)
+    0 0 / 32px 32px,
+    var(--bg);
+  color:var(--white);
+  padding: 18px 36px;
+  box-sizing:border-box;
+  height: 720px;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════════ */
+.reveal h1 {
+  font-size:2.1em;
+  font-weight:900;
+  line-height:1.1;
+  margin-bottom:0.3em;
+  background:linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 50%, #b8902a 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.reveal h2 {
+  font-size:1.45em;
+  font-weight:800;
+  margin-bottom:.4em;
+  background:linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.reveal h3 { font-size:1.05em; font-weight:700; color:var(--gold-l); }
+.reveal p,.reveal li { font-size:0.78em; line-height:1.6; color:#c8c8d0; }
+.reveal ul,.reveal ol { margin-right:1em; margin-top:0.2em; }
+.reveal ul li { margin:2px 0; }
 .reveal ul li::marker { color:var(--gold); }
-/* Section Separator Slides */
-.sec-title { display:flex !important; flex-direction:column; align-items:center; justify-content:center; }
-.sec-title h1 { font-size:3em !important; text-shadow:0 0 40px rgba(212,175,55,0.5); }
-.sec-title .sec-num { font-size:0.7em; color:var(--gray); letter-spacing:4px; margin-bottom:.3em; }
-/* Cards */
-.card { background:var(--bg2); border:1px solid var(--gray-d); border-radius:12px; padding:20px 25px; margin:10px 0; }
-.card-gold { background:var(--gold-d); border:1px solid var(--gold); border-radius:12px; padding:18px 22px; margin:8px 0; }
-.card-blue { background:rgba(74,158,255,0.1); border:1px solid var(--blue); border-radius:12px; padding:18px 22px; margin:8px 0; }
-.card-orange { background:rgba(255,122,61,0.12); border:1px solid var(--orange); border-radius:12px; padding:18px 22px; margin:8px 0; }
-.card-green { background:rgba(82,196,26,0.12); border:1px solid var(--green); border-radius:12px; padding:18px 22px; margin:8px 0; }
-.card-red { background:rgba(255,77,79,0.12); border:1px solid var(--red); border-radius:12px; padding:18px 22px; margin:8px 0; }
-/* Two columns */
-.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; text-align:right; }
-.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; text-align:right; }
 
-/* Talmud / Chazal styled boxes */
-.talmud-box { background:linear-gradient(135deg,rgba(212,175,55,0.08),transparent); border:2px solid var(--gold); border-radius:10px; padding:18px 22px; font-style:italic; position:relative; margin:12px 0; }
-.talmud-box::before { content:'📜'; position:absolute; top:-12px; right:15px; font-size:1.3em; background:var(--bg); padding:0 6px; }
-.talmud-tag { font-size:0.7em; color:var(--gold); font-weight:700; letter-spacing:1px; font-style:normal; display:block; margin-bottom:6px; }
-.mashal-box { background:rgba(156,111,228,0.12); border:1px solid var(--purple); border-radius:10px; padding:16px 20px; margin:10px 0; border-right:4px solid var(--purple); }
-.nmshal-box { background:rgba(212,175,55,0.08); border:1px solid var(--gold-l); border-radius:10px; padding:16px 20px; margin:10px 0; border-right:4px solid var(--gold-l); }
-/* Tips, Warnings */
-.tip-box { background:rgba(82,196,26,0.1); border-right:4px solid var(--green); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
-.warn-box { background:rgba(255,77,79,0.1); border-right:4px solid var(--red); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
-.info-box { background:rgba(74,158,255,0.1); border-right:4px solid var(--blue); padding:14px 18px; margin:10px 0; border-radius:0 10px 10px 0; }
-/* Browser Mockup */
-.mock-browser { background:#1e1e1e; border-radius:10px; overflow:hidden; border:1px solid #333; margin:8px 0; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
-.mock-titlebar { background:#2a2a2a; padding:8px 14px; display:flex; align-items:center; gap:8px; }
-.dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
-.dot-r { background:#ff5f57; }
-.dot-y { background:#ffbd2e; }
-.dot-g { background:#28c840; }
-.mock-url { background:#3a3a3a; color:#888; font-size:0.55em; padding:3px 10px; border-radius:20px; margin-right:10px; flex:1; font-family:monospace; direction:ltr; text-align:center; }
-.mock-body { padding:15px; direction:rtl; text-align:right; }
+/* ═══════════════════════════════════════════════
+   SECTION SEPARATOR SLIDES
+═══════════════════════════════════════════════ */
+.sec-title {
+  display:flex !important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+/* Animated orb behind section titles */
+.sec-title::before {
+  content:'';
+  position:absolute;
+  width:500px; height:500px;
+  border-radius:50%;
+  top:50%; left:50%;
+  animation:orb-float 6s ease-in-out infinite;
+  pointer-events:none;
+  z-index:0;
+  filter:blur(80px);
+}
+/* Spinning ring */
+.sec-title::after {
+  content:'';
+  position:absolute;
+  width:320px; height:320px;
+  border-radius:50%;
+  border:1px solid rgba(212,175,55,0.15);
+  top:50%; left:50%;
+  animation:spin-slow 25s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+.sec-title > * { position:relative; z-index:1; }
 
-/* Annotation overlays (for mockups) */
-.annotate { position:relative; }
-.ann-bubble { position:absolute; background:var(--gold); color:#000; font-weight:700; font-size:0.55em; padding:5px 12px; border-radius:20px; white-space:nowrap; z-index:10; }
-.ann-bubble::after { content:''; position:absolute; bottom:-6px; right:12px; border:6px solid transparent; border-top-color:var(--gold); }
-/* Step badges */
-.step-badge { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:var(--gold); color:#000; font-weight:900; font-size:0.8em; margin-left:8px; flex-shrink:0; }
-.step-row { display:flex; align-items:flex-start; gap:12px; margin:8px 0; }
-/* Commands / Code */
-.cmd { background:#0a0a0a; border:1px solid #333; border-radius:8px; padding:10px 16px; font-family:'Monaco','Consolas',monospace; font-size:0.7em; color:#4EC9B0; direction:ltr; text-align:left; margin:8px 0; }
-.cmd-prefix { color:var(--green); margin-left:6px; }
-.cmd-comment { color:#6a9955; font-family:'Heebo',sans-serif; direction:rtl; }
-/* Platform badges */
-.win-badge { background:var(--blue); color:#fff; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
-.mac-badge { background:var(--gray); color:#fff; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
-/* Emoji headers */
-.emoji-h { font-size:2.5em; display:block; margin-bottom:10px; }
-/* Tables */
-.reveal table { width:100%; border-collapse:collapse; font-size:0.72em; }
-.reveal table th { background:var(--gold); color:#000; padding:8px 12px; text-align:right; }
-.reveal table td { padding:8px 12px; border-bottom:1px solid var(--gray-d); color:#ddd; }
-.reveal table tr:hover td { background:var(--gold-d); }
-/* Label chips */
-.chip { display:inline-block; padding:3px 10px; border-radius:12px; font-size:0.6em; font-weight:700; }
-.chip-gold { background:var(--gold-d); border:1px solid var(--gold); color:var(--gold); }
-.chip-blue { background:rgba(74,158,255,0.15); border:1px solid var(--blue); color:var(--blue); }
+.sec-title h1 {
+  font-size:3.2em !important;
+  -webkit-text-fill-color:transparent;
+  background:linear-gradient(135deg, #fff 0%, var(--gold-l) 40%, var(--gold) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  text-shadow:none;
+  letter-spacing:-1px;
+}
+.sec-title .sec-num {
+  font-size:0.65em;
+  color:var(--gray);
+  letter-spacing:6px;
+  text-transform:uppercase;
+  margin-bottom:.4em;
+  -webkit-text-fill-color:var(--gray);
+}
+.sec-title p {
+  color:#888 !important;
+  -webkit-text-fill-color:#888 !important;
+  font-size:0.85em !important;
+  margin-top:12px;
+}
+
+/* Orb colors per section background */
+.bg-gold::before  { background:radial-gradient(circle, rgba(212,175,55,0.5) 0%, transparent 70%); }
+.bg-blue::before  { background:radial-gradient(circle, rgba(74,158,255,0.45) 0%, transparent 70%); }
+.bg-purple::before{ background:radial-gradient(circle, rgba(167,139,250,0.45) 0%, transparent 70%); }
+.bg-green::before { background:radial-gradient(circle, rgba(74,222,128,0.4) 0%, transparent 70%); }
+.bg-orange::before{ background:radial-gradient(circle, rgba(255,122,61,0.4) 0%, transparent 70%); }
 
 /* Gradient backgrounds for sections */
-.bg-gold { background:linear-gradient(135deg,#1a1300 0%,var(--bg) 60%) !important; }
-.bg-blue { background:linear-gradient(135deg,#001a33 0%,var(--bg) 60%) !important; }
-.bg-purple { background:linear-gradient(135deg,#130a1f 0%,var(--bg) 60%) !important; }
-.bg-green { background:linear-gradient(135deg,#001a0a 0%,var(--bg) 60%) !important; }
-.bg-orange { background:linear-gradient(135deg,#1a0800 0%,var(--bg) 60%) !important; }
-/* Giant number display */
-.big-num { font-size:5em; font-weight:900; color:var(--gold); opacity:0.15; position:absolute; top:0; left:10px; line-height:1; }
+.bg-gold   { background:radial-gradient(ellipse at 50% 50%, #211800 0%, var(--bg) 70%) !important; }
+.bg-blue   { background:radial-gradient(ellipse at 50% 50%, #001228 0%, var(--bg) 70%) !important; }
+.bg-purple { background:radial-gradient(ellipse at 50% 50%, #120820 0%, var(--bg) 70%) !important; }
+.bg-green  { background:radial-gradient(ellipse at 50% 50%, #001808 0%, var(--bg) 70%) !important; }
+.bg-orange { background:radial-gradient(ellipse at 50% 50%, #200a00 0%, var(--bg) 70%) !important; }
+
+/* ═══════════════════════════════════════════════
+   GLASSMORPHISM CARDS
+═══════════════════════════════════════════════ */
+.card {
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  backdrop-filter:blur(12px);
+  transition:transform .2s, box-shadow .2s;
+}
+.card-gold {
+  background:linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.04) 100%);
+  border:1px solid rgba(212,175,55,0.3);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  box-shadow:0 0 0 0 var(--gold-glow);
+  animation:gold-pulse 4s ease-in-out infinite;
+  position:relative;
+  overflow:hidden;
+}
+.card-gold::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background:linear-gradient(180deg, var(--gold-l), var(--gold), transparent);
+  border-radius:0 var(--radius) var(--radius) 0;
+}
+.card-blue {
+  background:linear-gradient(135deg, var(--blue-d) 0%, rgba(74,158,255,0.05) 100%);
+  border:1px solid rgba(74,158,255,0.25);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  position:relative; overflow:hidden;
+}
+.card-blue::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background:linear-gradient(180deg, var(--blue), transparent);
+}
+.card-orange {
+  background:linear-gradient(135deg, var(--orange-d) 0%, rgba(255,122,61,0.05) 100%);
+  border:1px solid rgba(255,122,61,0.25);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  position:relative; overflow:hidden;
+}
+.card-orange::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background:linear-gradient(180deg, var(--orange), transparent);
+}
+.card-green {
+  background:linear-gradient(135deg, var(--green-d) 0%, rgba(74,222,128,0.04) 100%);
+  border:1px solid rgba(74,222,128,0.25);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  position:relative; overflow:hidden;
+}
+.card-green::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background:linear-gradient(180deg, var(--green), transparent);
+}
+.card-red {
+  background:linear-gradient(135deg, var(--red-d) 0%, rgba(248,113,113,0.04) 100%);
+  border:1px solid rgba(248,113,113,0.25);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  margin:4px 0;
+  position:relative; overflow:hidden;
+}
+.card-red::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background:linear-gradient(180deg, var(--red), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════ */
+.two-col   { display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:right; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; text-align:right; }
+
+/* ═══════════════════════════════════════════════
+   TALMUD / CHAZAL BOXES
+═══════════════════════════════════════════════ */
+.talmud-box {
+  background:linear-gradient(135deg, rgba(212,175,55,0.07) 0%, rgba(212,175,55,0.02) 100%);
+  border:1px solid rgba(212,175,55,0.4);
+  border-radius:var(--radius);
+  padding:10px 14px;
+  font-style:italic;
+  position:relative;
+  margin:5px 0;
+  box-shadow:inset 0 1px 0 rgba(212,175,55,0.1), 0 4px 20px rgba(0,0,0,0.3);
+}
+.talmud-box::before {
+  content:'📜';
+  position:absolute;
+  top:-12px; right:16px;
+  font-size:1.2em;
+  background:var(--bg);
+  padding:0 8px;
+}
+.talmud-box::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
+}
+.talmud-tag {
+  font-size:0.68em;
+  color:var(--gold-l);
+  font-weight:800;
+  letter-spacing:2px;
+  font-style:normal;
+  display:block;
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.mashal-box {
+  background:linear-gradient(135deg, var(--purple-d) 0%, rgba(167,139,250,0.04) 100%);
+  border:1px solid rgba(167,139,250,0.2);
+  border-right:4px solid var(--purple);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:8px 12px;
+  margin:4px 0;
+}
+.nmshal-box {
+  background:linear-gradient(135deg, rgba(212,175,55,0.07) 0%, transparent 100%);
+  border:1px solid rgba(212,175,55,0.2);
+  border-right:4px solid var(--gold);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:8px 12px;
+  margin:4px 0;
+}
+
+/* ═══════════════════════════════════════════════
+   INFO BOXES
+═══════════════════════════════════════════════ */
+.tip-box {
+  background:linear-gradient(135deg, var(--green-d) 0%, transparent 100%);
+  border-right:4px solid var(--green);
+  padding:7px 12px;
+  margin:5px 0;
+  border-radius:0 var(--radius) var(--radius) 0;
+  border-top:1px solid rgba(74,222,128,0.1);
+}
+.warn-box {
+  background:linear-gradient(135deg, var(--red-d) 0%, transparent 100%);
+  border-right:4px solid var(--red);
+  padding:7px 12px;
+  margin:5px 0;
+  border-radius:0 var(--radius) var(--radius) 0;
+  border-top:1px solid rgba(248,113,113,0.1);
+}
+.info-box {
+  background:linear-gradient(135deg, var(--blue-d) 0%, transparent 100%);
+  border-right:4px solid var(--blue);
+  padding:7px 12px;
+  margin:5px 0;
+  border-radius:0 var(--radius) var(--radius) 0;
+  border-top:1px solid rgba(74,158,255,0.1);
+}
+
+/* ═══════════════════════════════════════════════
+   BROWSER MOCKUP
+═══════════════════════════════════════════════ */
+.mock-browser {
+  background:#12121a;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #2a2a38;
+  margin:8px 0;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+}
+.mock-titlebar {
+  background:linear-gradient(180deg, #1e1e28 0%, #181820 100%);
+  padding:9px 14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-bottom:1px solid #2a2a38;
+}
+.dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+.dot-r { background:#ff5f57; box-shadow:0 0 6px rgba(255,95,87,0.5); }
+.dot-y { background:#ffbd2e; box-shadow:0 0 6px rgba(255,189,46,0.5); }
+.dot-g { background:#28c840; box-shadow:0 0 6px rgba(40,200,64,0.5); }
+.mock-url {
+  background:#242432;
+  color:#666;
+  font-size:0.54em;
+  padding:4px 12px;
+  border-radius:20px;
+  margin-right:10px;
+  flex:1;
+  font-family:monospace;
+  direction:ltr;
+  text-align:center;
+  border:1px solid #333;
+}
+.mock-body { padding:16px; direction:rtl; text-align:right; }
+
+/* ═══════════════════════════════════════════════
+   ANNOTATION BUBBLES
+═══════════════════════════════════════════════ */
+.annotate { position:relative; }
+.ann-bubble {
+  position:absolute;
+  background:linear-gradient(135deg, var(--gold-l), var(--gold));
+  color:#000;
+  font-weight:800;
+  font-size:0.52em;
+  padding:5px 14px;
+  border-radius:20px;
+  white-space:nowrap;
+  z-index:10;
+  box-shadow:0 4px 15px rgba(212,175,55,0.4);
+}
+.ann-bubble::after {
+  content:'';
+  position:absolute;
+  bottom:-6px; right:14px;
+  border:6px solid transparent;
+  border-top-color:var(--gold);
+}
+
+/* ═══════════════════════════════════════════════
+   STEP BADGES
+═══════════════════════════════════════════════ */
+.step-badge {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px; height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--gold-l), var(--gold));
+  color:#000;
+  font-weight:900;
+  font-size:0.78em;
+  margin-left:10px;
+  flex-shrink:0;
+  box-shadow:0 2px 12px rgba(212,175,55,0.35);
+}
+.step-row { display:flex; align-items:flex-start; gap:10px; margin:5px 0; }
+
+/* ═══════════════════════════════════════════════
+   CODE / COMMANDS
+═══════════════════════════════════════════════ */
+.cmd {
+  background:#080810;
+  border:1px solid #2a2a3a;
+  border-radius:10px;
+  padding:8px 14px;
+  font-family:'Monaco','Consolas',monospace;
+  font-size:0.66em;
+  color:#7dd3fc;
+  direction:ltr;
+  text-align:left;
+  margin:4px 0;
+  position:relative;
+  overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.03), 0 4px 20px rgba(0,0,0,0.4);
+}
+.cmd::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--blue), var(--purple), var(--green));
+}
+.cmd-prefix { color:#4ade80; margin-left:8px; font-weight:700; }
+.cmd-comment { color:#5a7a5a; font-family:'Heebo',sans-serif; direction:rtl; }
+
+/* ═══════════════════════════════════════════════
+   PLATFORM BADGES
+═══════════════════════════════════════════════ */
+.win-badge {
+  background:linear-gradient(135deg, #1a6aff, var(--blue));
+  color:#fff;
+  padding:3px 12px;
+  border-radius:20px;
+  font-size:0.58em;
+  font-weight:800;
+  box-shadow:0 2px 8px rgba(74,158,255,0.3);
+}
+.mac-badge {
+  background:linear-gradient(135deg, #555, #444);
+  color:#fff;
+  padding:3px 12px;
+  border-radius:20px;
+  font-size:0.58em;
+  font-weight:800;
+}
+
+/* ═══════════════════════════════════════════════
+   TABLES
+═══════════════════════════════════════════════ */
+.reveal table { width:100%; border-collapse:collapse; font-size:0.72em; }
+.reveal table th {
+  background:linear-gradient(135deg, var(--gold) 0%, #b8902a 100%);
+  color:#000;
+  padding:10px 14px;
+  text-align:right;
+  font-weight:800;
+}
+.reveal table td {
+  padding:9px 14px;
+  border-bottom:1px solid var(--gray-d);
+  color:#c0c0cc;
+}
+.reveal table tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+.reveal table tr:hover td { background:var(--gold-d); }
+
+/* ═══════════════════════════════════════════════
+   CHIPS / BADGES
+═══════════════════════════════════════════════ */
+.chip { display:inline-block; padding:3px 12px; border-radius:20px; font-size:0.6em; font-weight:800; }
+.chip-gold { background:var(--gold-d); border:1px solid rgba(212,175,55,0.35); color:var(--gold-l); }
+.chip-blue { background:var(--blue-d); border:1px solid rgba(74,158,255,0.3); color:var(--blue); }
+
+/* ═══════════════════════════════════════════════
+   MISC ELEMENTS
+═══════════════════════════════════════════════ */
+.emoji-h { font-size:2em; display:block; margin-bottom:5px; }
+
+.big-num {
+  font-size:5em;
+  font-weight:900;
+  background:linear-gradient(135deg, var(--gold-l), var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  opacity:0.12;
+  position:absolute;
+  top:0; left:10px;
+  line-height:1;
+}
+
 /* Highlight text */
-.hl-gold { color:var(--gold); font-weight:700; }
+.hl-gold { color:var(--gold-l); font-weight:700; }
 .hl-blue { color:var(--blue); font-weight:700; }
 .hl-green { color:var(--green); font-weight:700; }
 .hl-orange { color:var(--orange); font-weight:700; }
 .hl-purple { color:var(--purple); font-weight:700; }
-/* Comparison table */
+
+/* Comparison */
 .vs-table { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:start; }
-.vs-mid { display:flex; align-items:center; justify-content:center; font-size:1.5em; font-weight:900; color:var(--gold); padding-top:20px; }
-/* Quote style */
-.big-quote { font-size:1.1em; color:var(--gold-l); font-style:italic; font-weight:300; line-height:1.5; text-align:center; padding:20px; }
-/* Progress dots for steps */
-.steps-dots { display:flex; gap:8px; margin:15px 0; justify-content:flex-end; }
-.steps-dots .active { background:var(--gold); }
+.vs-mid {
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5em; font-weight:900;
+  color:var(--gold);
+  padding-top:20px;
+  text-shadow:0 0 20px var(--gold-glow);
+}
+
+/* Quote */
+.big-quote {
+  font-size:1.05em;
+  color:var(--gold-l);
+  font-style:italic;
+  font-weight:300;
+  line-height:1.6;
+  text-align:center;
+  padding:10px;
+  -webkit-text-fill-color:var(--gold-l);
+}
+
+/* Steps progress dots */
+.steps-dots { display:flex; gap:8px; margin:8px 0; justify-content:flex-end; }
+.steps-dots .active { background:var(--gold); box-shadow:0 0 8px var(--gold-glow); }
 .steps-dots span { width:10px; height:10px; border-radius:50%; background:var(--gray-d); }
-/* ExplAIn logo styling */
-.explain-logo { font-size:1.2em; font-weight:900; color:var(--gold); letter-spacing:2px; }
-.explain-logo span { color:var(--white); }
+
+/* ExplAIn logo */
+.explain-logo {
+  font-size:1.2em;
+  font-weight:900;
+  background:linear-gradient(135deg, var(--gold-l), var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:3px;
+}
+.explain-logo span {
+  -webkit-text-fill-color:var(--white);
+  color:var(--white);
+}
+
+/* ═══════════════════════════════════════════════
+   REVEAL.JS OVERRIDES
+═══════════════════════════════════════════════ */
+.reveal .progress { background:rgba(212,175,55,0.1); height:3px; }
+.reveal .progress span { background:linear-gradient(90deg, var(--gold), var(--gold-l)); }
+.reveal .controls { color:var(--gold); }
+.reveal .slide-number { color:var(--gray); font-size:0.55em; background:rgba(0,0,0,0.5); padding:4px 10px; border-radius:20px; }
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — CUSTOM CURSOR
+═══════════════════════════════════════════════ */
+*, *::before, *::after { cursor: none !important; }
+
+#cursor-dot {
+  position:fixed; top:0; left:0; pointer-events:none; z-index:99999;
+  width:8px; height:8px; border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 10px var(--gold), 0 0 20px rgba(212,175,55,0.5);
+  transform:translate(-50%,-50%);
+  transition:transform 0.05s, opacity 0.2s;
+}
+#cursor-ring {
+  position:fixed; top:0; left:0; pointer-events:none; z-index:99998;
+  width:36px; height:36px; border-radius:50%;
+  border:1.5px solid rgba(212,175,55,0.6);
+  transform:translate(-50%,-50%);
+  transition:transform 0.12s cubic-bezier(0.25,1,0.5,1), width 0.2s, height 0.2s, opacity 0.2s;
+}
+#cursor-ring.hovered {
+  width:56px; height:56px;
+  border-color:var(--gold-l);
+  background:rgba(212,175,55,0.06);
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — PARTICLES CANVAS
+═══════════════════════════════════════════════ */
+#particles-canvas {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0; opacity:0.55;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — TYPEWRITER
+═══════════════════════════════════════════════ */
+@keyframes cursor-blink {
+  0%,100% { opacity:1; } 50% { opacity:0; }
+}
+.typewriter-cursor {
+  display:inline-block; width:3px; height:1em;
+  background:var(--gold); margin-right:4px; vertical-align:text-bottom;
+  animation:cursor-blink 0.8s step-end infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — FRAGMENT STAGGER
+═══════════════════════════════════════════════ */
+.reveal .fragment.fade-up-wow {
+  opacity:0; transform:translateY(18px);
+  transition:opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+.reveal .fragment.fade-up-wow.visible {
+  opacity:1; transform:translateY(0);
+}
+.reveal .fragment.scale-in {
+  opacity:0; transform:scale(0.85);
+  transition:opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+.reveal .fragment.scale-in.visible {
+  opacity:1; transform:scale(1);
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — ACTIVE SLIDE GLOW
+═══════════════════════════════════════════════ */
+@keyframes slide-enter {
+  from { opacity:0; transform:translateY(12px) scale(0.99); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.reveal .slides section.present > * {
+  animation:slide-enter 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+.reveal .slides section.present > *:nth-child(1) { animation-delay:0.05s; }
+.reveal .slides section.present > *:nth-child(2) { animation-delay:0.12s; }
+.reveal .slides section.present > *:nth-child(3) { animation-delay:0.19s; }
+.reveal .slides section.present > *:nth-child(4) { animation-delay:0.26s; }
+.reveal .slides section.present > *:nth-child(5) { animation-delay:0.33s; }
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — CARD HOVER 3D
+═══════════════════════════════════════════════ */
+.card, .card-gold, .card-blue, .card-green, .card-orange, .card-red {
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease !important;
+}
+.card:hover, .card-gold:hover, .card-blue:hover,
+.card-green:hover, .card-orange:hover, .card-red:hover {
+  transform:translateY(-4px) scale(1.015) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.12) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — CODE BLOCK GLOW
+═══════════════════════════════════════════════ */
+.cmd {
+  transition:box-shadow 0.4s ease;
+}
+.reveal .slides section.present .cmd {
+  box-shadow:0 0 0 1px rgba(212,175,55,0.2), 0 4px 24px rgba(212,175,55,0.08) !important;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — SEC-TITLE SHIMMER ON ENTER
+═══════════════════════════════════════════════ */
+@keyframes sec-enter {
+  0%   { opacity:0; transform:scale(0.94) translateY(20px); filter:blur(6px); }
+  100% { opacity:1; transform:scale(1) translateY(0); filter:blur(0); }
+}
+.sec-title.present h1 {
+  animation:sec-enter 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay:0.1s;
+}
+.sec-title.present .sec-num {
+  animation:sec-enter 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay:0s;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — COUNTER NUMBER
+═══════════════════════════════════════════════ */
+.count-up { display:inline-block; }
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — PROGRESS BAR CUSTOM
+═══════════════════════════════════════════════ */
+.reveal .progress {
+  height:3px !important;
+  background:rgba(212,175,55,0.08) !important;
+}
+.reveal .progress span {
+  background:linear-gradient(90deg,
+    #8B6914 0%, var(--gold) 30%, var(--gold-l) 60%, var(--gold) 80%, #8B6914 100%)
+  !important;
+  background-size:200% 100% !important;
+  animation:shimmer 3s linear infinite !important;
+}
+
+/* ═══════════════════════════════════════════════
+   WOW EFFECTS — RIPPLE ON CLICK
+═══════════════════════════════════════════════ */
+@keyframes ripple-anim {
+  0%   { transform:translate(-50%,-50%) scale(0); opacity:0.6; }
+  100% { transform:translate(-50%,-50%) scale(4); opacity:0; }
+}
+.ripple-effect {
+  position:fixed; pointer-events:none; z-index:99997;
+  width:60px; height:60px; border-radius:50%;
+  background:radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 70%);
+  animation:ripple-anim 0.6s ease-out forwards;
+}
 </style>
 </head>
 <body>
@@ -937,6 +1568,22 @@
   </div>
 </section>
 
+
+<!-- DEMO SLIDE — Claude Code — תיעוד רשמי -->
+<section>
+  <h2>🖥️ הדגמה חיה — Claude Code — תיעוד רשמי</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">code.claude.com/docs/en/overview</span>
+    </div>
+    <img src="screenshot_overview.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 זה האתר שממנו למדנו את כל מה שבמצגת — תיעוד Anthropic מתעדכן כל הזמן</div>
+</section>
+
 <!-- SLIDE 33 — Opening a project -->
 <section>
   <h2>📁 פתיחת פרויקט — שלב ראשון</h2>
@@ -1553,9 +2200,429 @@ cd ~/projects/backend && claude
   </div>
 </section>
 
-<!-- SLIDE 52 — Section Separator: סיכום ולאן ממשיכים -->
-<section class="sec-title bg-gold">
+<!-- SLIDE 52 — Section Separator: טכניקות מתקדמות -->
+<section class="sec-title bg-purple">
   <div class="sec-num">פרק ט׳</div>
+  <h1>טכניקות מתקדמות</h1>
+  <p style="color:#A78BFA;font-size:1em;margin-top:.5em;">מה שלמדנו מהתיעוד הרשמי של Anthropic</p>
+</section>
+
+<!-- SLIDE 53 — Explore→Plan→Implement→Commit workflow -->
+<section>
+  <h2>🔄 תהליך העבודה המנצח</h2>
+  <div class="talmud-box" style="margin-bottom:16px;">
+    <span class="talmud-tag">סוד ההצלחה</span>
+    Anthropic ממליצים על 4 שלבים קבועים. דלגו עליהם — תשלמו מחיר. עקבו אחריהם — קוד נקי יותר, פחות שגיאות
+  </div>
+
+  <div class="four-col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;">
+    <div class="card-blue" style="text-align:center;">
+      <div style="font-size:2em;">🔍</div>
+      <h3 class="hl-blue">Explore</h3>
+      <p style="font-size:0.75em;">קראו קוד, הבינו ארכיטקטורה — <strong>אל תכתבו כלום</strong></p>
+    </div>
+    <div class="card-gold" style="text-align:center;">
+      <div style="font-size:2em;">📋</div>
+      <h3 class="hl-gold">Plan</h3>
+      <p style="font-size:0.75em;">תכננו גישה, כתבו TODO — <strong>אל תממשו עדיין</strong></p>
+    </div>
+    <div class="card-green" style="text-align:center;">
+      <div style="font-size:2em;">⚡</div>
+      <h3 class="hl-green">Implement</h3>
+      <p style="font-size:0.75em;">ממשו בביטחון, ריצו טסטים — <strong>הקוד האמיתי</strong></p>
+    </div>
+    <div class="card" style="text-align:center;border-color:#A78BFA;">
+      <div style="font-size:2em;">✅</div>
+      <h3 style="color:#A78BFA;">Commit</h3>
+      <p style="font-size:0.75em;">Git commit עם הודעה ברורה — <strong>שמרו התקדמות</strong></p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    💡 רוצים שקלוד יתכנן לפני שיממש? כתבו בהנחיה:
+    <code>"think step by step before writing any code"</code>
+    — או השתמשו בסוכן Plan המובנה
+  </div>
+</section>
+
+<!-- SLIDE 54 — Context Window Management -->
+<section>
+  <h2>🧠 ניהול חלון ההקשר</h2>
+
+  <div class="mashal-box" style="margin-bottom:14px;">
+    <span class="mashal-tag">משל</span>
+    חלון ההקשר הוא כמו שולחן עבודה — ככל שיש עליו יותר דברים, קשה יותר למצוא את מה שצריך. ניקוי שולחן = שיחה חדשה
+  </div>
+
+  <div class="two-col" style="margin-bottom:14px;">
+    <div>
+      <h3 class="hl-gold" style="margin-bottom:8px;">⌨️ פקודות מפתח</h3>
+      <div class="cmd" style="font-size:0.8em;">
+# ניקוי מלא — התחלה מחדש
+/clear
+
+# דחיסה חכמה — שמרו מה שחשוב
+/compact
+
+# דחיסה עם הנחיות
+/compact "התמקדו רק בבאג ב-auth module"</div>
+    </div>
+    <div>
+      <h3 class="hl-blue" style="margin-bottom:8px;">📏 גודל CLAUDE.md</h3>
+      <div class="card-blue" style="font-size:0.82em;">
+        <ul>
+          <li>🟢 <strong>מתחת ל-200 שורות</strong> — קלוד מקיים הכל</li>
+          <li>🟡 <strong>200-500 שורות</strong> — עלולים לדלג על חלקים</li>
+          <li>🔴 <strong>מעל 500 שורות</strong> — ביצועים גרועים מאוד</li>
+          <li>✅ <strong>טיפ:</strong> קישורים לקבצים נפרדים עדיפים</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    ℹ️ כלל זהב: השתמשו בסוכני Explore לחקר קוד — הם עובדים בחלון הקשר נפרד ולא "מלכלכים" את שלכם
+  </div>
+</section>
+
+<!-- SLIDE 55 — Built-in Sub-agents -->
+<section>
+  <h2>🤖 סוכנים מובנים ב-Claude Code</h2>
+
+  <div class="talmud-box" style="margin-bottom:14px;">
+    <span class="talmud-tag">חידוש</span>
+    קלוד מגיע עם 3 סוכנים מובנים שעובדים מאחורי הקלעים. כל אחד מיוחד לתפקיד ספציפי
+  </div>
+
+  <div class="three-col" style="margin:14px 0;">
+    <div class="card-blue">
+      <h3 class="hl-blue">🔭 Explore</h3>
+      <ul style="font-size:0.82em;">
+        <li>מודל: <code>Claude Haiku</code> (מהיר)</li>
+        <li>כלים: קריאה בלבד</li>
+        <li>מטרה: הבנת קוד מהירה</li>
+        <li>מחיר: נמוך מאוד</li>
+      </ul>
+    </div>
+    <div class="card-gold">
+      <h3 class="hl-gold">📐 Plan</h3>
+      <ul style="font-size:0.82em;">
+        <li>מודל: <code>Claude Sonnet</code></li>
+        <li>כלים: קריאה בלבד</li>
+        <li>מטרה: תכנון ואדריכלות</li>
+        <li>מחיר: בינוני</li>
+      </ul>
+    </div>
+    <div class="card-green">
+      <h3 class="hl-green">🛠️ General</h3>
+      <ul style="font-size:0.82em;">
+        <li>מודל: <code>Claude Opus</code></li>
+        <li>כלים: <strong>כל הכלים</strong></li>
+        <li>מטרה: משימות מורכבות</li>
+        <li>מחיר: גבוה</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    💡 "Task tool" — הפקודה שמפעילה סוכנים. כתבו:
+    <code>"Use the Task tool to explore the codebase and find all API endpoints"</code>
+  </div>
+</section>
+
+<!-- SLIDE 56 — Custom Sub-agents with YAML -->
+<section>
+  <h2>🧩 סוכנים מותאמים אישית</h2>
+
+  <div class="mashal-box" style="margin-bottom:12px;">
+    <span class="mashal-tag">גמרא</span>
+    מה ההבדל בין סוכן מובנה לסוכן מותאם? — הסוכן המותאם עובד לפי כלליכם, מדברים בשפתכם, מכיר את הפרויקט שלכם
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="hl-gold" style="margin-bottom:6px;">📁 מבנה הקובץ</h3>
+      <div class="cmd" style="font-size:0.75em;">
+# .claude/agents/code-reviewer.md
+
+---
+name: code-reviewer
+model: claude-opus-4-5
+tools:
+  - Read
+  - Grep
+  - Glob
+permissionMode: read-only
+---
+
+אתה מבקר קוד מחמיר.
+חפש: XSS, SQL Injection,
+הרשאות שגויות. דווח בעברית.</div>
+    </div>
+    <div>
+      <h3 class="hl-blue" style="margin-bottom:6px;">⚙️ אפשרויות מרכזיות</h3>
+      <div class="card-blue" style="font-size:0.8em;">
+        <ul>
+          <li><code>model</code> — בחרו מודל לכל סוכן</li>
+          <li><code>tools</code> — הגבילו כלים</li>
+          <li><code>permissionMode</code> — read-only / default</li>
+          <li><code>memory</code> — זיכרון עצמאי</li>
+          <li><code>isolation: worktree</code> — ענף Git נפרד</li>
+          <li><code>hooks</code> — אוטומציות ייחודיות</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DEMO SLIDE — סוכנים מותאמים אישית -->
+<section>
+  <h2>🖥️ הדגמה חיה — סוכנים מותאמים אישית</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">code.claude.com/docs/en/how-to-use-claude-code/sub-agents</span>
+    </div>
+    <img src="screenshot_subagents.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 כל סוכן מוגדר בקובץ YAML אחד — שם, מודל, כלים, הרשאות</div>
+</section>
+
+<!-- SLIDE 57 — Hooks System -->
+<section>
+  <h2>🪝 מערכת ה-Hooks</h2>
+
+  <div class="talmud-box" style="margin-bottom:12px;">
+    <span class="talmud-tag">מושג</span>
+    Hooks = קוד שרץ אוטומטית בתגובה לאירועים של קלוד. כמו trigger בבסיס נתונים — אתם מגדירים, קלוד מפעיל
+  </div>
+
+  <div class="two-col" style="margin-bottom:12px;">
+    <div>
+      <h3 class="hl-gold" style="margin-bottom:8px;">🎯 אירועים עיקריים</h3>
+      <div class="card-gold" style="font-size:0.78em;">
+        <ul>
+          <li><code>SessionStart</code> — תחילת שיחה</li>
+          <li><code>PreToolUse</code> — לפני שימוש בכלי</li>
+          <li><code>PostToolUse</code> — אחרי שימוש בכלי</li>
+          <li><code>Stop</code> — סיום תשובה</li>
+          <li><code>PreCompact</code> — לפני דחיסת הקשר</li>
+          <li><code>SubagentStart/Stop</code> — ניהול סוכנים</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3 class="hl-blue" style="margin-bottom:8px;">🔧 סוגי Hook</h3>
+      <div class="card-blue" style="font-size:0.78em;">
+        <ul>
+          <li><strong>command</strong> — הרצת פקודת Shell</li>
+          <li><strong>prompt</strong> — שיחה קצרה עם LLM</li>
+          <li><strong>agent</strong> — סוכן עצמאי עם כלים</li>
+          <li><strong>http</strong> — POST לשרת חיצוני</li>
+        </ul>
+        <hr style="border-color:#4A9EFF33;margin:8px 0;">
+        <p style="font-size:0.85em;">דוגמה: Hook שמריץ
+        <code>eslint</code> אחרי כל שמירת קובץ JS</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="font-size:0.82em;">
+    💡 Hook שימושי לכולם: <code>SessionStart</code> שטוען את ה-MEMORY.md שלכם לתחילת כל שיחה אוטומטית
+  </div>
+</section>
+
+
+<!-- DEMO SLIDE — מערכת ה-Hooks -->
+<section>
+  <h2>🖥️ הדגמה חיה — מערכת ה-Hooks</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">code.claude.com/docs/en/how-to-use-claude-code/hooks</span>
+    </div>
+    <img src="screenshot_hooks.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 ה-Hooks מוגדרים ב-settings.json — הריצו פקודת Shell בכל אירוע</div>
+</section>
+
+<!-- SLIDE 58 — GitHub Actions + @claude -->
+<section>
+  <h2>🐙 GitHub Actions + קלוד</h2>
+
+  <div class="mashal-box" style="margin-bottom:12px;">
+    <span class="mashal-tag">חידוש</span>
+    עכשיו אפשר להזכיר @claude ב-Pull Request ו-Issue — וקלוד יגיב, יסקור, ואפילו יכתוב קוד ישירות ב-GitHub!
+  </div>
+
+  <div class="two-col" style="margin-bottom:12px;">
+    <div>
+      <h3 class="hl-green" style="margin-bottom:8px;">✍️ איך משתמשים</h3>
+      <div class="card-green" style="font-size:0.8em;">
+        <div style="background:#1a2a1a;border-radius:6px;padding:10px;font-family:monospace;font-size:0.9em;color:#e0e0e0;">
+          💬 Comment ב-PR:<br><br>
+          <span style="color:#4ADE80;">@claude</span> אנא בדוק את<br>
+          השינויים ב-auth.ts<br>
+          וחפש בעיות אבטחה<br><br>
+          <span style="color:#4ADE80;">@claude</span> כתוב טסטים<br>
+          לפונקציה החדשה
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="hl-gold" style="margin-bottom:8px;">⚙️ הגדרה ראשונית</h3>
+      <div class="step-row"><span class="step-badge">1</span><p>הריצו <code>/install-github-app</code> בטרמינל</p></div>
+      <div class="step-row"><span class="step-badge">2</span><p>הרשו גישה ל-Repository</p></div>
+      <div class="step-row"><span class="step-badge">3</span><p>הוסיפו Action ל-Workflow שלכם</p></div>
+      <div class="step-row"><span class="step-badge">4</span><p>תגיות <code>@claude</code> מפעילות את הסוכן</p></div>
+    </div>
+  </div>
+
+  <div class="info-box" style="font-size:0.82em;">
+    ℹ️ תומך ב-AWS Bedrock וב-Google Vertex AI — לארגונים עם דרישות פרטיות מחמירות
+  </div>
+</section>
+
+
+<!-- DEMO SLIDE — GitHub Actions + Claude -->
+<section>
+  <h2>🖥️ הדגמה חיה — GitHub Actions + Claude</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">github.com/marketplace/actions/claude-code-action</span>
+    </div>
+    <img src="screenshot_github_actions.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 הוסיפו @claude כ-reviewer בכל PR — הוא יבדוק, יעיר ואפילו יתקן קוד</div>
+</section>
+
+<!-- SLIDE 59 — Fan-out Parallelism + Writer/Reviewer -->
+<section>
+  <h2>⚡ דפוסי עבודה מתקדמים</h2>
+
+  <div class="two-col" style="margin-bottom:14px;">
+    <div>
+      <div class="card-blue" style="margin-bottom:10px;">
+        <h3 class="hl-blue">🌊 Fan-out Parallelism</h3>
+        <p style="font-size:0.8em;margin-bottom:8px;">עיבוד קבצים רבים במקביל — כל קובץ = תהליך קלוד נפרד</p>
+        <div class="cmd" style="font-size:0.72em;">
+# עיבוד 100 קבצים במקביל!
+for file in src/**/*.ts; do
+  claude -p \
+    "הוסף JSDoc ל-$file" \
+    --output-format json &
+done
+wait # המתן לכולם</div>
+      </div>
+    </div>
+    <div>
+      <div class="card-gold">
+        <h3 class="hl-gold">✍️ Writer / Reviewer</h3>
+        <p style="font-size:0.8em;margin-bottom:8px;">שני סשנים של קלוד: אחד כותב, השני מבקר — הקשר טרי, ביקורת אובייקטיבית</p>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:0.8em;">
+          <div style="background:#1a1500;border:1px solid #D4AF3755;border-radius:6px;padding:8px;">
+            <span class="hl-gold">סשן 1 — Writer:</span><br>
+            כתוב פיצ'ר חדש ב-feature.ts
+          </div>
+          <div style="text-align:center;color:#888;">⬇️ מעביר לסשן 2</div>
+          <div style="background:#001a0a;border:1px solid #4ADE8055;border-radius:6px;padding:8px;">
+            <span class="hl-green">סשן 2 — Reviewer:</span><br>
+            בקר את הקוד ב-feature.ts לפי CLAUDE.md
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box" style="font-size:0.82em;">
+    💡 <code>claude -p "prompt"</code> = מצב לא-אינטראקטיבי לסקריפטים ו-CI/CD. <code>--output-format json</code> לפרסינג קל
+  </div>
+</section>
+
+
+<!-- DEMO SLIDE — דפוסי עבודה מתקדמים -->
+<section>
+  <h2>🖥️ הדגמה חיה — דפוסי עבודה מתקדמים</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">code.claude.com/docs/en/how-to-use-claude-code/common-workflows</span>
+    </div>
+    <img src="screenshot_workflows.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 Fan-out, Writer/Reviewer, Pipe-and-Filter — דפוסים שחוסכים שעות עבודה</div>
+</section>
+
+<!-- SLIDE 60 — Auto Memory System -->
+<section>
+  <h2>💾 מערכת הזיכרון האוטומטי</h2>
+
+  <div class="talmud-box" style="margin-bottom:12px;">
+    <span class="talmud-tag">מדהים</span>
+    קלוד יכול לכתוב הערות לעצמו שנשמרות בין שיחות — כמו פתקים על שולחן העבודה שנשארים גם אחרי שמכבים את המחשב
+  </div>
+
+  <div class="two-col" style="margin-bottom:12px;">
+    <div>
+      <h3 class="hl-gold" style="margin-bottom:8px;">📂 מבנה הזיכרון</h3>
+      <div class="cmd" style="font-size:0.76em;">
+~/.claude/projects/
+  └── my-project/
+      └── memory/
+          ├── MEMORY.md     ← נטען אוטומטי
+          ├── patterns.md   ← דפוסים שזוהו
+          ├── bugs.md       ← באגים ידועים
+          └── decisions.md  ← החלטות ארכיטקטורה</div>
+    </div>
+    <div>
+      <h3 class="hl-blue" style="margin-bottom:8px;">📏 כללים חשובים</h3>
+      <div class="card-blue" style="font-size:0.8em;">
+        <ul>
+          <li>🟢 <strong>MEMORY.md</strong> נטען בכל שיחה</li>
+          <li>⚠️ רק <strong>200 שורות ראשונות</strong> נקראות</li>
+          <li>📎 קבצי נושא — לפרטים מעמיקים</li>
+          <li>🔗 קשרו אותם מ-MEMORY.md</li>
+          <li>🗑️ מחקו זיכרונות לא רלוונטיים</li>
+          <li>❌ אל תשמרו פרטים חד-פעמיים</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box" style="font-size:0.82em;">
+    ℹ️ אמרו לקלוד: <em>"זכור זאת לשיחות הבאות"</em> — וקלוד יכתוב את זה לזיכרון בעצמו
+  </div>
+</section>
+
+
+<!-- DEMO SLIDE — מערכת הזיכרון — CLAUDE.md -->
+<section>
+  <h2>🖥️ הדגמה חיה — מערכת הזיכרון — CLAUDE.md</h2>
+  <div class="mock-browser" style="margin:0 auto;max-width:100%;">
+    <div class="mock-titlebar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="mock-url" style="font-size:0.8em;">code.claude.com/docs/en/how-to-use-claude-code/memory</span>
+    </div>
+    <img src="screenshot_memory.png" style="width:100%;max-height:460px;object-fit:cover;object-position:top;display:block;" />
+  </div>
+  <div class="tip-box" style="margin-top:8px;font-size:0.78em;">💡 CLAUDE.md = "הוראות הפעלה" קבועות לקלוד — נטען אוטומטי בכל שיחה</div>
+</section>
+
+<!-- SLIDE 61 — Section Separator: סיכום ולאן ממשיכים -->
+<section class="sec-title bg-gold">
+  <div class="sec-num">פרק י׳</div>
   <h1>סיכום ולאן ממשיכים?</h1>
   <p style="color:#D4AF37;font-size:1em;margin-top:.5em;">תם ולא נשלם — הדרך לפסגה</p>
 </section>
@@ -1591,6 +2658,16 @@ cd ~/projects/backend && claude
         <li>Agents + Skills + MCP</li>
         <li>GitHub = גיבוי וניהול</li>
       </ul>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#A78BFA;margin:0 0 14px 0;">
+    <h3 style="color:#A78BFA;margin-bottom:8px;">🚀 טכניקות מתקדמות (חדש!)</h3>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:0.8em;">
+      <div>🔄 Explore→Plan→Implement→Commit</div>
+      <div>🧠 ניהול Context Window</div>
+      <div>🪝 Hooks — אוטומציות</div>
+      <div>💾 Auto Memory</div>
     </div>
   </div>
 
@@ -1654,12 +2731,313 @@ Reveal.initialize({
   hash:true, rtl:true, progress:true, controls:true,
   transition:'fade', backgroundTransition:'fade',
   slideNumber:'c/t', center:false,
+  width: 1280,
+  height: 720,
+  margin: 0.04,
+  minScale: 0.2,
+  maxScale: 2.0,
   plugins:[RevealNotes],
   keyboard:{
     39:function(){Reveal.next();},
     37:function(){Reveal.prev();}
   }
 });
+</script>
+
+<!-- ═══════════════════════════════════════════
+     WOW EFFECTS SCRIPT
+═══════════════════════════════════════════ -->
+<canvas id="particles-canvas"></canvas>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ─────────────────────────────────────────
+     1. CUSTOM CURSOR
+  ───────────────────────────────────────── */
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+  let ringX  = mouseX, ringY = mouseY;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    dot.style.left  = mouseX + 'px';
+    dot.style.top   = mouseY + 'px';
+  });
+
+  (function animRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.addEventListener('mouseover', e => {
+    const t = e.target;
+    if (t.matches('a,button,.card,.card-gold,.card-blue,.card-green,.card-orange,.step-badge,.cmd,h1,h2')) {
+      ring.classList.add('hovered');
+    }
+  });
+  document.addEventListener('mouseout', () => ring.classList.remove('hovered'));
+
+  /* ─────────────────────────────────────────
+     2. RIPPLE ON CLICK
+  ───────────────────────────────────────── */
+  document.addEventListener('click', e => {
+    const r = document.createElement('div');
+    r.className = 'ripple-effect';
+    r.style.left = e.clientX + 'px';
+    r.style.top  = e.clientY + 'px';
+    document.body.appendChild(r);
+    setTimeout(() => r.remove(), 700);
+  });
+
+  /* ─────────────────────────────────────────
+     3. PARTICLES
+  ───────────────────────────────────────── */
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  const COLORS = [
+    'rgba(212,175,55,0.7)',
+    'rgba(240,200,74,0.5)',
+    'rgba(212,175,55,0.3)',
+    'rgba(74,158,255,0.25)',
+    'rgba(167,139,250,0.2)'
+  ];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function Particle() {
+    this.reset();
+  }
+  Particle.prototype.reset = function() {
+    this.x    = Math.random() * W;
+    this.y    = Math.random() * H;
+    this.r    = Math.random() * 1.8 + 0.4;
+    this.color= COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.vx   = (Math.random() - 0.5) * 0.35;
+    this.vy   = -(Math.random() * 0.4 + 0.1);
+    this.alpha= Math.random() * 0.7 + 0.2;
+    this.life = 0;
+    this.maxLife = Math.random() * 300 + 150;
+    this.twinkleSpeed = Math.random() * 0.04 + 0.01;
+    this.twinklePhase = Math.random() * Math.PI * 2;
+  };
+  Particle.prototype.update = function() {
+    this.x   += this.vx;
+    this.y   += this.vy;
+    this.life++;
+    this.twinklePhase += this.twinkleSpeed;
+    const t = this.life / this.maxLife;
+    this.alpha = (Math.sin(this.twinklePhase) * 0.25 + 0.5) *
+                 (1 - Math.pow(t, 2));
+    if (this.life > this.maxLife || this.x < 0 || this.x > W || this.y < 0) {
+      this.reset();
+      this.y = H + 10;
+    }
+  };
+  Particle.prototype.draw = function() {
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, this.alpha);
+    ctx.fillStyle   = this.color;
+    ctx.shadowBlur  = this.r * 4;
+    ctx.shadowColor = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  /* draw connecting lines between nearby particles */
+  function drawConnections() {
+    const MAX_DIST = 100;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < MAX_DIST) {
+          ctx.save();
+          ctx.globalAlpha = (1 - d/MAX_DIST) * 0.08;
+          ctx.strokeStyle = 'rgba(212,175,55,0.8)';
+          ctx.lineWidth   = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+  }
+
+  (function animParticles() {
+    ctx.clearRect(0, 0, W, H);
+    drawConnections();
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animParticles);
+  })();
+
+  /* ─────────────────────────────────────────
+     4. TYPEWRITER on cover slide title
+  ───────────────────────────────────────── */
+  function runTypewriter(el, text, speed, done) {
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    el.appendChild(cursor);
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i++]), cursor);
+        setTimeout(type, speed + Math.random() * 30);
+      } else {
+        setTimeout(() => { cursor.remove(); if (done) done(); }, 500);
+      }
+    }
+    type();
+  }
+
+  let twDone = false;
+  function initTypewriter() {
+    if (twDone) return;
+    const coverH1 = document.querySelector('.cover-slide h1, .reveal .slides section:first-child h1');
+    if (!coverH1) return;
+    const original = coverH1.textContent;
+    if (!original.trim()) return;
+    twDone = true;
+    coverH1.style.opacity = '1';
+    runTypewriter(coverH1, original, 55);
+  }
+
+  /* ─────────────────────────────────────────
+     5. AUTO-FRAGMENT list items
+  ───────────────────────────────────────── */
+  function fragmentify() {
+    /* skip section separator slides */
+    const slides = document.querySelectorAll(
+      '.reveal .slides section:not(.sec-title):not(.bg-gold):not(.bg-blue):not(.bg-purple):not(.bg-green):not(.bg-orange)'
+    );
+    slides.forEach(slide => {
+      const lists = slide.querySelectorAll('ul, ol');
+      lists.forEach(list => {
+        const items = list.children;
+        Array.from(items).forEach((li, idx) => {
+          if (!li.classList.contains('fragment')) {
+            li.classList.add('fragment', 'fade-up-wow');
+            li.setAttribute('data-fragment-index', idx);
+          }
+        });
+      });
+    });
+
+    /* scale-in for cards */
+    const cardSlides = document.querySelectorAll(
+      '.reveal .slides section:not(.sec-title) .card, .reveal .slides section:not(.sec-title) .card-gold, .reveal .slides section:not(.sec-title) .card-blue'
+    );
+    cardSlides.forEach((card, idx) => {
+      const slide = card.closest('section');
+      if (slide && !card.classList.contains('fragment')) {
+        /* only fragment if card is a direct child of section */
+        if (card.parentElement === slide) {
+          card.classList.add('fragment', 'scale-in');
+          card.setAttribute('data-fragment-index', idx % 4);
+        }
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────
+     6. COUNTER ANIMATIONS
+  ───────────────────────────────────────── */
+  function animateCounters(slide) {
+    slide.querySelectorAll('.count-up').forEach(el => {
+      const target = parseFloat(el.dataset.target || el.textContent);
+      const suffix = el.dataset.suffix || '';
+      const dur    = 1200;
+      const start  = Date.now();
+      function tick() {
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / dur, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * ease) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      tick();
+    });
+  }
+
+  /* ─────────────────────────────────────────
+     7. CODE BLOCK TYPING EFFECT
+  ───────────────────────────────────────── */
+  function animateCodeBlock(pre) {
+    if (pre.dataset.animated) return;
+    pre.dataset.animated = 'true';
+    const original = pre.textContent;
+    pre.textContent = '';
+    let i = 0;
+    const speed = original.length > 200 ? 6 : 12;
+    function typeCode() {
+      const chunk = Math.ceil(original.length / 60);
+      if (i < original.length) {
+        pre.textContent += original.slice(i, i + chunk);
+        i += chunk;
+        /* auto-scroll to bottom */
+        pre.scrollTop = pre.scrollHeight;
+        setTimeout(typeCode, speed);
+      }
+    }
+    setTimeout(typeCode, 180);
+  }
+
+  /* ─────────────────────────────────────────
+     8. KEYBOARD SHORTCUTS (extra)
+  ───────────────────────────────────────── */
+  document.addEventListener('keydown', e => {
+    /* P = particle density toggle */
+    if (e.key === 'p' || e.key === 'P') {
+      canvas.style.opacity = canvas.style.opacity === '0' ? '0.55' : '0';
+    }
+  });
+
+  /* ─────────────────────────────────────────
+     9. HOOK INTO REVEAL EVENTS
+  ───────────────────────────────────────── */
+  Reveal.on('ready', () => {
+    fragmentify();
+    Reveal.sync();
+    initTypewriter();
+    animateCounters(document.querySelector('.reveal .slides section.present') || document.body);
+  });
+
+  Reveal.on('slidechanged', event => {
+    const slide = event.currentSlide;
+    animateCounters(slide);
+    /* type code blocks only on active slide */
+    slide.querySelectorAll('.cmd').forEach(animateCodeBlock);
+  });
+
+  /* also animate on first load after a small delay */
+  setTimeout(() => {
+    const present = document.querySelector('.reveal .slides section.present');
+    if (present) present.querySelectorAll('.cmd').forEach(animateCodeBlock);
+  }, 800);
+
+})();
 </script>
 </body>
 </html>
