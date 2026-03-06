@@ -3,40 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מדריך הגמרא לבינה המלאכותית | ExplAIn</title>
+<title>ExplAIn — AI, Claude & Claude Code</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
 <style>
 /* ═══════════════════════════════════════════════
-   DESIGN TOKENS
+   DESIGN TOKENS — Anthropic / Claude Brand
 ═══════════════════════════════════════════════ */
 :root {
-  --bg:#060608; --bg2:#0e0e12; --bg3:#141418; --bg4:#1c1c22;
-  --gold:#D4AF37; --gold-l:#F0C84A; --gold-d:rgba(212,175,55,0.12);
-  --gold-glow:rgba(212,175,55,0.35);
-  --white:#f0f0f0; --gray:#666; --gray-d:#252530;
-  --blue:#4A9EFF; --blue-d:rgba(74,158,255,0.12);
-  --orange:#FF7A3D; --orange-d:rgba(255,122,61,0.12);
-  --green:#4ADE80; --green-d:rgba(74,222,128,0.12);
-  --purple:#A78BFA; --purple-d:rgba(167,139,250,0.12);
-  --red:#F87171; --red-d:rgba(248,113,113,0.12);
-  --glass:rgba(255,255,255,0.03);
-  --glass-border:rgba(255,255,255,0.07);
-  --radius:14px;
+  --bg:#141413; --bg2:#1e1d1c; --bg3:#282726; --bg4:#333231;
+  --gold:#d97757; --gold-l:#e89478; --gold-d:rgba(217,119,87,0.12);
+  --gold-glow:rgba(217,119,87,0.35);
+  --white:#faf9f5; --gray:#b0aea5; --gray-d:#3a3938;
+  --blue:#6a9bcc; --blue-d:rgba(106,155,204,0.12);
+  --orange:#d97757; --orange-d:rgba(217,119,87,0.12);
+  --green:#788c5d; --green-d:rgba(120,140,93,0.12);
+  --purple:#9b8ec4; --purple-d:rgba(155,142,196,0.12);
+  --red:#c45c5c; --red-d:rgba(196,92,92,0.12);
+  --glass:rgba(250,249,245,0.03);
+  --glass-border:rgba(250,249,245,0.08);
+  --cream:#faf9f5; --cream-mid:#e8e6dc;
+  --radius:12px;
 }
 
 /* ═══════════════════════════════════════════════
-   KEYFRAME ANIMATIONS
+   KEYFRAME ANIMATIONS — Anthropic
 ═══════════════════════════════════════════════ */
 @keyframes gold-pulse {
-  0%,100% { box-shadow:0 0 0 0 rgba(212,175,55,0); }
-  50%      { box-shadow:0 0 30px 4px rgba(212,175,55,0.25); }
+  0%,100% { box-shadow:0 0 0 0 rgba(217,119,87,0); }
+  50%      { box-shadow:0 0 24px 3px rgba(217,119,87,0.18); }
 }
 @keyframes orb-float {
-  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
-  50%      { transform:translate(-50%,-52%) scale(1.08); opacity:0.8; }
+  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.5; }
+  50%      { transform:translate(-50%,-52%) scale(1.06); opacity:0.7; }
 }
 @keyframes slide-in-right {
   from { opacity:0; transform:translateX(30px); }
@@ -53,6 +54,10 @@
 @keyframes shimmer {
   0%   { background-position:200% center; }
   100% { background-position:-200% center; }
+}
+@keyframes sparkle-float {
+  0%,100% { opacity:0.3; transform:scale(1) rotate(0deg); }
+  50%      { opacity:0.7; transform:scale(1.15) rotate(15deg); }
 }
 
 /* ═══════════════════════════════════════════════
@@ -77,7 +82,7 @@ html,body { background:var(--bg) !important; }
     0 0 / 32px 32px,
     var(--bg);
   color:var(--white);
-  padding: 18px 36px;
+  padding: 10px 28px;
   box-sizing:border-box;
   height: 720px;
   overflow: hidden;
@@ -88,27 +93,27 @@ html,body { background:var(--bg) !important; }
 ═══════════════════════════════════════════════ */
 .reveal h1 {
   font-size:2.1em;
-  font-weight:900;
-  line-height:1.1;
+  font-weight:800;
+  line-height:1.15;
   margin-bottom:0.3em;
-  background:linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 50%, #b8902a 100%);
+  background:linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 50%, #b85a3a 100%);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
 }
 .reveal h2 {
-  font-size:1.45em;
-  font-weight:800;
-  margin-bottom:.4em;
+  font-size:1.35em;
+  font-weight:700;
+  margin-bottom:.2em;
   background:linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 100%);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
 }
 .reveal h3 { font-size:1.05em; font-weight:700; color:var(--gold-l); }
-.reveal p,.reveal li { font-size:0.78em; line-height:1.6; color:#c8c8d0; }
-.reveal ul,.reveal ol { margin-right:1em; margin-top:0.2em; }
-.reveal ul li { margin:2px 0; }
+.reveal p,.reveal li { font-size:0.84em; line-height:1.35; color:#c5c3bc; }
+.reveal ul,.reveal ol { margin-right:1em; margin-top:0.1em; }
+.reveal ul li { margin:1px 0; }
 .reveal ul li::marker { color:var(--gold); }
 
 /* ═══════════════════════════════════════════════
@@ -140,7 +145,7 @@ html,body { background:var(--bg) !important; }
   position:absolute;
   width:320px; height:320px;
   border-radius:50%;
-  border:1px solid rgba(212,175,55,0.15);
+  border:1px solid rgba(217,119,87,0.15);
   top:50%; left:50%;
   animation:spin-slow 25s linear infinite;
   pointer-events:none;
@@ -158,7 +163,7 @@ html,body { background:var(--bg) !important; }
   letter-spacing:-1px;
 }
 .sec-title .sec-num {
-  font-size:0.65em;
+  font-size:0.75em;
   color:var(--gray);
   letter-spacing:6px;
   text-transform:uppercase;
@@ -173,18 +178,18 @@ html,body { background:var(--bg) !important; }
 }
 
 /* Orb colors per section background */
-.bg-gold::before  { background:radial-gradient(circle, rgba(212,175,55,0.5) 0%, transparent 70%); }
-.bg-blue::before  { background:radial-gradient(circle, rgba(74,158,255,0.45) 0%, transparent 70%); }
-.bg-purple::before{ background:radial-gradient(circle, rgba(167,139,250,0.45) 0%, transparent 70%); }
-.bg-green::before { background:radial-gradient(circle, rgba(74,222,128,0.4) 0%, transparent 70%); }
-.bg-orange::before{ background:radial-gradient(circle, rgba(255,122,61,0.4) 0%, transparent 70%); }
+.bg-gold::before  { background:radial-gradient(circle, rgba(217,119,87,0.5) 0%, transparent 70%); }
+.bg-blue::before  { background:radial-gradient(circle, rgba(106,155,204,0.45) 0%, transparent 70%); }
+.bg-purple::before{ background:radial-gradient(circle, rgba(155,142,196,0.45) 0%, transparent 70%); }
+.bg-green::before { background:radial-gradient(circle, rgba(120,140,93,0.4) 0%, transparent 70%); }
+.bg-orange::before{ background:radial-gradient(circle, rgba(217,119,87,0.4) 0%, transparent 70%); }
 
 /* Gradient backgrounds for sections */
-.bg-gold   { background:radial-gradient(ellipse at 50% 50%, #211800 0%, var(--bg) 70%) !important; }
-.bg-blue   { background:radial-gradient(ellipse at 50% 50%, #001228 0%, var(--bg) 70%) !important; }
-.bg-purple { background:radial-gradient(ellipse at 50% 50%, #120820 0%, var(--bg) 70%) !important; }
-.bg-green  { background:radial-gradient(ellipse at 50% 50%, #001808 0%, var(--bg) 70%) !important; }
-.bg-orange { background:radial-gradient(ellipse at 50% 50%, #200a00 0%, var(--bg) 70%) !important; }
+.bg-gold   { background:radial-gradient(ellipse at 50% 50%, #1e0f0a 0%, var(--bg) 70%) !important; }
+.bg-blue   { background:radial-gradient(ellipse at 50% 50%, #0a1520 0%, var(--bg) 70%) !important; }
+.bg-purple { background:radial-gradient(ellipse at 50% 50%, #110e1c 0%, var(--bg) 70%) !important; }
+.bg-green  { background:radial-gradient(ellipse at 50% 50%, #0e150a 0%, var(--bg) 70%) !important; }
+.bg-orange { background:radial-gradient(ellipse at 50% 50%, #1e0f0a 0%, var(--bg) 70%) !important; }
 
 /* ═══════════════════════════════════════════════
    GLASSMORPHISM CARDS
@@ -193,17 +198,17 @@ html,body { background:var(--bg) !important; }
   background:var(--glass);
   border:1px solid var(--glass-border);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   backdrop-filter:blur(12px);
   transition:transform .2s, box-shadow .2s;
 }
 .card-gold {
-  background:linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.04) 100%);
-  border:1px solid rgba(212,175,55,0.3);
+  background:linear-gradient(135deg, rgba(217,119,87,0.08) 0%, rgba(217,119,87,0.04) 100%);
+  border:1px solid rgba(217,119,87,0.3);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   box-shadow:0 0 0 0 var(--gold-glow);
   animation:gold-pulse 4s ease-in-out infinite;
   position:relative;
@@ -218,11 +223,11 @@ html,body { background:var(--bg) !important; }
   border-radius:0 var(--radius) var(--radius) 0;
 }
 .card-blue {
-  background:linear-gradient(135deg, var(--blue-d) 0%, rgba(74,158,255,0.05) 100%);
-  border:1px solid rgba(74,158,255,0.25);
+  background:linear-gradient(135deg, var(--blue-d) 0%, rgba(106,155,204,0.05) 100%);
+  border:1px solid rgba(106,155,204,0.25);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   position:relative; overflow:hidden;
 }
 .card-blue::before {
@@ -233,11 +238,11 @@ html,body { background:var(--bg) !important; }
   background:linear-gradient(180deg, var(--blue), transparent);
 }
 .card-orange {
-  background:linear-gradient(135deg, var(--orange-d) 0%, rgba(255,122,61,0.05) 100%);
-  border:1px solid rgba(255,122,61,0.25);
+  background:linear-gradient(135deg, var(--orange-d) 0%, rgba(217,119,87,0.05) 100%);
+  border:1px solid rgba(217,119,87,0.25);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   position:relative; overflow:hidden;
 }
 .card-orange::before {
@@ -248,11 +253,11 @@ html,body { background:var(--bg) !important; }
   background:linear-gradient(180deg, var(--orange), transparent);
 }
 .card-green {
-  background:linear-gradient(135deg, var(--green-d) 0%, rgba(74,222,128,0.04) 100%);
-  border:1px solid rgba(74,222,128,0.25);
+  background:linear-gradient(135deg, var(--green-d) 0%, rgba(120,140,93,0.04) 100%);
+  border:1px solid rgba(120,140,93,0.25);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   position:relative; overflow:hidden;
 }
 .card-green::before {
@@ -263,11 +268,11 @@ html,body { background:var(--bg) !important; }
   background:linear-gradient(180deg, var(--green), transparent);
 }
 .card-red {
-  background:linear-gradient(135deg, var(--red-d) 0%, rgba(248,113,113,0.04) 100%);
-  border:1px solid rgba(248,113,113,0.25);
+  background:linear-gradient(135deg, var(--red-d) 0%, rgba(196,92,92,0.04) 100%);
+  border:1px solid rgba(196,92,92,0.25);
   border-radius:var(--radius);
-  padding:10px 14px;
-  margin:4px 0;
+  padding:7px 12px;
+  margin:3px 0;
   position:relative; overflow:hidden;
 }
 .card-red::before {
@@ -281,24 +286,24 @@ html,body { background:var(--bg) !important; }
 /* ═══════════════════════════════════════════════
    LAYOUT
 ═══════════════════════════════════════════════ */
-.two-col   { display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:right; }
-.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; text-align:right; }
+.two-col   { display:grid; grid-template-columns:1fr 1fr; gap:8px; text-align:right; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; text-align:right; }
 
 /* ═══════════════════════════════════════════════
    TALMUD / CHAZAL BOXES
 ═══════════════════════════════════════════════ */
 .talmud-box {
-  background:linear-gradient(135deg, rgba(212,175,55,0.07) 0%, rgba(212,175,55,0.02) 100%);
-  border:1px solid rgba(212,175,55,0.4);
+  background:linear-gradient(135deg, rgba(217,119,87,0.07) 0%, rgba(217,119,87,0.02) 100%);
+  border:1px solid rgba(217,119,87,0.4);
   border-radius:var(--radius);
-  padding:10px 14px;
+  padding:8px 12px;
   font-style:italic;
   position:relative;
-  margin:5px 0;
-  box-shadow:inset 0 1px 0 rgba(212,175,55,0.1), 0 4px 20px rgba(0,0,0,0.3);
+  margin:3px 0;
+  box-shadow:inset 0 1px 0 rgba(217,119,87,0.1), 0 4px 20px rgba(0,0,0,0.3);
 }
 .talmud-box::before {
-  content:'📜';
+  content:'✦';
   position:absolute;
   top:-12px; right:16px;
   font-size:1.2em;
@@ -310,33 +315,33 @@ html,body { background:var(--bg) !important; }
   position:absolute;
   bottom:0; left:0; right:0;
   height:1px;
-  background:linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
+  background:linear-gradient(90deg, transparent, rgba(217,119,87,0.2), transparent);
 }
 .talmud-tag {
-  font-size:0.68em;
+  font-size:0.78em;
   color:var(--gold-l);
   font-weight:800;
   letter-spacing:2px;
   font-style:normal;
   display:block;
-  margin-bottom:8px;
+  margin-bottom:4px;
   text-transform:uppercase;
 }
 .mashal-box {
-  background:linear-gradient(135deg, var(--purple-d) 0%, rgba(167,139,250,0.04) 100%);
-  border:1px solid rgba(167,139,250,0.2);
+  background:linear-gradient(135deg, var(--purple-d) 0%, rgba(155,142,196,0.04) 100%);
+  border:1px solid rgba(155,142,196,0.2);
   border-right:4px solid var(--purple);
   border-radius:0 var(--radius) var(--radius) 0;
-  padding:8px 12px;
-  margin:4px 0;
+  padding:6px 10px;
+  margin:2px 0;
 }
 .nmshal-box {
-  background:linear-gradient(135deg, rgba(212,175,55,0.07) 0%, transparent 100%);
-  border:1px solid rgba(212,175,55,0.2);
+  background:linear-gradient(135deg, rgba(217,119,87,0.07) 0%, transparent 100%);
+  border:1px solid rgba(217,119,87,0.2);
   border-right:4px solid var(--gold);
   border-radius:0 var(--radius) var(--radius) 0;
-  padding:8px 12px;
-  margin:4px 0;
+  padding:6px 10px;
+  margin:2px 0;
 }
 
 /* ═══════════════════════════════════════════════
@@ -345,53 +350,53 @@ html,body { background:var(--bg) !important; }
 .tip-box {
   background:linear-gradient(135deg, var(--green-d) 0%, transparent 100%);
   border-right:4px solid var(--green);
-  padding:7px 12px;
-  margin:5px 0;
+  padding:5px 10px;
+  margin:3px 0;
   border-radius:0 var(--radius) var(--radius) 0;
-  border-top:1px solid rgba(74,222,128,0.1);
+  border-top:1px solid rgba(120,140,93,0.1);
 }
 .warn-box {
   background:linear-gradient(135deg, var(--red-d) 0%, transparent 100%);
   border-right:4px solid var(--red);
-  padding:7px 12px;
-  margin:5px 0;
+  padding:5px 10px;
+  margin:3px 0;
   border-radius:0 var(--radius) var(--radius) 0;
-  border-top:1px solid rgba(248,113,113,0.1);
+  border-top:1px solid rgba(196,92,92,0.1);
 }
 .info-box {
   background:linear-gradient(135deg, var(--blue-d) 0%, transparent 100%);
   border-right:4px solid var(--blue);
-  padding:7px 12px;
-  margin:5px 0;
+  padding:5px 10px;
+  margin:3px 0;
   border-radius:0 var(--radius) var(--radius) 0;
-  border-top:1px solid rgba(74,158,255,0.1);
+  border-top:1px solid rgba(106,155,204,0.1);
 }
 
 /* ═══════════════════════════════════════════════
    BROWSER MOCKUP
 ═══════════════════════════════════════════════ */
 .mock-browser {
-  background:#12121a;
+  background:#1a1918;
   border-radius:12px;
   overflow:hidden;
-  border:1px solid #2a2a38;
-  margin:8px 0;
+  border:1px solid #333231;
+  margin:5px 0;
   box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
 }
 .mock-titlebar {
-  background:linear-gradient(180deg, #1e1e28 0%, #181820 100%);
+  background:linear-gradient(180deg, #242322 0%, #1e1d1c 100%);
   padding:9px 14px;
   display:flex;
   align-items:center;
   gap:8px;
-  border-bottom:1px solid #2a2a38;
+  border-bottom:1px solid #333231;
 }
 .dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
 .dot-r { background:#ff5f57; box-shadow:0 0 6px rgba(255,95,87,0.5); }
 .dot-y { background:#ffbd2e; box-shadow:0 0 6px rgba(255,189,46,0.5); }
 .dot-g { background:#28c840; box-shadow:0 0 6px rgba(40,200,64,0.5); }
 .mock-url {
-  background:#242432;
+  background:#282726;
   color:#666;
   font-size:0.54em;
   padding:4px 12px;
@@ -419,7 +424,7 @@ html,body { background:var(--bg) !important; }
   border-radius:20px;
   white-space:nowrap;
   z-index:10;
-  box-shadow:0 4px 15px rgba(212,175,55,0.4);
+  box-shadow:0 4px 15px rgba(217,119,87,0.4);
 }
 .ann-bubble::after {
   content:'';
@@ -444,24 +449,24 @@ html,body { background:var(--bg) !important; }
   font-size:0.78em;
   margin-left:10px;
   flex-shrink:0;
-  box-shadow:0 2px 12px rgba(212,175,55,0.35);
+  box-shadow:0 2px 12px rgba(217,119,87,0.35);
 }
-.step-row { display:flex; align-items:flex-start; gap:10px; margin:5px 0; }
+.step-row { display:flex; align-items:flex-start; gap:10px; margin:3px 0; }
 
 /* ═══════════════════════════════════════════════
    CODE / COMMANDS
 ═══════════════════════════════════════════════ */
 .cmd {
-  background:#080810;
-  border:1px solid #2a2a3a;
+  background:#0e0d0c;
+  border:1px solid #333231;
   border-radius:10px;
   padding:8px 14px;
   font-family:'Monaco','Consolas',monospace;
   font-size:0.66em;
-  color:#7dd3fc;
+  color:#7bb8d4;
   direction:ltr;
   text-align:left;
-  margin:4px 0;
+  margin:3px 0;
   position:relative;
   overflow:hidden;
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.03), 0 4px 20px rgba(0,0,0,0.4);
@@ -473,20 +478,20 @@ html,body { background:var(--bg) !important; }
   height:2px;
   background:linear-gradient(90deg, var(--blue), var(--purple), var(--green));
 }
-.cmd-prefix { color:#4ade80; margin-left:8px; font-weight:700; }
-.cmd-comment { color:#5a7a5a; font-family:'Heebo',sans-serif; direction:rtl; }
+.cmd-prefix { color:#788c5d; margin-left:8px; font-weight:700; }
+.cmd-comment { color:#5e6b4a; font-family:'Heebo',sans-serif; direction:rtl; }
 
 /* ═══════════════════════════════════════════════
    PLATFORM BADGES
 ═══════════════════════════════════════════════ */
 .win-badge {
-  background:linear-gradient(135deg, #1a6aff, var(--blue));
+  background:linear-gradient(135deg, #5588b8, var(--blue));
   color:#fff;
   padding:3px 12px;
   border-radius:20px;
   font-size:0.58em;
   font-weight:800;
-  box-shadow:0 2px 8px rgba(74,158,255,0.3);
+  box-shadow:0 2px 8px rgba(106,155,204,0.3);
 }
 .mac-badge {
   background:linear-gradient(135deg, #555, #444);
@@ -502,7 +507,7 @@ html,body { background:var(--bg) !important; }
 ═══════════════════════════════════════════════ */
 .reveal table { width:100%; border-collapse:collapse; font-size:0.72em; }
 .reveal table th {
-  background:linear-gradient(135deg, var(--gold) 0%, #b8902a 100%);
+  background:linear-gradient(135deg, var(--gold) 0%, #b85a3a 100%);
   color:#000;
   padding:10px 14px;
   text-align:right;
@@ -511,7 +516,7 @@ html,body { background:var(--bg) !important; }
 .reveal table td {
   padding:9px 14px;
   border-bottom:1px solid var(--gray-d);
-  color:#c0c0cc;
+  color:#c5c3bc;
 }
 .reveal table tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
 .reveal table tr:hover td { background:var(--gold-d); }
@@ -519,14 +524,14 @@ html,body { background:var(--bg) !important; }
 /* ═══════════════════════════════════════════════
    CHIPS / BADGES
 ═══════════════════════════════════════════════ */
-.chip { display:inline-block; padding:3px 12px; border-radius:20px; font-size:0.6em; font-weight:800; }
-.chip-gold { background:var(--gold-d); border:1px solid rgba(212,175,55,0.35); color:var(--gold-l); }
-.chip-blue { background:var(--blue-d); border:1px solid rgba(74,158,255,0.3); color:var(--blue); }
+.chip { display:inline-block; padding:4px 14px; border-radius:20px; font-size:0.72em; font-weight:800; }
+.chip-gold { background:var(--gold-d); border:1px solid rgba(217,119,87,0.35); color:var(--gold-l); }
+.chip-blue { background:var(--blue-d); border:1px solid rgba(106,155,204,0.3); color:var(--blue); }
 
 /* ═══════════════════════════════════════════════
    MISC ELEMENTS
 ═══════════════════════════════════════════════ */
-.emoji-h { font-size:2em; display:block; margin-bottom:5px; }
+.emoji-h { font-size:1.5em; display:block; margin-bottom:5px; }
 
 .big-num {
   font-size:5em;
@@ -591,7 +596,7 @@ html,body { background:var(--bg) !important; }
 /* ═══════════════════════════════════════════════
    REVEAL.JS OVERRIDES
 ═══════════════════════════════════════════════ */
-.reveal .progress { background:rgba(212,175,55,0.1); height:3px; }
+.reveal .progress { background:rgba(217,119,87,0.1); height:3px; }
 .reveal .progress span { background:linear-gradient(90deg, var(--gold), var(--gold-l)); }
 .reveal .controls { color:var(--gold); }
 .reveal .slide-number { color:var(--gray); font-size:0.55em; background:rgba(0,0,0,0.5); padding:4px 10px; border-radius:20px; }
@@ -605,21 +610,21 @@ html,body { background:var(--bg) !important; }
   position:fixed; top:0; left:0; pointer-events:none; z-index:99999;
   width:8px; height:8px; border-radius:50%;
   background:var(--gold);
-  box-shadow:0 0 10px var(--gold), 0 0 20px rgba(212,175,55,0.5);
+  box-shadow:0 0 10px var(--gold), 0 0 20px rgba(217,119,87,0.5);
   transform:translate(-50%,-50%);
   transition:transform 0.05s, opacity 0.2s;
 }
 #cursor-ring {
   position:fixed; top:0; left:0; pointer-events:none; z-index:99998;
   width:36px; height:36px; border-radius:50%;
-  border:1.5px solid rgba(212,175,55,0.6);
+  border:1.5px solid rgba(217,119,87,0.6);
   transform:translate(-50%,-50%);
   transition:transform 0.12s cubic-bezier(0.25,1,0.5,1), width 0.2s, height 0.2s, opacity 0.2s;
 }
 #cursor-ring.hovered {
   width:56px; height:56px;
   border-color:var(--gold-l);
-  background:rgba(212,175,55,0.06);
+  background:rgba(217,119,87,0.06);
 }
 
 /* ═══════════════════════════════════════════════
@@ -685,7 +690,7 @@ html,body { background:var(--bg) !important; }
 .card:hover, .card-gold:hover, .card-blue:hover,
 .card-green:hover, .card-orange:hover, .card-red:hover {
   transform:translateY(-4px) scale(1.015) !important;
-  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,175,55,0.12) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,0.4), 0 0 30px rgba(217,119,87,0.12) !important;
 }
 
 /* ═══════════════════════════════════════════════
@@ -695,7 +700,7 @@ html,body { background:var(--bg) !important; }
   transition:box-shadow 0.4s ease;
 }
 .reveal .slides section.present .cmd {
-  box-shadow:0 0 0 1px rgba(212,175,55,0.2), 0 4px 24px rgba(212,175,55,0.08) !important;
+  box-shadow:0 0 0 1px rgba(217,119,87,0.2), 0 4px 24px rgba(217,119,87,0.08) !important;
 }
 
 /* ═══════════════════════════════════════════════
@@ -724,11 +729,11 @@ html,body { background:var(--bg) !important; }
 ═══════════════════════════════════════════════ */
 .reveal .progress {
   height:3px !important;
-  background:rgba(212,175,55,0.08) !important;
+  background:rgba(217,119,87,0.08) !important;
 }
 .reveal .progress span {
   background:linear-gradient(90deg,
-    #8B6914 0%, var(--gold) 30%, var(--gold-l) 60%, var(--gold) 80%, #8B6914 100%)
+    #a34a2e 0%, var(--gold) 30%, var(--gold-l) 60%, var(--gold) 80%, #a34a2e 100%)
   !important;
   background-size:200% 100% !important;
   animation:shimmer 3s linear infinite !important;
@@ -744,9 +749,126 @@ html,body { background:var(--bg) !important; }
 .ripple-effect {
   position:fixed; pointer-events:none; z-index:99997;
   width:60px; height:60px; border-radius:50%;
-  background:radial-gradient(circle, rgba(212,175,55,0.35) 0%, transparent 70%);
+  background:radial-gradient(circle, rgba(217,119,87,0.35) 0%, transparent 70%);
   animation:ripple-anim 0.6s ease-out forwards;
 }
+
+
+/* ═══════════════════════════════════════════════
+   ✨ DESIGN ENHANCEMENTS (Clean Version)
+═══════════════════════════════════════════════ */
+
+/* --- Better element spacing inside slides --- */
+.reveal .slides section > h1 + h2 { margin-top: 4px; }
+.reveal .slides section > h2 + p { margin-top: 2px; }
+.reveal .slides section > h2 + .two-col,
+.reveal .slides section > h2 + .three-col,
+.reveal .slides section > p + .two-col,
+.reveal .slides section > p + .three-col { margin-top: 8px; }
+
+/* --- Enhanced glassmorphism on all cards --- */
+.card, .card-gold, .card-blue, .card-green, .card-orange, .card-red {
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+}
+
+/* --- Animated gradient border on gold cards --- */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotate-gradient {
+  to { --angle: 360deg; }
+}
+.card-gold {
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(135deg, rgba(217,119,87,0.1), rgba(217,119,87,0.04)),
+    conic-gradient(from var(--angle), rgba(217,119,87,0.4), rgba(232,148,120,0.15), rgba(217,119,87,0.4));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: rotate-gradient 6s linear infinite, gold-pulse 4s ease-in-out infinite;
+}
+
+/* --- Subtle highlight glow --- */
+.hl-gold   { text-shadow: 0 0 8px rgba(217,119,87,0.25); }
+.hl-blue   { text-shadow: 0 0 8px rgba(106,155,204,0.25); }
+.hl-green  { text-shadow: 0 0 8px rgba(120,140,93,0.25); }
+.hl-orange { text-shadow: 0 0 8px rgba(217,119,87,0.25); }
+.hl-purple { text-shadow: 0 0 8px rgba(155,142,196,0.25); }
+
+/* --- Terminal code blocks enhancement --- */
+.cmd {
+  font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+}
+
+/* --- Progress bar glow --- */
+.reveal .progress { height: 3px; }
+.reveal .progress span {
+  box-shadow: 0 0 10px rgba(217,119,87,0.4);
+}
+
+/* --- Blur-in fragment animation --- */
+.reveal .fragment.blur-in {
+  opacity: 0; filter: blur(6px);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+.reveal .fragment.blur-in.visible {
+  opacity: 1; filter: blur(0);
+}
+
+/* --- Info boxes subtle upgrade --- */
+.tip-box, .warn-box, .info-box {
+  backdrop-filter: blur(8px);
+  border-radius: 0 12px 12px 0;
+}
+
+/* --- Step badges glow --- */
+.step-badge {
+  box-shadow: 0 2px 12px rgba(217,119,87,0.3), 0 0 0 2px rgba(217,119,87,0.08);
+}
+
+/* --- Custom scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), #a34a2e);
+  border-radius: 3px;
+}
+
+/* --- Extended stagger animation --- */
+.reveal .slides section.present > *:nth-child(6)  { animation-delay: 0.40s; }
+.reveal .slides section.present > *:nth-child(7)  { animation-delay: 0.47s; }
+.reveal .slides section.present > *:nth-child(8)  { animation-delay: 0.54s; }
+.reveal .slides section.present > *:nth-child(9)  { animation-delay: 0.61s; }
+.reveal .slides section.present > *:nth-child(10) { animation-delay: 0.68s; }
+
+/* --- Chip upgrade --- */
+.chip {
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+}
+
+/* --- ExplAIn logo shimmer --- */
+@keyframes text-shimmer {
+  0%   { background-position: 100% center; }
+  100% { background-position: -100% center; }
+}
+.explain-logo {
+  background: linear-gradient(100deg, var(--gold-l), var(--gold), #fff, var(--gold-l), var(--gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 3s linear infinite;
+}
+/* Keep "AI" part white */
+.explain-logo span {
+  -webkit-text-fill-color: var(--white) !important;
+  background: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -756,45 +878,52 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 1 - Cover -->
 <section class="sec-title bg-gold" style="text-align:center">
-  <div class="explain-logo" style="font-size:2.5em;margin-bottom:20px">Expl<span>AI</span>n</div>
-  <h1 style="font-size:2.2em">מדריך הגמרא לבינה המלאכותית</h1>
-  <p class="big-quote">מאי AI? | מאי Claude? | מאי Claude Code?</p>
+  <div class="explain-logo" style="font-size:2.8em;margin-bottom:24px">Expl<span>AI</span>n</div>
+  <p class="big-quote" style="font-size:1.1em;margin-bottom:4px">מה זה AI? | מה זה Claude? | מה זה Claude Code?</p>
   <p style="color:#888;font-size:0.7em;margin-top:20px">מוצג על ידי <span class="hl-gold">דביר ביטון</span> | לומדים בינה מלאכותית בגובה האוזניים</p>
 </section>
 
 <!-- SLIDE 2 - About Dvir -->
 <section>
-  <h2>👋 מי אני ולמה אנחנו כאן?</h2>
-  <div class="two-col" style="margin-bottom:18px">
+  <h2>👋 מי אני?</h2>
+  <div class="two-col">
     <div>
       <div class="card-gold">
-        <p style="font-size:1em;font-weight:700;color:#D4AF37;margin-bottom:6px">דביר ביטון</p>
+        <p style="font-size:1.05em;font-weight:700;color:#d97757;margin-bottom:6px">דביר ביטון</p>
         <p>יזם טכנולוגי, מומחה AI ומייסד ExplAIn</p>
         <p>משלב עולמות: טכנולוגיה, עסקים ולמידה</p>
         <p>מאמין שכל אחד יכול ללמוד AI — בגובה האוזניים</p>
       </div>
     </div>
-    <div>
-      <div class="explain-logo" style="font-size:1.6em;margin-bottom:10px;text-align:center">Expl<span>AI</span>n</div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div class="explain-logo" style="font-size:1.5em;margin-bottom:6px">Expl<span>AI</span>n</div>
       <div class="card">
-        <p style="text-align:center;font-size:0.9em">לומדים בינה מלאכותית בגובה האוזניים</p>
-        <p style="text-align:center;color:#888;font-size:0.75em">בלי ז'רגון מיותר. בלי פחד. עם המון חיוך.</p>
+        <p style="text-align:center;font-size:0.95em">לומדים בינה מלאכותית בגובה האוזניים</p>
+        <p style="text-align:center;color:#888;font-size:0.78em">בלי ז'רגון מיותר. בלי פחד. עם המון חיוך.</p>
       </div>
     </div>
   </div>
+</section>
+
+<!-- SLIDE 2b - What we'll learn -->
+<section>
+  <h2>🗺️ מה נלמד היום?</h2>
   <div class="three-col">
     <div class="card-blue">
-      <p style="font-weight:700;color:#4A9EFF;margin-bottom:6px">🎓 מה נלמד היום?</p>
+      <p style="font-weight:700;color:#6a9bcc;margin-bottom:6px">🎓 הנושאים</p>
       <p>מה זה AI, מה זה Claude, ואיך Claude Code הופך אתכם לסופר-מפתחים</p>
     </div>
     <div class="card-gold">
-      <p style="font-weight:700;color:#D4AF37;margin-bottom:6px">👥 למי זה מיועד?</p>
+      <p style="font-weight:700;color:#d97757;margin-bottom:6px">👥 למי זה מיועד?</p>
       <p>לכל אחד — מתחיל ועד מנוסה, טכני ועד לא-טכני בכלל</p>
     </div>
-    <div class="card" style="border-color:#52c41a">
-      <p style="font-weight:700;color:#52c41a;margin-bottom:6px">🏁 מה נדע בסוף?</p>
+    <div class="card-green">
+      <p style="font-weight:700;color:#788c5d;margin-bottom:6px">🏁 מה נדע בסוף?</p>
       <p>לעבוד עם Claude כמו מקצוענים ולהריץ Claude Code בעצמנו</p>
     </div>
+  </div>
+  <div class="info-box" style="margin-top:10px">
+    <p style="text-align:center">📌 ההרצאה מתאימה גם למי שמעולם לא עבד עם AI — בגובה האוזניים!</p>
   </div>
 </section>
 
@@ -810,60 +939,57 @@ html,body { background:var(--bg) !important; }
   <h2>🧠 מה זה AI — בינה מלאכותית?</h2>
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    מהי בינה מלאכותית? מחשב שלומד מדוגמאות — לא מתוכנת ידנית, אלא רואה אלפי דוגמאות ומגלה בעצמו את הדפוסים.
+    בינה מלאכותית = מחשב שלמד לבד. במקום שמישהו כתב לו כל חוק וכלל — הוא למד מדוגמאות. בדיוק כמו שאנחנו לומדים.
   </div>
   <div class="mashal-box">
     <span class="talmud-tag">משל</span>
-    כמו ילד שלמד לזהות כלב — לא קרא מילון, לא קיבל הגדרה. הוא ראה אלף כלבים, ובסוף הוא מזהה כלב חדש שמעולם לא ראה.
+    חשבו על ילד קטן שלומד מה זה "כלב". אף אחד לא נתן לו הגדרה מהמילון. הוא פשוט ראה הרבה כלבים — ולבד הבין מה המשותף לכולם. עכשיו הוא מזהה גם כלב שמעולם לא ראה!
   </div>
   <div class="nmshal-box">
     <span class="talmud-tag">ונמשל</span>
-    AI רואה מיליוני דוגמאות — תמונות, טקסטים, קוד, שיחות — ולומד דפוסים. כך הוא יכול לנבא, לזהות ולהבין דברים חדשים.
+    ככה AI עובד: הוא "רואה" מיליוני דוגמאות של טקסטים, תמונות וקוד — ולומד את הדפוסים. אחר כך הוא יכול לזהות, לכתוב ולהבין דברים חדשים שמעולם לא ראה.
   </div>
 </section>
 
 <!-- SLIDE 5 - What is LLM -->
 <section>
-  <h2>📚 מאי LLM? — מודל שפה גדול</h2>
+  <h2>📚 מה זה LLM — מודל שפה גדול?</h2>
   <div class="talmud-box">
-    <span class="talmud-tag">תלמוד בבלי, מסכת AI, דף א׳</span>
-    תלמיד שקרא כל ספר שנכתב אי פעם — לא זוכר מילים כמילון, אלא זוכר <em>דפוסים</em>. איך מילים מתחברות, איך רעיונות זורמים.
+    <span class="talmud-tag">תנו רבנן</span>
+    LLM = תוכנה שקראה כמעט את כל מה שנכתב באינטרנט. היא לא זוכרת הכל מילה במילה — אבל היא למדה את ה<em>דפוסים</em>: איך בני אדם כותבים, מדברים וחושבים.
   </div>
   <div class="two-col">
     <div class="mashal-box">
       <span class="talmud-tag">משל</span>
-      כמו בוגר ישיבה שלמד כל הש"ס — הוא לא מצטט בע"פ, אבל שאל אותו שאלה ותקבל תשובה מעמיקה עם הקשרים.
+      דמיינו מישהו שקרא אלפי ספרי בישול. הוא לא זוכר כל מתכון — אבל הוא <em>מבין</em> בישול. תנו לו מצרכים חדשים והוא ימציא מנה מעולה.
     </div>
     <div class="nmshal-box">
       <span class="talmud-tag">ונמשל</span>
-      LLM למד מטריליוני מילים מהאינטרנט, ספרים, קוד — ועכשיו הוא יכול לכתוב, לנתח ולהסביר כמו מומחה.
+      LLM קרא מיליארדי טקסטים — ועכשיו הוא יכול לכתוב, לתרגם, להסביר ולנתח. הוא לא מחפש תשובות — הוא <em>יוצר</em> אותן.
     </div>
   </div>
-  <div class="three-col" style="margin-top:14px">
-    <div class="card-blue" style="text-align:center">
-      <p style="font-weight:700;color:#4A9EFF">GPT-4</p>
-      <p style="font-size:0.75em;color:#888">OpenAI</p>
+  <div class="three-col" style="margin-top:6px">
+    <div class="card-blue" style="text-align:center;padding:5px 10px">
+      <p style="font-weight:700;color:#6a9bcc;margin:0">GPT-4 <span style="font-size:0.7em;color:#888">OpenAI</span></p>
     </div>
-    <div class="card-gold" style="text-align:center">
-      <p style="font-weight:700;color:#D4AF37">Claude</p>
-      <p style="font-size:0.75em;color:#888">Anthropic</p>
+    <div class="card-gold" style="text-align:center;padding:5px 10px">
+      <p style="font-weight:700;color:#d97757;margin:0">Claude <span style="font-size:0.7em;color:#888">Anthropic</span></p>
     </div>
-    <div class="card" style="border-color:#4A9EFF;text-align:center">
-      <p style="font-weight:700;color:#4A9EFF">Gemini</p>
-      <p style="font-size:0.75em;color:#888">Google</p>
+    <div class="card" style="border-color:#6a9bcc;text-align:center;padding:5px 10px">
+      <p style="font-weight:700;color:#6a9bcc;margin:0">Gemini <span style="font-size:0.7em;color:#888">Google</span></p>
     </div>
   </div>
 </section>
 
 <!-- SLIDE 6 - Tokens -->
 <section>
-  <h2>🔤 טוקנים — אבני הבניין</h2>
+  <h2>🔤 טוקנים — אבני הלגו של השפה</h2>
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    כמו אותיות התורה, שכל אחת מהן עולם בפני עצמה — כך הטוקן: יחידת המידע הקטנה ביותר שממנה בנוי כל משפט.
+    כדי שהמחשב יבין טקסט, הוא חותך אותו לחתיכות קטנות שנקראות <em>טוקנים</em>. כל טוקן = מילה אחת, או חלק ממילה. ככה ה-AI "קורא".
   </div>
   <div class="card" style="margin:10px 0">
-    <p>טוקן = חתיכת מילה או מילה שלמה. <span class="hl-gold">"שלום"</span> = טוקן אחד. <span class="hl-blue">"Artificial"</span> = טוקן אחד. <span class="hl-orange">"Intelligence"</span> = טוקן אחד.</p>
+    <p>טוקן = חתיכת טקסט. לרוב מילה שלמה. <span class="hl-gold">"שלום"</span> = טוקן 1. <span class="hl-blue">"Hello"</span> = טוקן 1. <span class="hl-orange">"World"</span> = טוקן 1.</p>
   </div>
   <div class="cmd">
 "Hello World"          → 2 tokens<br>
@@ -872,7 +998,7 @@ html,body { background:var(--bg) !important; }
 "Artificial Intelligence" → 2 tokens
   </div>
   <div class="info-box">
-    <strong>💡 חלון ההקשר (Context Window):</strong> כמה טוקנים Claude יכול "לזכור" בתוך שיחה אחת. Claude 3.7 — עד <span class="hl-gold">~200,000 טוקנים</span> — כ-150,000 מילים, כמו ספר שלם!
+    <strong>💡 חלון ההקשר:</strong> כמה טקסט Claude יכול "לזכור" בשיחה אחת. Claude 4.6 זוכר עד <span class="hl-gold">200,000 טוקנים</span> — בערך כמו ספר שלם של 500 עמודים!
   </div>
 </section>
 
@@ -881,7 +1007,7 @@ html,body { background:var(--bg) !important; }
   <h2>🏋️ אימון מול שימוש — הבדל עצום</h2>
   <div class="two-col">
     <div class="card-blue">
-      <p style="font-weight:700;color:#4A9EFF;font-size:1em;margin-bottom:10px">🏗️ אימון המודל</p>
+      <p style="font-weight:700;color:#6a9bcc;font-size:1em;margin-bottom:10px">🏗️ אימון המודל</p>
       <ul>
         <li>מיליארדי טקסטים מהאינטרנט</li>
         <li>חודשים של חישוב ברציפות</li>
@@ -891,7 +1017,7 @@ html,body { background:var(--bg) !important; }
       </ul>
     </div>
     <div class="card-gold">
-      <p style="font-weight:700;color:#D4AF37;font-size:1em;margin-bottom:10px">💬 שימוש במודל</p>
+      <p style="font-weight:700;color:#d97757;font-size:1em;margin-bottom:10px">💬 שימוש במודל</p>
       <ul>
         <li>אתה שולח הודעה</li>
         <li>Claude מנבא מילה אחר מילה</li>
@@ -915,19 +1041,18 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 9 - What is a chatbot -->
 <section>
-  <h2>🤖 מאי צ'אטבוט?</h2>
+  <h2>🤖 מה זה צ'אטבוט?</h2>
   <div class="talmud-box">
-    <span class="talmud-tag">פלוגתא דרב ושמואל</span>
-    אמר רב: צ'אטבוט הוא כמו <em>מזכיר שקרא כל ספר</em> — מכיר הכל, אבל לא יודע על החיים שלך.<br>
-    אמר שמואל: כמו <em>מנוע חיפוש שלמד לדבר</em> — לא מחזיר קישורים, מחזיר תשובות.
+    <span class="talmud-tag">תנו רבנן</span>
+    צ'אטבוט = תוכנה שאפשר <em>לדבר</em> איתה. כותבים לה שאלה בשפה רגילה — והיא עונה בשפה רגילה. בדיוק כמו הודעת וואטסאפ, רק שמי שעונה הוא AI.
   </div>
   <div class="mashal-box">
     <span class="talmud-tag">משל</span>
-    כמו ששאלת שאלה לחבר חכם שקרא הכל — הוא יענה מהר ובעומק, אבל לא יזכור מה סיפרת לו אתמול.
+    כמו חבר חכם שזמין 24/7 — אפשר לשאול אותו כל דבר והוא יענה מיד. אבל הוא לא זוכר מה דיברתם אתמול (אלא אם אומרים לו).
   </div>
-  <div class="two-col" style="margin-top:14px">
+  <div class="two-col" style="margin-top:6px">
     <div class="card-green">
-      <p style="font-weight:700;color:#52c41a;margin-bottom:8px">✅ מה הוא יכול?</p>
+      <p style="font-weight:700;color:#788c5d;margin-bottom:4px">✅ מה הוא יכול?</p>
       <ul>
         <li>כתיבה ועריכת טקסטים</li>
         <li>כתיבת קוד ודיבאג</li>
@@ -937,7 +1062,7 @@ html,body { background:var(--bg) !important; }
       </ul>
     </div>
     <div class="card-red">
-      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">❌ מה הוא לא יכול?</p>
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:4px">❌ מה הוא לא יכול?</p>
       <ul>
         <li>לגלוש לאינטרנט (ללא כלים)</li>
         <li>לזכור שיחות קודמות (ללא Projects)</li>
@@ -951,38 +1076,46 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 10 - Art of Prompting -->
 <section>
-  <h2>🎯 אמנות ה-Prompt</h2>
+  <h2>🎯 איך לדבר עם AI — אמנות ה-Prompt</h2>
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    "כמדה שאדם מודד — מודדין לו" — כמה שתיתן לClaude הקשר, פרטים ובהירות, כך תקבל חזרה.
+    Prompt = ההודעה שאתה שולח ל-AI. ככל שתסביר יותר מה אתה צריך — ככה התשובה תהיה יותר טובה ומדויקת.
   </div>
-  <div class="two-col" style="margin:14px 0">
+  <div class="two-col" style="margin-top:10px">
     <div class="card-red">
-      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">❌ Prompt רע</p>
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:6px">❌ Prompt רע</p>
       <p style="font-style:italic;color:#ddd">"תעזור לי עם האתר שלי"</p>
-      <p style="font-size:0.75em;color:#888;margin-top:8px">אין הקשר. Claude לא יודע מה, לאיזה אתר, לאיזה מטרה.</p>
+      <p style="font-size:0.75em;color:#888;margin-top:6px">אין הקשר. Claude לא יודע מה, לאיזה אתר, לאיזה מטרה.</p>
     </div>
     <div class="card-green">
-      <p style="font-weight:700;color:#52c41a;margin-bottom:8px">✅ Prompt טוב</p>
+      <p style="font-weight:700;color:#788c5d;margin-bottom:6px">✅ Prompt טוב</p>
       <p style="font-style:italic;color:#ddd;font-size:0.85em">"אני בונה אתר React לחנות מקוונת. הקומפוננטה שלי צריכה עגלת קניות עם הוספה/הסרה פריטים ועדכון סכום בזמן אמת"</p>
     </div>
   </div>
+</section>
+
+<!-- SLIDE 10b - Prompt tips -->
+<section>
+  <h2>💡 3 כללי זהב ל-Prompt מושלם</h2>
   <div class="three-col">
     <div class="card">
       <p style="text-align:center;font-size:1.3em">🎯</p>
-      <p style="text-align:center;font-weight:700;color:#D4AF37">היה ספציפי</p>
-      <p style="font-size:0.75em;text-align:center">מה בדיוק אתה צריך?</p>
+      <p style="text-align:center;font-weight:700;color:#d97757">היה ספציפי</p>
+      <p style="font-size:0.78em;text-align:center">מה בדיוק אתה צריך?</p>
     </div>
     <div class="card">
       <p style="text-align:center;font-size:1.3em">📋</p>
-      <p style="text-align:center;font-weight:700;color:#4A9EFF">תן הקשר</p>
-      <p style="font-size:0.75em;text-align:center">מי אתה? מה הפרויקט?</p>
+      <p style="text-align:center;font-weight:700;color:#6a9bcc">תן הקשר</p>
+      <p style="font-size:0.78em;text-align:center">מי אתה? מה הפרויקט?</p>
     </div>
     <div class="card">
       <p style="text-align:center;font-size:1.3em">📄</p>
-      <p style="text-align:center;font-weight:700;color:#52c41a">ציין פורמט</p>
-      <p style="font-size:0.75em;text-align:center">רשימה? קוד? טבלה? הסבר?</p>
+      <p style="text-align:center;font-weight:700;color:#788c5d">ציין פורמט</p>
+      <p style="font-size:0.78em;text-align:center">רשימה? קוד? טבלה? הסבר?</p>
     </div>
+  </div>
+  <div class="tip-box" style="margin-top:10px">
+    <p>💡 <strong>טיפ:</strong> חשבו על Prompt כמו בריף ללקוח — ככל שתהיו ברורים יותר, התוצאה תהיה מדויקת יותר</p>
   </div>
 </section>
 
@@ -996,28 +1129,28 @@ html,body { background:var(--bg) !important; }
 <!-- SLIDE 12 - Meet Claude -->
 <section>
   <h2>🤖 פגשו את קלוד</h2>
-  <div class="card-gold" style="margin-bottom:14px">
+  <div class="card-gold">
     <p>Claude הוא מודל שפה גדול שנוצר על ידי <span class="hl-gold">Anthropic</span> — חברה שמאמינה שAI צריך להיות בטוח, ישר ומועיל.</p>
   </div>
-  <div class="talmud-box" style="margin-bottom:14px">
-    <span class="talmud-tag">אמרי נהרדעי</span>
-    Anthropic הוקמה ב-2021 על ידי לשעבר עובדי OpenAI בכירים — שרצו לבנות AI שהוא לא רק <em>חכם</em>, אלא גם <em>בטוח</em> ו<em>ישר</em>.
+  <div class="talmud-box">
+    <span class="talmud-tag">תנו רבנן</span>
+    Anthropic = החברה שבנתה את Claude. הוקמה ב-2021 ע"י אנשים מ-OpenAI — שהחליטו לבנות AI <em>בטוח</em> ו<em>ישר</em>.
   </div>
-  <div class="three-col" style="margin-bottom:14px">
-    <div class="card" style="text-align:center;border-color:#52c41a">
-      <p style="font-size:1.5em">🛡️</p>
-      <p style="font-weight:700;color:#52c41a">בטוח יותר</p>
-      <p style="font-size:0.75em">Constitutional AI — ערכים מובנים</p>
+  <div class="three-col">
+    <div class="card" style="text-align:center;border-color:#788c5d">
+      <p style="font-size:1.3em;margin:0">🛡️</p>
+      <p style="font-weight:700;color:#788c5d;margin:0">בטוח יותר</p>
+      <p style="font-size:0.72em;margin:0">בנוי עם ערכים מוסריים</p>
     </div>
     <div class="card-gold" style="text-align:center">
-      <p style="font-size:1.5em">✅</p>
-      <p style="font-weight:700;color:#D4AF37">יותר ישר</p>
-      <p style="font-size:0.75em">אומר "אני לא יודע" כשצריך</p>
+      <p style="font-size:1.3em;margin:0">✅</p>
+      <p style="font-weight:700;color:#d97757;margin:0">יותר ישר</p>
+      <p style="font-size:0.72em;margin:0">אומר "אני לא יודע" כשצריך</p>
     </div>
     <div class="card-blue" style="text-align:center">
-      <p style="font-size:1.5em">🧠</p>
-      <p style="font-weight:700;color:#4A9EFF">מעמיק יותר</p>
-      <p style="font-size:0.75em">חשיבה מורכבת ורב-שלבית</p>
+      <p style="font-size:1.3em;margin:0">🧠</p>
+      <p style="font-weight:700;color:#6a9bcc;margin:0">מעמיק יותר</p>
+      <p style="font-size:0.72em;margin:0">חשיבה עמוקה ורב-שלבית</p>
     </div>
   </div>
   <div class="info-box">
@@ -1027,21 +1160,21 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 13 - Constitutional AI -->
 <section>
-  <h2>⚖️ Constitutional AI — הגיבוי הערכי</h2>
+  <h2>⚖️ למה Claude שונה? — הערכים שלו</h2>
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    Constitution = חוקה. Claude לא רק "לומד לענות נכון" — הוא מאומן עם <em>ערכים</em>. כמו תלמיד שקיבל חינוך ולא רק ידע.
+    Claude לא רק "חכם" — הוא גם "מחונך". Anthropic כתבו לו <em>חוקה של ערכים</em>: היה כנה, אל תזיק, עזור באמת. כמו ילד שקיבל חינוך ולא רק ידע.
   </div>
-  <div class="two-col" style="margin:16px 0">
+  <div class="two-col" style="margin:6px 0">
     <div class="card-red">
-      <p style="font-weight:700;color:#ff4d4f;margin-bottom:8px">🔴 רוב ה-AI</p>
-      <p>לומד ממה שמשתמשים <em>מאשרים</em></p>
-      <p style="font-size:0.8em;color:#888;margin-top:6px">בעיה: אם משתמשים מאשרים תשובות גרועות — המודל לומד תשובות גרועות.</p>
+      <p style="font-weight:700;color:#ff4d4f;margin-bottom:4px">🔴 AI רגיל</p>
+      <p>לומד ממה שמשתמשים <em>אוהבים</em></p>
+      <p style="font-size:0.8em;color:#888;margin-top:6px">בעיה: אם אנשים אוהבים תשובות חנפניות — ה-AI ילמד להחניף.</p>
     </div>
     <div class="card-gold">
-      <p style="font-weight:700;color:#D4AF37;margin-bottom:8px">🟡 Claude</p>
-      <p>לומד מ<em>חוקה של ערכים</em> שהוגדרה מראש</p>
-      <p style="font-size:0.8em;color:#888;margin-top:6px">ערכים: כנות, בטיחות, אי-נזק, עזרה אמיתית לאנושות.</p>
+      <p style="font-weight:700;color:#d97757;margin-bottom:4px">🟡 Claude</p>
+      <p>לומד מ<em>חוקה של ערכים</em> שנכתבה מראש</p>
+      <p style="font-size:0.8em;color:#888;margin-top:6px">ערכים: תהיה כנה, אל תזיק, עזור באמת, תגיד "אני לא יודע" כשאתה לא יודע.</p>
     </div>
   </div>
   <div class="warn-box">
@@ -1055,10 +1188,10 @@ html,body { background:var(--bg) !important; }
 <!-- SLIDE 14 - Claude's family -->
 <section>
   <h2>👨‍👩‍👧 משפחת Claude — בחרו את הנכון</h2>
-  <div class="three-col" style="margin-bottom:16px">
+  <div class="three-col" style="margin-bottom:6px">
     <div class="card-blue">
       <p style="font-size:1.6em;text-align:center">🐣</p>
-      <p style="font-weight:700;color:#4A9EFF;text-align:center;font-size:1em">Claude Haiku</p>
+      <p style="font-weight:700;color:#6a9bcc;text-align:center;font-size:1em">Claude Haiku</p>
       <ul style="margin-top:10px">
         <li>⚡ הכי מהיר</li>
         <li>💰 הכי זול</li>
@@ -1068,12 +1201,12 @@ html,body { background:var(--bg) !important; }
     </div>
     <div class="card-gold">
       <p style="font-size:1.6em;text-align:center">⚡</p>
-      <p style="font-weight:700;color:#D4AF37;text-align:center;font-size:1em">Claude Sonnet</p>
+      <p style="font-weight:700;color:#d97757;text-align:center;font-size:1em">Claude Sonnet</p>
       <ul style="margin-top:10px">
         <li>⚖️ מאוזן לחלוטין</li>
         <li>🏆 ביצועים מצוינים</li>
         <li>🌟 הכי שימושי ביומיום</li>
-        <li>Claude Code מריץ אותו</li>
+        <li>ברירת המחדל של Claude Code</li>
       </ul>
     </div>
     <div class="card" style="border-color:#9C6FE4">
@@ -1113,17 +1246,17 @@ html,body { background:var(--bg) !important; }
       <div class="mock-body" style="padding:0">
         <div style="background:#1a1a1a;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #333">
           <div style="display:flex;gap:10px">
-            <span style="background:#D4AF37;color:#000;padding:4px 12px;border-radius:6px;font-size:0.6em;font-weight:700;cursor:pointer">Try Claude</span>
+            <span style="background:#d97757;color:#000;padding:4px 12px;border-radius:6px;font-size:0.6em;font-weight:700;cursor:pointer">Try Claude</span>
             <span style="border:1px solid #555;color:#ccc;padding:4px 12px;border-radius:6px;font-size:0.6em;cursor:pointer">Sign In</span>
           </div>
-          <span style="font-weight:700;color:#D4AF37;font-size:0.9em">Claude</span>
+          <span style="font-weight:700;color:#d97757;font-size:0.9em">Claude</span>
         </div>
-        <div style="background:#050505;padding:30px 16px;text-align:center">
-          <p style="font-size:1em;font-weight:700;color:#fff;margin-bottom:16px">How can I help you today?</p>
+        <div style="background:#141413;padding:30px 16px;text-align:center">
+          <p style="font-size:1em;font-weight:700;color:#fff;margin-bottom:6px">How can I help you today?</p>
           <div style="background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:10px 16px;text-align:right;font-size:0.65em;color:#555;max-width:400px;margin:0 auto">
             שאל אותי כל שאלה...
           </div>
-          <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:6px">
             <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">📝 כתיבה</span>
             <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">💻 קוד</span>
             <span style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 12px;font-size:0.55em;color:#888">🔍 ניתוח</span>
@@ -1180,35 +1313,35 @@ html,body { background:var(--bg) !important; }
 <!-- SLIDE 18 - Claude Pro -->
 <section>
   <h2>💎 Claude Pro — למה כדאי?</h2>
-  <div class="two-col" style="margin-bottom:14px">
+  <div class="two-col" style="margin-bottom:6px">
     <div class="card">
       <p style="font-weight:700;color:#888;margin-bottom:10px;text-align:center">Free — חינם</p>
       <ul>
         <li>שיחות מוגבלות ביום</li>
         <li>Claude Sonnet בלבד</li>
-        <li>ללא Projects</li>
-        <li>ללא Artifacts מתקדמים</li>
+        <li>Projects — מוגבל ל-5</li>
+        <li>Artifacts — בסיסי</li>
         <li>איטי בשעות עומס</li>
       </ul>
       <p style="text-align:center;font-size:1.1em;font-weight:700;color:#888;margin-top:12px">$0 / חודש</p>
     </div>
     <div class="card-gold">
-      <p style="font-weight:700;color:#D4AF37;margin-bottom:10px;text-align:center">Pro — מקצועי 💎</p>
+      <p style="font-weight:700;color:#d97757;margin-bottom:10px;text-align:center">Pro — מקצועי 💎</p>
       <ul>
-        <li>שיחות <span class="hl-gold">ללא הגבלה</span></li>
+        <li>5× יותר שימוש מ-Free</li>
         <li>כל המודלים: Haiku, Sonnet, Opus</li>
-        <li>Projects — זיכרון ארוך טווח</li>
-        <li>Artifacts מלאים</li>
+        <li>Projects ו-Artifacts ללא הגבלה</li>
         <li>Priority access — תמיד מהיר</li>
+        <li>Extended Thinking — חשיבה מעמיקה</li>
       </ul>
-      <p style="text-align:center;font-size:1.1em;font-weight:700;color:#D4AF37;margin-top:12px">$20 / חודש</p>
+      <p style="text-align:center;font-size:1.1em;font-weight:700;color:#d97757;margin-top:12px">$20 / חודש</p>
     </div>
   </div>
   <div class="warn-box">
-    <strong>⚠️ חשוב:</strong> לשימוש ב-<span class="hl-gold">Claude Code</span> — חובה להיות Pro! Claude Code דורש גישה מלאה למודלים.
+    <strong>⚠️ חשוב:</strong> Claude Code דורש <span class="hl-gold">מנוי Pro לפחות</span>, או שימוש ישיר דרך API.
   </div>
   <div class="tip-box">
-    <strong>🎓 סטודנטים:</strong> בדקו תוכנית חינוכית — Anthropic מציעה הנחות לסטודנטים ומוסדות אקדמיים!
+    <strong>💡 Max Plans:</strong> $100/חודש (20× יותר שימוש) או $200/חודש (ללא הגבלה + Research כלול). מושלם לפיתוח אינטנסיבי.
   </div>
 </section>
 
@@ -1226,16 +1359,16 @@ html,body { background:var(--bg) !important; }
       <div class="mock-body" style="padding:0;direction:ltr">
         <div style="display:flex;height:160px">
           <div style="width:140px;background:#0d0d0d;border-left:1px solid #222;padding:10px;flex-shrink:0">
-            <div style="background:#D4AF37;color:#000;border-radius:6px;padding:4px 8px;font-size:0.5em;font-weight:700;margin-bottom:8px;text-align:center">+ New Chat</div>
+            <div style="background:#d97757;color:#000;border-radius:6px;padding:4px 8px;font-size:0.5em;font-weight:700;margin-bottom:4px;text-align:center">+ New Chat</div>
             <div style="color:#888;font-size:0.45em;margin-bottom:4px;font-weight:700">PROJECTS</div>
             <div style="color:#aaa;font-size:0.45em;padding:2px 4px;border-radius:4px;background:#1a1a1a;margin-bottom:2px">📁 My Project</div>
             <div style="color:#555;font-size:0.4em;margin-top:6px;margin-bottom:2px">RECENT</div>
             <div style="color:#666;font-size:0.4em;padding:2px 4px">React help...</div>
             <div style="color:#666;font-size:0.4em;padding:2px 4px">SQL query...</div>
           </div>
-          <div style="flex:1;background:#050505;padding:10px;display:flex;flex-direction:column">
+          <div style="flex:1;background:#141413;padding:10px;display:flex;flex-direction:column">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-              <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:3px 8px;font-size:0.45em;color:#D4AF37">claude-sonnet-4 ▼</div>
+              <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:3px 8px;font-size:0.45em;color:#d97757">claude-sonnet-4-6 ▼</div>
               <div style="color:#888;font-size:0.45em">Artifacts ▢</div>
             </div>
             <div style="flex:1;display:flex;align-items:center;justify-content:center">
@@ -1243,7 +1376,7 @@ html,body { background:var(--bg) !important; }
             </div>
             <div style="background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:6px 10px;font-size:0.45em;color:#555;display:flex;justify-content:space-between">
               <span>Message Claude...</span>
-              <span style="color:#D4AF37">⬆</span>
+              <span style="color:#d97757">⬆</span>
             </div>
           </div>
         </div>
@@ -1261,9 +1394,9 @@ html,body { background:var(--bg) !important; }
 <!-- SLIDE 20 - Artifacts and Projects -->
 <section>
   <h2>✨ Artifacts ו-Projects — הכוח האמיתי</h2>
-  <div class="two-col" style="margin-bottom:14px">
+  <div class="two-col" style="margin-bottom:6px">
     <div class="card-gold">
-      <p style="font-weight:700;color:#D4AF37;font-size:1em;margin-bottom:10px">🎨 Artifacts</p>
+      <p style="font-weight:700;color:#d97757;font-size:1em;margin-bottom:10px">🎨 Artifacts</p>
       <p>Claude יוצר קוד, HTML ואפליקציות שעובדות <span class="hl-gold">בזמן אמת</span> — ממש בתוך הדפדפן!</p>
       <ul style="margin-top:8px">
         <li>"צור מחשבון React" → מחשבון אינטראקטיבי</li>
@@ -1272,7 +1405,7 @@ html,body { background:var(--bg) !important; }
       </ul>
     </div>
     <div class="card-blue">
-      <p style="font-weight:700;color:#4A9EFF;font-size:1em;margin-bottom:10px">📁 Projects</p>
+      <p style="font-weight:700;color:#6a9bcc;font-size:1em;margin-bottom:10px">📁 Projects</p>
       <ul>
         <li>זיכרון <span class="hl-blue">ארוך טווח</span> בין שיחות</li>
         <li>שמירת הוראות קבועות (System Prompt)</li>
@@ -1300,12 +1433,12 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 22 — Windows vs Mac -->
 <section>
-  <h2>🤔 אמר רב vs אמר שמואל — שתי דרכים</h2>
+  <h2>🤔 Windows או Mac — שתי דרכים לאותו מקום</h2>
   <div class="talmud-box">
-    <span class="talmud-tag">גמרא</span>
-    אמר רב: יש לו Windows. אמר שמואל: יש לו Mac. שניהם הולכים לאותו מקום — רק הדרך שונה
+    <span class="talmud-tag">תנו רבנן</span>
+    יש לך Windows? מעולה. יש לך Mac? גם מעולה. שניהם מגיעים לאותו מקום — רק הדרך קצת שונה.
   </div>
-  <div class="two-col" style="margin-top:14px;">
+  <div class="two-col" style="margin-top:6px;">
     <div class="card-blue">
       <span class="win-badge">🪟 Windows</span>
       <ul style="margin-top:12px;">
@@ -1346,7 +1479,7 @@ html,body { background:var(--bg) !important; }
           <div style="font-size:1.1em;font-weight:700;color:#ddd;">$0 / month</div>
           <div style="font-size:0.6em;color:#666;margin-top:6px;">מוגבל מאוד</div>
         </div>
-        <div style="background:rgba(212,175,55,0.12);border:2px solid var(--gold);border-radius:8px;padding:12px;text-align:center;">
+        <div style="background:rgba(217,119,87,0.12);border:2px solid var(--gold);border-radius:8px;padding:12px;text-align:center;">
           <div style="font-size:0.75em;color:var(--gold);margin-bottom:4px;">✨ Pro</div>
           <div style="font-size:1.1em;font-weight:700;color:#fff;">$20 / month</div>
           <div style="background:var(--gold);color:#000;font-weight:700;font-size:0.6em;padding:4px 10px;border-radius:8px;margin-top:8px;display:inline-block;">Upgrade to Pro ⬆</div>
@@ -1374,7 +1507,7 @@ html,body { background:var(--bg) !important; }
       <span class="mock-url">code.visualstudio.com</span>
     </div>
     <div class="mock-body" style="text-align:center;padding:18px;">
-      <div style="font-size:0.85em;color:#aaa;margin-bottom:8px;">Visual Studio Code — Code Editing. Redefined.</div>
+      <div style="font-size:0.85em;color:#aaa;margin-bottom:4px;">Visual Studio Code — Code Editing. Redefined.</div>
       <div style="background:#0078d4;color:#fff;font-weight:700;font-size:0.8em;padding:10px 24px;border-radius:6px;display:inline-block;box-shadow:0 4px 15px rgba(0,120,212,0.4);">⬇ Download for Windows</div>
     </div>
   </div>
@@ -1385,7 +1518,7 @@ html,body { background:var(--bg) !important; }
     <div class="step-row"><span class="step-badge">4</span><span>❗ סמנו <span class="hl-gold">"Add to PATH"</span> ו-<span class="hl-gold">"Open with Code"</span></span></div>
   </div>
   <div class="cmd">code --version   <span style="color:#6a9955;"># לבדיקה שהותקן</span></div>
-  <div class="tip-box">💡 VS Code = "בית המדרש" שלנו. כל הקוד ייכתב כאן!</div>
+  <div class="tip-box">💡 VS Code = התוכנה שבה כותבים קוד. כל העבודה שלנו תהיה כאן!</div>
 </section>
 
 <!-- SLIDE 25 — Windows: Git -->
@@ -1393,8 +1526,8 @@ html,body { background:var(--bg) !important; }
   <h2>🔧 Windows — שלב 2: Git</h2>
   <span class="win-badge" style="margin-bottom:10px;display:inline-block;">🪟 Windows</span>
   <div class="talmud-box">
-    <span class="talmud-tag">מאי Git?</span>
-    Git הוא מערכת לניהול גרסאות קוד. כמו הגניזה הקהירית — שומר כל גרסה שאי פעם נכתבה, לעולם לא מאבד שורה אחת
+    <span class="talmud-tag">תנו רבנן</span>
+    Git = תוכנה ששומרת כל גרסה של הקוד שלך. כמו <em>Ctrl+Z אינסופי</em> — אפשר תמיד לחזור אחורה לכל גרסה שהייתה. אף שורה לא הולכת לאיבוד!
   </div>
   <div class="mock-browser">
     <div class="mock-titlebar">
@@ -1404,7 +1537,7 @@ html,body { background:var(--bg) !important; }
       <span class="mock-url">git-scm.com/download/win</span>
     </div>
     <div class="mock-body" style="text-align:center;padding:14px;">
-      <div style="font-size:0.75em;color:#aaa;margin-bottom:8px;">Git for Windows</div>
+      <div style="font-size:0.75em;color:#aaa;margin-bottom:4px;">Git for Windows</div>
       <div style="background:#f05033;color:#fff;font-weight:700;font-size:0.75em;padding:8px 20px;border-radius:6px;display:inline-block;">⬇ Download for Windows</div>
     </div>
   </div>
@@ -1435,7 +1568,7 @@ html,body { background:var(--bg) !important; }
         <div style="font-size:1.2em;">🐛</div>
       </div>
       <div style="flex:1;">
-        <div style="background:#3a3a3a;border-radius:4px;padding:5px 8px;font-size:0.6em;color:#aaa;direction:ltr;margin-bottom:8px;">🔍 Claude Code</div>
+        <div style="background:#3a3a3a;border-radius:4px;padding:5px 8px;font-size:0.6em;color:#aaa;direction:ltr;margin-bottom:4px;">🔍 Claude Code</div>
         <div style="background:#1e1e1e;border:1px solid var(--blue);border-radius:6px;padding:8px;font-size:0.65em;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <div>
@@ -1462,7 +1595,7 @@ html,body { background:var(--bg) !important; }
 <section>
   <h2>✅ Windows — שלב 4: התחברות ראשונה</h2>
   <span class="win-badge" style="margin-bottom:12px;display:inline-block;">🪟 Windows</span>
-  <div style="margin-bottom:14px;">
+  <div style="margin-bottom:6px;">
     <div class="step-row"><span class="step-badge">1</span><span>ב-VS Code לחצו על סמל Claude בסרגל הצד</span></div>
     <div class="step-row"><span class="step-badge">2</span><span>לחצו <span class="hl-gold">"Connect with Claude.ai"</span></span></div>
     <div class="step-row"><span class="step-badge">3</span><span>תועברו לדפדפן לאשר את ההתחברות (היכנסו לחשבון שלכם)</span></div>
@@ -1504,8 +1637,8 @@ html,body { background:var(--bg) !important; }
     <div class="step-row"><span class="step-badge">3</span><span>פתחו את ה-.dmg וגררו לתיקיית Applications</span></div>
     <div class="step-row"><span class="step-badge">4</span><span>פתחו Claude Desktop והתחברו עם חשבון Claude</span></div>
   </div>
-  <div class="tip-box">💡 Claude Desktop ב-Mac = Claude Code + Claude Chat + MCP servers. הכל ביחד!</div>
-  <div class="info-box">ב-Mac האפליקציה כוללת Terminal integration מובנה 🖥</div>
+  <div class="tip-box">💡 Claude Desktop = אפליקציה שלמה על המחשב שלך. אפשר לדבר עם Claude, לחבר אפליקציות (Gmail, Slack) ואפילו לכתוב קוד — הכל ממקום אחד!</div>
+  <div class="info-box">🖥 ב-Mac האפליקציה כוללת Terminal מובנה — אפשר להריץ Claude Code ישירות מתוכה!</div>
 </section>
 
 <!-- SLIDE 30 — Mac: VS Code + Extension -->
@@ -1534,6 +1667,42 @@ html,body { background:var(--bg) !important; }
   </div>
 </section>
 
+<!-- SLIDE 30.5 — Claude Desktop vs Claude Code — ההבדל -->
+<section>
+  <h2>🤔 Claude Desktop vs Claude Code — מה ההבדל?</h2>
+  <div class="talmud-box" style="margin-bottom:6px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    יש <em>שתי דרכים</em> לעבוד עם Claude על המחשב. שתיהן מעולות — אבל לכל אחת יתרונות אחרים.
+  </div>
+  <div class="two-col">
+    <div class="card-gold">
+      <div style="font-size:1.5em;text-align:center;margin-bottom:4px;">🤖</div>
+      <h3 class="hl-gold" style="text-align:center;">Claude Desktop</h3>
+      <p style="font-size:0.78em;text-align:center;color:#aaa;margin-bottom:4px;">אפליקציה שמותקנת על המחשב</p>
+      <ul style="font-size:0.78em;">
+        <li>✅ שיחה עם Claude בחלון נפרד</li>
+        <li>✅ חיבור ל-MCP — Gmail, Slack, Notion</li>
+        <li>✅ Terminal מובנה (Claude Code בפנים!)</li>
+        <li>✅ מושלם לשיחות כלליות + קוד</li>
+        <li>📥 הורידו מ-claude.ai/download</li>
+      </ul>
+    </div>
+    <div class="card-blue">
+      <div style="font-size:1.5em;text-align:center;margin-bottom:4px;">💻</div>
+      <h3 class="hl-blue" style="text-align:center;">Claude Code ב-VS Code</h3>
+      <p style="font-size:0.78em;text-align:center;color:#aaa;margin-bottom:4px;">תוסף בתוך עורך הקוד</p>
+      <ul style="font-size:0.78em;">
+        <li>✅ Claude רואה את כל קבצי הפרויקט</li>
+        <li>✅ כותב ומתקן קוד ישירות</li>
+        <li>✅ עובד בצמוד לקוד שלך</li>
+        <li>✅ מושלם לפיתוח ובניית פרויקטים</li>
+        <li>📥 Extensions → חפשו "Claude Code"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:12px;">💡 <strong>הטיפ:</strong> התקינו את <em>שניהם!</em> Claude Desktop לשיחות ו-MCP, Claude Code ב-VS Code לכתיבת קוד. הם משלימים אחד את השני.</div>
+</section>
+
 <!-- SLIDE 31 — Section: פרק ו׳ Claude Code -->
 <section class="sec-title bg-gold">
   <div class="sec-num">פרק ו׳</div>
@@ -1543,25 +1712,25 @@ html,body { background:var(--bg) !important; }
 
 <!-- SLIDE 32 — What is Claude Code -->
 <section>
-  <h2>🛠️ מאי Claude Code?</h2>
+  <h2>🛠️ מה זה Claude Code?</h2>
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    Claude Code הוא AI שעובד ישירות בתוך הקוד שלך. הוא לא רק עונה — הוא גם כותב, מתקן, מנהל ומסביר. כולו לבנות — וכולו לשמור
+    Claude Code = AI שעובד ישירות בתוך הקוד שלך. הוא לא רק <em>עונה</em> על שאלות — הוא גם <em>כותב</em> קוד, <em>מתקן</em> באגים, <em>מנהל</em> קבצים ו<em>מסביר</em> מה קורה. כמו מתכנת חכם שיושב לידך 24/7.
   </div>
   <div class="three-col" style="margin-top:16px;">
     <div class="card-blue">
-      <div style="font-size:1.3em;margin-bottom:8px;">🔌</div>
+      <div style="font-size:1.3em;margin-bottom:4px;">🔌</div>
       <div style="font-weight:700;color:var(--blue);margin-bottom:6px;">VS Code Extension</div>
       <div style="font-size:0.72em;color:#ddd;">Claude בתוך עורך הקוד — רואה את הקבצים שלך, עובד בצד</div>
     </div>
     <div class="card-gold">
-      <div style="font-size:1.3em;margin-bottom:8px;">⌨️</div>
+      <div style="font-size:1.3em;margin-bottom:4px;">⌨️</div>
       <div style="font-weight:700;color:var(--gold);margin-bottom:6px;">Terminal / CLI</div>
       <div class="cmd" style="font-size:0.75em;padding:4px 8px;margin-top:4px;">claude</div>
       <div style="font-size:0.68em;color:#ddd;margin-top:4px;">בטרמינל, גישה מלאה לפרויקט</div>
     </div>
     <div class="card-orange">
-      <div style="font-size:1.3em;margin-bottom:8px;">🤖</div>
+      <div style="font-size:1.3em;margin-bottom:4px;">🤖</div>
       <div style="font-weight:700;color:var(--orange);margin-bottom:6px;">Agentic Mode</div>
       <div style="font-size:0.72em;color:#ddd;">Claude עובד לבד — שואל כשצריך, ממשיך בלי עצירות</div>
     </div>
@@ -1603,12 +1772,12 @@ claude</div>
 <section>
   <h2>📜 CLAUDE.md — ספר הזיכרון</h2>
   <div class="talmud-box">
-    <span class="talmud-tag">משנה</span>
-    כמו תפילין — שמים כל בוקר. CLAUDE.md נטען בכל שיחה וזה הזיכרון הקבוע של Claude עם הפרויקט שלך
+    <span class="talmud-tag">תנו רבנן</span>
+    CLAUDE.md = קובץ "הוראות הפעלה" ש-Claude קורא <em>בתחילת כל שיחה</em>. כמו פתק שמודבק על המסך — כל פעם שהוא מתחיל לעבוד, הוא קורא אותו וזוכר את הכללים שלך.
   </div>
   <div class="two-col" style="margin-top:12px;">
     <div class="card">
-      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📋 מה לשים ב-CLAUDE.md</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:4px;">📋 מה לשים ב-CLAUDE.md</div>
       <ul style="font-size:0.75em;">
         <li>פקודות build/test של הפרויקט</li>
         <li>סגנון קוד (TypeScript? Hooks?)</li>
@@ -1617,7 +1786,7 @@ claude</div>
       </ul>
     </div>
     <div class="card-gold">
-      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📄 דוגמה:</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:4px;">📄 דוגמה:</div>
       <div class="cmd" style="font-size:0.68em;"># My Project
 ## Build
 npm run build
@@ -1634,11 +1803,11 @@ npm run build
 <!-- SLIDE 35 — Permission Modes -->
 <section>
   <h2>🔐 מצבי הרשאות — כמה כוח לתת לו</h2>
-  <div class="three-col" style="margin-top:14px;">
+  <div class="three-col" style="margin-top:6px;">
     <div class="card">
       <div style="font-size:1.2em;margin-bottom:6px;">🛡️</div>
       <div style="font-weight:700;color:var(--white);margin-bottom:4px;">Normal Mode</div>
-      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">ברירת מחדל</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:4px;">ברירת מחדל</div>
       <div style="font-size:0.72em;color:#ddd;">Claude שואל לפני <strong>כל</strong> פעולה</div>
       <div style="font-size:0.65em;color:#aaa;margin-top:6px;font-style:italic;">"האם אני יכול לשנות auth.js?"</div>
       <div style="margin-top:8px;font-size:0.65em;color:var(--green);">✅ בטוח ביותר</div>
@@ -1646,14 +1815,14 @@ npm run build
     <div class="card-orange">
       <div style="font-size:1.2em;margin-bottom:6px;">⚡</div>
       <div style="font-weight:700;color:var(--orange);margin-bottom:4px;">Auto-Accept</div>
-      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">מהיר</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:4px;">מהיר</div>
       <div style="font-size:0.72em;color:#ddd;">Claude עושה הכל לבד, לא שואל אישור</div>
       <div style="margin-top:8px;font-size:0.65em;color:var(--orange);">⚡ מהיר מאוד</div>
     </div>
     <div class="card-red">
       <div style="font-size:1.2em;margin-bottom:6px;">👁️</div>
       <div style="font-weight:700;color:var(--red);margin-bottom:4px;">Plan Mode</div>
-      <div style="font-size:0.62em;color:#888;margin-bottom:8px;">קריאה בלבד</div>
+      <div style="font-size:0.62em;color:#888;margin-bottom:4px;">קריאה בלבד</div>
       <div style="font-size:0.72em;color:#ddd;">רק קורא, לא כותב. תכנון בלבד</div>
       <div style="margin-top:8px;font-size:0.65em;color:var(--blue);">🔵 הכי בטוח</div>
     </div>
@@ -1667,7 +1836,7 @@ npm run build
   <h2>⌨️ פקודות חשובות ב-Claude Code</h2>
   <div class="two-col">
     <div>
-      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">📋 Slash Commands</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:4px;">📋 Slash Commands</div>
       <table>
         <thead><tr><th>פקודה</th><th>מה עושה</th></tr></thead>
         <tbody>
@@ -1683,7 +1852,7 @@ npm run build
       </table>
     </div>
     <div>
-      <div style="font-weight:700;color:var(--gold);margin-bottom:8px;">💻 CLI — בטרמינל</div>
+      <div style="font-weight:700;color:var(--gold);margin-bottom:4px;">💻 CLI — בטרמינל</div>
       <div class="cmd">claude           <span style="color:#6a9955;"># שיחה חדשה</span>
 claude -c        <span style="color:#6a9955;"># המשך שיחה אחרונה</span>
 claude -r        <span style="color:#6a9955;"># בחר מהיסטוריה</span>
@@ -1698,7 +1867,7 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
 <!-- SLIDE 37 — Tips for effective work -->
 <section>
   <h2>💡 טיפים לעבודה אפקטיבית</h2>
-  <div class="three-col" style="margin-bottom:14px;">
+  <div class="three-col" style="margin-bottom:6px;">
     <div class="tip-box">
       <div style="font-weight:700;color:var(--green);margin-bottom:6px;">🎯 היה ספציפי</div>
       <div style="font-size:0.7em;color:#ddd;margin-bottom:6px;">
@@ -1717,7 +1886,7 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
       <div style="font-size:0.7em;color:#ddd;margin-top:4px;"><span class="hl-gold">/clear</span> — בין משימות שונות</div>
     </div>
   </div>
-  <div class="card-gold" style="margin-bottom:8px;">
+  <div class="card-gold" style="margin-bottom:4px;">
     <span style="font-size:0.8em;">🖼️ <span class="hl-gold">Ctrl+V</span> בטרמינל — הדבק צילום מסך ישירות לשיחה עם Claude!</span>
   </div>
   <div class="card">
@@ -1729,8 +1898,8 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
 <section>
   <h2>🎬 Claude Code בפעולה — דוגמה</h2>
   <div class="talmud-box" style="margin-bottom:10px;">
-    <span class="talmud-tag">כגון</span>
-    נניח שיש לנו אתר ו-button לא עובד. מה עושים? פותחים Claude Code ומדברים אליו!
+    <span class="talmud-tag">תנו רבנן</span>
+    נניח שיש לנו אתר וכפתור לא עובד. מה עושים? פותחים Claude Code ומדברים אליו!
   </div>
   <div class="mock-browser">
     <div class="mock-titlebar">
@@ -1741,12 +1910,12 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
     </div>
     <div class="mock-body" style="padding:10px;">
       <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
-        <div style="background:rgba(212,175,55,0.15);border:1px solid var(--gold);border-radius:10px 10px 0 10px;padding:8px 12px;max-width:75%;font-size:0.65em;color:#ddd;text-align:right;">
-          הbutton ה-Submit בform לא עובד — לוחצים ולא קורה כלום 🤷
+        <div style="background:rgba(217,119,87,0.15);border:1px solid var(--gold);border-radius:10px 10px 0 10px;padding:8px 12px;max-width:75%;font-size:0.65em;color:#ddd;text-align:right;">
+          כפתור השליחה בטופס לא עובד — לוחצים ולא קורה כלום 🤷
         </div>
       </div>
-      <div style="display:flex;justify-content:flex-start;margin-bottom:8px;">
-        <div style="background:rgba(74,158,255,0.1);border:1px solid var(--blue);border-radius:10px 10px 10px 0;padding:8px 12px;max-width:80%;font-size:0.65em;color:#ddd;text-align:right;">
+      <div style="display:flex;justify-content:flex-start;margin-bottom:4px;">
+        <div style="background:rgba(106,155,204,0.1);border:1px solid var(--blue);border-radius:10px 10px 10px 0;padding:8px 12px;max-width:80%;font-size:0.65em;color:#ddd;text-align:right;">
           🤖 אני רואה את הבעיה ב-<span class="hl-gold">src/components/Form.jsx</span> שורה 47 — חסר <span class="hl-orange">event.preventDefault()</span>. אני מתקן...
         </div>
       </div>
@@ -1770,34 +1939,36 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
 
 <!-- SLIDE 40 — What is an Agent -->
 <section>
-  <h2>🤖 מאי Agent? — מה זה סוכן?</h2>
+  <h2>🤖 מה זה Agent — סוכן AI?</h2>
 
   <div class="talmud-box">
     <span class="talmud-tag">תנו רבנן</span>
-    <strong class="hl-gold">Agent</strong> = AI שיכול לפעול באוטונומיה. הוא לא רק עונה — הוא תוקף, בודק, מתקן ומסכם
+    <strong class="hl-gold">Agent</strong> = AI שלא רק עונה על שאלות — הוא גם <em>עושה דברים לבד</em>. נותנים לו משימה, והוא מבצע אותה צעד אחר צעד.
   </div>
 
   <div class="mashal-box">
-    <strong class="hl-purple">משל:</strong> כמו מנהל פרויקט שנותנים לו משימה — הוא מחלק לסוכנים, עוקב, מאסף תוצאות ומגיש דוח מסכם
+    <span class="talmud-tag">משל</span>
+    חשבו על עוזר אישי: אתם אומרים "תארגן לי טיסה לפריז". הוא לבד בודק טיסות, משווה מחירים, ומחזיר לכם את האפשרות הטובה.
   </div>
 
   <div class="nmshal-box">
-    <strong class="hl-gold">ונמשל:</strong> Claude Code Agent = אתה נותן לו משימה גדולה. הוא שואל בהתחלה, עובד לבד, מדווח בסוף
+    <span class="talmud-tag">ונמשל</span>
+    Claude Code Agent = אתם נותנים לו משימה גדולה. הוא שואל שאלות בהתחלה, עובד לבד, ומדווח כשסיים.
   </div>
 
-  <div class="three-col" style="margin-top:18px;">
+  <div class="three-col" style="margin-top:6px;">
     <div class="card" style="text-align:center;">
-      <div style="font-size:2em;">👤</div>
+      <div style="font-size:1.5em;">👤</div>
       <h3>Human</h3>
       <p>נותן המשימה</p>
     </div>
     <div class="card-gold" style="text-align:center;">
-      <div style="font-size:2em;">🤖</div>
+      <div style="font-size:1.5em;">🤖</div>
       <h3>Main Agent</h3>
       <p>המתכנן</p>
     </div>
     <div class="card-blue" style="text-align:center;">
-      <div style="font-size:2em;">🔧🔧🔧</div>
+      <div style="font-size:1.5em;">🔧🔧🔧</div>
       <h3>Sub-Agents</h3>
       <p>העובדים בשטח</p>
     </div>
@@ -1809,11 +1980,11 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
   <h2>🔀 Sub-Agents — צוות של סוכנים</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">גמרא</span>
-    כמו ישיבה גדולה — הרב הראשי <span class="hl-gold">(Main Agent)</span> מחלק שאלות לתלמידים <span class="hl-blue">(Sub-Agents)</span>. כל אחד חוקר פרק אחר ומביא תשובה
+    <span class="talmud-tag">תנו רבנן</span>
+    כמו מנהל שמחלק עבודה לצוות: הבוס <span class="hl-gold">(Main Agent)</span> מקבל משימה גדולה ומחלק אותה לעובדים <span class="hl-blue">(Sub-Agents)</span>. כל אחד עושה חלק — ובסוף מרכיבים הכל ביחד.
   </div>
 
-  <div class="two-col" style="margin:14px 0;">
+  <div class="two-col" style="margin:6px 0;">
     <div class="card">
       <h3 class="hl-gold">Main Agent</h3>
       <ul>
@@ -1854,11 +2025,11 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
   <h2>🎯 Skills — מיומנויות מתוכנתות</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">מאי Skill?</span>
-    סקריפטים מיוחדים שמלמדים את Claude לעשות דברים ספציפיים באופן קבוע — כמו מתכון שכתוב מראש
+    <span class="talmud-tag">תנו רבנן</span>
+    Skill = "מתכון" ש-Claude יודע לבצע. במקום להסביר לו כל פעם מחדש מה לעשות — כותבים פעם אחת, והוא יודע לעולם.
   </div>
 
-  <div class="two-col" style="margin:14px 0;">
+  <div class="two-col" style="margin:6px 0;">
     <div class="card">
       <h3 class="hl-gold">מה זה Skill</h3>
       <ul>
@@ -1891,11 +2062,11 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
   <h2>🔌 MCP — Model Context Protocol</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">מאי MCP?</span>
-    פרוטוקול שמאפשר ל-Claude להתחבר לכלים חיצוניים. כמו <span class="hl-gold">תקע חשמלי סטנדרטי</span> — כל כלי יכול להתחבר
+    <span class="talmud-tag">תנו רבנן</span>
+    MCP = דרך לחבר את Claude לאפליקציות אחרות. כמו <span class="hl-gold">שקע חשמל אוניברסלי</span> — מחברים ו-Claude יודע לעבוד עם Gmail, Slack, GitHub ועוד!
   </div>
 
-  <div class="three-col" style="margin:14px 0;">
+  <div class="three-col" style="margin:6px 0;">
     <div class="card-blue">
       <h3 class="hl-blue">מה זה</h3>
       <p>פרוטוקול פתוח של Anthropic לחיבור AI לכלים חיצוניים</p>
@@ -1925,7 +2096,7 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
       <span class="mock-url">Claude Desktop — Settings → MCP Servers</span>
     </div>
     <div class="mock-body" style="font-size:0.72em;">
-      <p style="color:#888;margin-bottom:8px;">כלים מחוברים:</p>
+      <p style="color:#888;margin-bottom:4px;">כלים מחוברים:</p>
       <p>🟢 <span class="hl-green">GitHub</span> — מחובר ✅ &nbsp;&nbsp;
          🟢 <span class="hl-green">Slack</span> — מחובר ✅ &nbsp;&nbsp;
          🟢 <span class="hl-green">Notion</span> — מחובר ✅</p>
@@ -1939,11 +2110,11 @@ claude -p "שאלה" <span style="color:#6a9955;"># ללא אינטראקציה<
 
 <!-- SLIDE 44 — GitHub basics -->
 <section>
-  <h2>📦 GitHub — הגניזה הקהירית של הקוד</h2>
+  <h2>📦 GitHub — הענן של הקוד שלך</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">מאי GitHub?</span>
-    כמו <span class="hl-gold">הגניזה הקהירית</span> — שומר כל גרסה שאי פעם כתבת. לא מאבדים כלום לעולם
+    <span class="talmud-tag">תנו רבנן</span>
+    GitHub = אתר שמאחסן את הקוד שלך <em>בענן</em>. כמו Google Drive לקוד — שומר כל גרסה שאי פעם כתבת, ולעולם לא מאבד כלום.
   </div>
 
   <div class="two-col" style="margin:12px 0;">
@@ -1981,21 +2152,21 @@ git push          # שלח ל-GitHub
   <h2>🔒 אבטחה — ממה להיזהר?</h2>
 
   <div class="warn-box">
-    ⚠️ <strong>CRITICAL:</strong> Claude Code מריץ פקודות על המחשב שלך! יש להבין מה אתה מאשר לפני כל פעולה
+    ⚠️ <strong>חשוב מאוד:</strong> Claude Code מריץ פקודות על המחשב שלך! תמיד תקראו מה הוא רוצה לעשות לפני שאתם לוחצים "אישור".
   </div>
 
-  <div class="three-col" style="margin:16px 0;">
+  <div class="three-col" style="margin:6px 0;">
     <div class="card-red">
       <h3 style="color:#ff4d4f;">⚠️ Auto-Accept Mode</h3>
       <p>Claude יכול למחוק קבצים, לשנות הגדרות. השתמש בזהירות רבה!</p>
     </div>
     <div class="card-orange">
-      <h3 style="color:#FF7A3D;">⚠️ Prompt Injection</h3>
-      <p>קבצים זדוניים יכולים "להכניס הוראות" ל-Claude. בדקו מה Claude עושה לפני אישור</p>
+      <h3 style="color:#FF7A3D;">⚠️ הזרקת פקודות זדוניות</h3>
+      <p>קבצים זדוניים יכולים "להחדיר הוראות נסתרות" לתוך Claude. תמיד בדקו מה הוא עושה לפני אישור</p>
     </div>
     <div class="card-red">
-      <h3 style="color:#ff4d4f;">⚠️ API Keys בקוד</h3>
-      <p>NEVER save API keys in code! השתמש תמיד בקבצי <span class="hl-orange">.env</span></p>
+      <h3 style="color:#ff4d4f;">⚠️ מפתחות API בקוד</h3>
+      <p>אסור לשמור סיסמאות ומפתחות גישה בתוך הקוד! השתמשו תמיד בקבצי <span class="hl-orange">.env</span></p>
     </div>
   </div>
 
@@ -2054,14 +2225,14 @@ secrets/
   <h2>💻 Claude Code בטרמינל</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">שתי דרכים</span>
+    <span class="talmud-tag">תנו רבנן</span>
     יש לנו שתי דרכים לדבר עם Claude Code:
     <strong class="hl-blue">1)</strong> בתוך VS Code — ממשק גרפי
     &nbsp;&nbsp;
     <strong class="hl-gold">2)</strong> בטרמינל — שורת הפקודה
   </div>
 
-  <div class="two-col" style="margin:16px 0;">
+  <div class="two-col" style="margin:6px 0;">
     <div class="card-blue">
       <h3 class="hl-blue">VS Code Extension</h3>
       <ul>
@@ -2157,7 +2328,7 @@ claude -c
     </div>
   </div>
 
-  <div class="tip-box" style="margin-top:18px;">
+  <div class="tip-box" style="margin-top:6px;">
     💡 Claude Code עובד הכי טוב ב-Mac עם <span class="hl-gold">iTerm2</span> או <span class="hl-gold">Ghostty</span>
   </div>
 </section>
@@ -2167,8 +2338,8 @@ claude -c
   <h2>🔀 כמה שיחות במקביל</h2>
 
   <div class="talmud-box">
-    <span class="talmud-tag">גמרא</span>
-    כמו תלמידי ישיבה — כל אחד לומד ספר אחר, <span class="hl-gold">המחשבות לא מתערבבות</span>. כל שיחה = עולם משלה
+    <span class="talmud-tag">תנו רבנן</span>
+    אפשר לפתוח כמה שיחות Claude במקביל! כל שיחה היא <em>עולם נפרד</em> — הן לא מתערבבות. כמו שני טלפונים נפרדים — כל אחד בשיחה שלו.
   </div>
 
   <div class="step-row">
@@ -2204,36 +2375,36 @@ cd ~/projects/backend && claude
 <section class="sec-title bg-purple">
   <div class="sec-num">פרק ט׳</div>
   <h1>טכניקות מתקדמות</h1>
-  <p style="color:#A78BFA;font-size:1em;margin-top:.5em;">מה שלמדנו מהתיעוד הרשמי של Anthropic</p>
+  <p style="color:#9b8ec4;font-size:1em;margin-top:.5em;">מה שלמדנו מהתיעוד הרשמי של Anthropic</p>
 </section>
 
 <!-- SLIDE 53 — Explore→Plan→Implement→Commit workflow -->
 <section>
   <h2>🔄 תהליך העבודה המנצח</h2>
-  <div class="talmud-box" style="margin-bottom:16px;">
-    <span class="talmud-tag">סוד ההצלחה</span>
-    Anthropic ממליצים על 4 שלבים קבועים. דלגו עליהם — תשלמו מחיר. עקבו אחריהם — קוד נקי יותר, פחות שגיאות
+  <div class="talmud-box" style="margin-bottom:6px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    החברה שיצרה את Claude ממליצה על 4 שלבים קבועים. דלגו עליהם — תקבלו בעיות. עקבו אחריהם — קוד נקי יותר, פחות שגיאות
   </div>
 
-  <div class="four-col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;">
+  <div class="four-col" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0;">
     <div class="card-blue" style="text-align:center;">
-      <div style="font-size:2em;">🔍</div>
+      <div style="font-size:1.5em;">🔍</div>
       <h3 class="hl-blue">Explore</h3>
       <p style="font-size:0.75em;">קראו קוד, הבינו ארכיטקטורה — <strong>אל תכתבו כלום</strong></p>
     </div>
     <div class="card-gold" style="text-align:center;">
-      <div style="font-size:2em;">📋</div>
+      <div style="font-size:1.5em;">📋</div>
       <h3 class="hl-gold">Plan</h3>
       <p style="font-size:0.75em;">תכננו גישה, כתבו TODO — <strong>אל תממשו עדיין</strong></p>
     </div>
     <div class="card-green" style="text-align:center;">
-      <div style="font-size:2em;">⚡</div>
+      <div style="font-size:1.5em;">⚡</div>
       <h3 class="hl-green">Implement</h3>
       <p style="font-size:0.75em;">ממשו בביטחון, ריצו טסטים — <strong>הקוד האמיתי</strong></p>
     </div>
-    <div class="card" style="text-align:center;border-color:#A78BFA;">
-      <div style="font-size:2em;">✅</div>
-      <h3 style="color:#A78BFA;">Commit</h3>
+    <div class="card" style="text-align:center;border-color:#9b8ec4;">
+      <div style="font-size:1.5em;">✅</div>
+      <h3 style="color:#9b8ec4;">Commit</h3>
       <p style="font-size:0.75em;">Git commit עם הודעה ברורה — <strong>שמרו התקדמות</strong></p>
     </div>
   </div>
@@ -2249,14 +2420,14 @@ cd ~/projects/backend && claude
 <section>
   <h2>🧠 ניהול חלון ההקשר</h2>
 
-  <div class="mashal-box" style="margin-bottom:14px;">
-    <span class="mashal-tag">משל</span>
+  <div class="mashal-box" style="margin-bottom:6px;">
+    <span class="talmud-tag">משל</span>
     חלון ההקשר הוא כמו שולחן עבודה — ככל שיש עליו יותר דברים, קשה יותר למצוא את מה שצריך. ניקוי שולחן = שיחה חדשה
   </div>
 
-  <div class="two-col" style="margin-bottom:14px;">
+  <div class="two-col" style="margin-bottom:6px;">
     <div>
-      <h3 class="hl-gold" style="margin-bottom:8px;">⌨️ פקודות מפתח</h3>
+      <h3 class="hl-gold" style="margin-bottom:4px;">⌨️ פקודות מפתח</h3>
       <div class="cmd" style="font-size:0.8em;">
 # ניקוי מלא — התחלה מחדש
 /clear
@@ -2268,7 +2439,7 @@ cd ~/projects/backend && claude
 /compact "התמקדו רק בבאג ב-auth module"</div>
     </div>
     <div>
-      <h3 class="hl-blue" style="margin-bottom:8px;">📏 גודל CLAUDE.md</h3>
+      <h3 class="hl-blue" style="margin-bottom:4px;">📏 גודל CLAUDE.md</h3>
       <div class="card-blue" style="font-size:0.82em;">
         <ul>
           <li>🟢 <strong>מתחת ל-200 שורות</strong> — קלוד מקיים הכל</li>
@@ -2289,12 +2460,12 @@ cd ~/projects/backend && claude
 <section>
   <h2>🤖 סוכנים מובנים ב-Claude Code</h2>
 
-  <div class="talmud-box" style="margin-bottom:14px;">
-    <span class="talmud-tag">חידוש</span>
-    קלוד מגיע עם 3 סוכנים מובנים שעובדים מאחורי הקלעים. כל אחד מיוחד לתפקיד ספציפי
+  <div class="talmud-box" style="margin-bottom:6px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    קלוד מגיע עם 3 עוזרים מובנים שעובדים מאחורי הקלעים. כל אחד מתמחה בתפקיד אחר
   </div>
 
-  <div class="three-col" style="margin:14px 0;">
+  <div class="three-col" style="margin:6px 0;">
     <div class="card-blue">
       <h3 class="hl-blue">🔭 Explore</h3>
       <ul style="font-size:0.82em;">
@@ -2334,9 +2505,9 @@ cd ~/projects/backend && claude
 <section>
   <h2>🧩 סוכנים מותאמים אישית</h2>
 
-  <div class="mashal-box" style="margin-bottom:12px;">
-    <span class="mashal-tag">גמרא</span>
-    מה ההבדל בין סוכן מובנה לסוכן מותאם? — הסוכן המותאם עובד לפי כלליכם, מדברים בשפתכם, מכיר את הפרויקט שלכם
+  <div class="talmud-box" style="margin-bottom:12px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    מה ההבדל? סוכן <em>מובנה</em> = כללי, לכולם. סוכן <em>מותאם אישית</em> = עובד לפי הכללים שלכם, בשפה שלכם, מכיר את הפרויקט שלכם.
   </div>
 
   <div class="two-col">
@@ -2347,7 +2518,7 @@ cd ~/projects/backend && claude
 
 ---
 name: code-reviewer
-model: claude-opus-4-5
+model: opus
 tools:
   - Read
   - Grep
@@ -2396,13 +2567,13 @@ permissionMode: read-only
   <h2>🪝 מערכת ה-Hooks</h2>
 
   <div class="talmud-box" style="margin-bottom:12px;">
-    <span class="talmud-tag">מושג</span>
-    Hooks = קוד שרץ אוטומטית בתגובה לאירועים של קלוד. כמו trigger בבסיס נתונים — אתם מגדירים, קלוד מפעיל
+    <span class="talmud-tag">תנו רבנן</span>
+    Hooks = פעולות אוטומטיות שקורות בתגובה לאירועים. כמו התראה על הטלפון — אתם מגדירים מתי, קלוד מפעיל
   </div>
 
   <div class="two-col" style="margin-bottom:12px;">
     <div>
-      <h3 class="hl-gold" style="margin-bottom:8px;">🎯 אירועים עיקריים</h3>
+      <h3 class="hl-gold" style="margin-bottom:4px;">🎯 אירועים עיקריים</h3>
       <div class="card-gold" style="font-size:0.78em;">
         <ul>
           <li><code>SessionStart</code> — תחילת שיחה</li>
@@ -2415,7 +2586,7 @@ permissionMode: read-only
       </div>
     </div>
     <div>
-      <h3 class="hl-blue" style="margin-bottom:8px;">🔧 סוגי Hook</h3>
+      <h3 class="hl-blue" style="margin-bottom:4px;">🔧 סוגי Hook</h3>
       <div class="card-blue" style="font-size:0.78em;">
         <ul>
           <li><strong>command</strong> — הרצת פקודת Shell</li>
@@ -2423,7 +2594,7 @@ permissionMode: read-only
           <li><strong>agent</strong> — סוכן עצמאי עם כלים</li>
           <li><strong>http</strong> — POST לשרת חיצוני</li>
         </ul>
-        <hr style="border-color:#4A9EFF33;margin:8px 0;">
+        <hr style="border-color:#6a9bcc33;margin:8px 0;">
         <p style="font-size:0.85em;">דוגמה: Hook שמריץ
         <code>eslint</code> אחרי כל שמירת קובץ JS</p>
       </div>
@@ -2455,14 +2626,14 @@ permissionMode: read-only
 <section>
   <h2>🐙 GitHub Actions + קלוד</h2>
 
-  <div class="mashal-box" style="margin-bottom:12px;">
-    <span class="mashal-tag">חידוש</span>
-    עכשיו אפשר להזכיר @claude ב-Pull Request ו-Issue — וקלוד יגיב, יסקור, ואפילו יכתוב קוד ישירות ב-GitHub!
+  <div class="talmud-box" style="margin-bottom:12px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    עכשיו אפשר לתייג את קלוד ב-GitHub — והוא יגיב, יבדוק את הקוד שלכם, ואפילו יכתוב קוד חדש ישירות!
   </div>
 
   <div class="two-col" style="margin-bottom:12px;">
     <div>
-      <h3 class="hl-green" style="margin-bottom:8px;">✍️ איך משתמשים</h3>
+      <h3 class="hl-green" style="margin-bottom:4px;">✍️ איך משתמשים</h3>
       <div class="card-green" style="font-size:0.8em;">
         <div style="background:#1a2a1a;border-radius:6px;padding:10px;font-family:monospace;font-size:0.9em;color:#e0e0e0;">
           💬 Comment ב-PR:<br><br>
@@ -2475,7 +2646,7 @@ permissionMode: read-only
       </div>
     </div>
     <div>
-      <h3 class="hl-gold" style="margin-bottom:8px;">⚙️ הגדרה ראשונית</h3>
+      <h3 class="hl-gold" style="margin-bottom:4px;">⚙️ הגדרה ראשונית</h3>
       <div class="step-row"><span class="step-badge">1</span><p>הריצו <code>/install-github-app</code> בטרמינל</p></div>
       <div class="step-row"><span class="step-badge">2</span><p>הרשו גישה ל-Repository</p></div>
       <div class="step-row"><span class="step-badge">3</span><p>הוסיפו Action ל-Workflow שלכם</p></div>
@@ -2508,11 +2679,11 @@ permissionMode: read-only
 <section>
   <h2>⚡ דפוסי עבודה מתקדמים</h2>
 
-  <div class="two-col" style="margin-bottom:14px;">
+  <div class="two-col" style="margin-bottom:6px;">
     <div>
       <div class="card-blue" style="margin-bottom:10px;">
         <h3 class="hl-blue">🌊 Fan-out Parallelism</h3>
-        <p style="font-size:0.8em;margin-bottom:8px;">עיבוד קבצים רבים במקביל — כל קובץ = תהליך קלוד נפרד</p>
+        <p style="font-size:0.8em;margin-bottom:4px;">עיבוד קבצים רבים במקביל — כל קובץ = תהליך קלוד נפרד</p>
         <div class="cmd" style="font-size:0.72em;">
 # עיבוד 100 קבצים במקביל!
 for file in src/**/*.ts; do
@@ -2526,9 +2697,9 @@ wait # המתן לכולם</div>
     <div>
       <div class="card-gold">
         <h3 class="hl-gold">✍️ Writer / Reviewer</h3>
-        <p style="font-size:0.8em;margin-bottom:8px;">שני סשנים של קלוד: אחד כותב, השני מבקר — הקשר טרי, ביקורת אובייקטיבית</p>
+        <p style="font-size:0.8em;margin-bottom:4px;">שני סשנים של קלוד: אחד כותב, השני מבקר — הקשר טרי, ביקורת אובייקטיבית</p>
         <div style="display:flex;flex-direction:column;gap:8px;font-size:0.8em;">
-          <div style="background:#1a1500;border:1px solid #D4AF3755;border-radius:6px;padding:8px;">
+          <div style="background:#1a1500;border:1px solid #d9775755;border-radius:6px;padding:8px;">
             <span class="hl-gold">סשן 1 — Writer:</span><br>
             כתוב פיצ'ר חדש ב-feature.ts
           </div>
@@ -2568,13 +2739,13 @@ wait # המתן לכולם</div>
   <h2>💾 מערכת הזיכרון האוטומטי</h2>
 
   <div class="talmud-box" style="margin-bottom:12px;">
-    <span class="talmud-tag">מדהים</span>
-    קלוד יכול לכתוב הערות לעצמו שנשמרות בין שיחות — כמו פתקים על שולחן העבודה שנשארים גם אחרי שמכבים את המחשב
+    <span class="talmud-tag">תנו רבנן</span>
+    קלוד יכול לכתוב הערות לעצמו שנשמרות בין שיחות — כמו פתקים על השולחן שנשארים גם אחרי שמכבים את המחשב
   </div>
 
   <div class="two-col" style="margin-bottom:12px;">
     <div>
-      <h3 class="hl-gold" style="margin-bottom:8px;">📂 מבנה הזיכרון</h3>
+      <h3 class="hl-gold" style="margin-bottom:4px;">📂 מבנה הזיכרון</h3>
       <div class="cmd" style="font-size:0.76em;">
 ~/.claude/projects/
   └── my-project/
@@ -2585,7 +2756,7 @@ wait # המתן לכולם</div>
           └── decisions.md  ← החלטות ארכיטקטורה</div>
     </div>
     <div>
-      <h3 class="hl-blue" style="margin-bottom:8px;">📏 כללים חשובים</h3>
+      <h3 class="hl-blue" style="margin-bottom:4px;">📏 כללים חשובים</h3>
       <div class="card-blue" style="font-size:0.8em;">
         <ul>
           <li>🟢 <strong>MEMORY.md</strong> נטען בכל שיחה</li>
@@ -2624,7 +2795,7 @@ wait # המתן לכולם</div>
 <section class="sec-title bg-gold">
   <div class="sec-num">פרק י׳</div>
   <h1>סיכום ולאן ממשיכים?</h1>
-  <p style="color:#D4AF37;font-size:1em;margin-top:.5em;">תם ולא נשלם — הדרך לפסגה</p>
+  <p style="color:#d97757;font-size:1em;margin-top:.5em;">תם ולא נשלם — הדרך לפסגה</p>
 </section>
 
 <!-- SLIDE 53 — Summary of everything learned -->
@@ -2644,7 +2815,7 @@ wait # המתן לכולם</div>
     <div class="card-gold">
       <h3 class="hl-gold">✨ Claude</h3>
       <ul>
-        <li>Constitutional AI = ערכים מובנים</li>
+        <li>Claude = AI עם ערכים מוסריים</li>
         <li>Claude.ai + Pro = כוח מלא</li>
         <li>Artifacts = תוצרים חכמים</li>
         <li>Projects = זיכרון קבוע</li>
@@ -2661,8 +2832,8 @@ wait # המתן לכולם</div>
     </div>
   </div>
 
-  <div class="card" style="border-color:#A78BFA;margin:0 0 14px 0;">
-    <h3 style="color:#A78BFA;margin-bottom:8px;">🚀 טכניקות מתקדמות (חדש!)</h3>
+  <div class="card" style="border-color:#9b8ec4;margin:0 0 14px 0;">
+    <h3 style="color:#9b8ec4;margin-bottom:4px;">🚀 טכניקות מתקדמות (חדש!)</h3>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:0.8em;">
       <div>🔄 Explore→Plan→Implement→Commit</div>
       <div>🧠 ניהול Context Window</div>
@@ -2672,7 +2843,7 @@ wait # המתן לכולם</div>
   </div>
 
   <div class="big-quote">
-    "לא כל המחזיק בשם 'מפתח' הוא מפתח — אלא כל המשתמש ב-AI בחוכמה"
+    "העתיד שייך למי שיודע לעבוד יחד עם AI — ואתם כבר בדרך 🚀"
   </div>
 </section>
 
@@ -2680,12 +2851,12 @@ wait # המתן לכולם</div>
 <section>
   <h2>🚀 לאן ממשיכים?</h2>
 
-  <div class="talmud-box" style="margin-bottom:16px;">
-    <span class="talmud-tag">גמרא תמה</span>
-    למדנו — עכשיו מיישמים! כל מסע של אלף מיל מתחיל בצעד אחד 🚶
+  <div class="talmud-box" style="margin-bottom:6px;">
+    <span class="talmud-tag">תנו רבנן</span>
+    למדנו — עכשיו מיישמים! אל תנסו ללמוד הכל ביום אחד. התחילו קטן, ותגלו שזה יותר קל ממה שחשבתם 🚀
   </div>
 
-  <div class="three-col" style="margin-bottom:16px;">
+  <div class="three-col" style="margin-bottom:6px;">
     <div class="card-blue">
       <h3 class="hl-blue">צעד ראשון</h3>
       <ul>
@@ -2736,11 +2907,7 @@ Reveal.initialize({
   margin: 0.04,
   minScale: 0.2,
   maxScale: 2.0,
-  plugins:[RevealNotes],
-  keyboard:{
-    39:function(){Reveal.next();},
-    37:function(){Reveal.prev();}
-  }
+  plugins:[RevealNotes]
 });
 </script>
 
@@ -2805,11 +2972,11 @@ Reveal.initialize({
   let W, H, particles = [];
 
   const COLORS = [
-    'rgba(212,175,55,0.7)',
-    'rgba(240,200,74,0.5)',
-    'rgba(212,175,55,0.3)',
-    'rgba(74,158,255,0.25)',
-    'rgba(167,139,250,0.2)'
+    'rgba(217,119,87,0.7)',
+    'rgba(232,148,120,0.5)',
+    'rgba(217,119,87,0.3)',
+    'rgba(106,155,204,0.25)',
+    'rgba(155,142,196,0.2)'
   ];
 
   function resize() {
@@ -2873,7 +3040,7 @@ Reveal.initialize({
         if (d < MAX_DIST) {
           ctx.save();
           ctx.globalAlpha = (1 - d/MAX_DIST) * 0.08;
-          ctx.strokeStyle = 'rgba(212,175,55,0.8)';
+          ctx.strokeStyle = 'rgba(217,119,87,0.8)';
           ctx.lineWidth   = 0.5;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
